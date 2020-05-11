@@ -1,12 +1,12 @@
 pacman::p_load(data.table, dplyr, ggplot2, readr, tidyr, reshape, shiny, 
-               shinydashboard, plotly, processx, leaflet, sf, tmap, rgdal, shinyWidgets)
+               shinydashboard, plotly, processx, leaflet, sf, tmap, rgdal, shinyWidgets, here)
 
-this_folder = "C:/code/radLastTool/foca_visualizer/"
+this_folder = here()
 
-source(paste(this_folder, "read_data_fun.R", sep =""))
-source(paste(this_folder, "read_counts_fun.R", sep =""))
-#source(paste(this_folder, "read_networks.R", sep =""))
-source(paste(this_folder, "read_data_parcels.R", sep =""))
+source(paste(this_folder, "foca_visualizer/read_data_fun.R", sep ="/"))
+source(paste(this_folder, "foca_visualizer/read_counts_fun.R", sep ="/"))
+#source(paste(this_folder, "foca_visualizer/read_networks.R", sep ="/"))
+source(paste(this_folder, "foca_visualizer/read_data_parcels.R", sep ="/"))
 
 upper_folder = "D:/simulations/foca/paper_ists/"
 
