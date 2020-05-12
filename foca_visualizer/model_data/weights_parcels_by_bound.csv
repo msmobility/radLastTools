@@ -1,0 +1,145 @@
+toDestination,vehicle,customer_type,weight_kg,n,scenario,dc
+From the study area,Van,Direct to customer,22014.80286329223,2728,1-0%,20
+From the study area,Van,Via parcel shop,0,0,1-0%,20
+From the study area,Van,All,0,0,1-0%,20
+From the study area,Cargo bike,Direct to customer,0,0,1-0%,20
+From the study area,Cargo bike,Via parcel shop,0,0,1-0%,20
+From the study area,Cargo bike,All,0,0,1-0%,20
+From the study area,Long-distance,Direct to customer,0,0,1-0%,20
+From the study area,Long-distance,Via parcel shop,0,0,1-0%,20
+From the study area,Long-distance,All,0,0,1-0%,20
+From the study area,Feeder (parcel shop),Direct to customer,0,0,1-0%,20
+From the study area,Feeder (parcel shop),Via parcel shop,91663.1726269133,11031,1-0%,20
+From the study area,Feeder (parcel shop),All,0,0,1-0%,20
+To the study area,Van,Direct to customer,77615.64258533978,9585,1-0%,20
+To the study area,Van,Via parcel shop,0,0,1-0%,20
+To the study area,Van,All,0,0,1-0%,20
+To the study area,Cargo bike,Direct to customer,0,0,1-0%,20
+To the study area,Cargo bike,Via parcel shop,0,0,1-0%,20
+To the study area,Cargo bike,All,0,0,1-0%,20
+To the study area,Long-distance,Direct to customer,0,0,1-0%,20
+To the study area,Long-distance,Via parcel shop,0,0,1-0%,20
+To the study area,Long-distance,All,0,0,1-0%,20
+To the study area,Feeder (parcel shop),Direct to customer,0,0,1-0%,20
+To the study area,Feeder (parcel shop),Via parcel shop,19480.558528800997,2396,1-0%,20
+To the study area,Feeder (parcel shop),All,0,0,1-0%,20
+From the study area,Van,Direct to customer,22014.80286329223,2728,2-20%,20
+From the study area,Van,Via parcel shop,0,0,2-20%,20
+From the study area,Van,All,0,0,2-20%,20
+From the study area,Cargo bike,Direct to customer,0,0,2-20%,20
+From the study area,Cargo bike,Via parcel shop,0,0,2-20%,20
+From the study area,Cargo bike,All,0,0,2-20%,20
+From the study area,Long-distance,Direct to customer,0,0,2-20%,20
+From the study area,Long-distance,Via parcel shop,0,0,2-20%,20
+From the study area,Long-distance,All,0,0,2-20%,20
+From the study area,Feeder (parcel shop),Direct to customer,0,0,2-20%,20
+From the study area,Feeder (parcel shop),Via parcel shop,91663.1726269133,11031,2-20%,20
+From the study area,Feeder (parcel shop),All,0,0,2-20%,20
+To the study area,Van,Direct to customer,71620.55745738737,8189,2-20%,20
+To the study area,Van,Via parcel shop,0,0,2-20%,20
+To the study area,Van,All,0,0,2-20%,20
+To the study area,Cargo bike,Direct to customer,5995.085127952406,1396,2-20%,20
+To the study area,Cargo bike,Via parcel shop,0,0,2-20%,20
+To the study area,Cargo bike,All,0,0,2-20%,20
+To the study area,Long-distance,Direct to customer,0,0,2-20%,20
+To the study area,Long-distance,Via parcel shop,0,0,2-20%,20
+To the study area,Long-distance,All,0,0,2-20%,20
+To the study area,Feeder (parcel shop),Direct to customer,0,0,2-20%,20
+To the study area,Feeder (parcel shop),Via parcel shop,19480.558528800997,2396,2-20%,20
+To the study area,Feeder (parcel shop),All,0,0,2-20%,20
+From the study area,Van,Direct to customer,22299.215600791435,2759,3-40%,20
+From the study area,Van,Via parcel shop,0,0,3-40%,20
+From the study area,Van,All,0,0,3-40%,20
+From the study area,Cargo bike,Direct to customer,0,0,3-40%,20
+From the study area,Cargo bike,Via parcel shop,0,0,3-40%,20
+From the study area,Cargo bike,All,0,0,3-40%,20
+From the study area,Long-distance,Direct to customer,0,0,3-40%,20
+From the study area,Long-distance,Via parcel shop,0,0,3-40%,20
+From the study area,Long-distance,All,0,0,3-40%,20
+From the study area,Feeder (parcel shop),Direct to customer,0,0,3-40%,20
+From the study area,Feeder (parcel shop),Via parcel shop,91309.49441555321,10996,3-40%,20
+From the study area,Feeder (parcel shop),All,0,0,3-40%,20
+To the study area,Van,Direct to customer,65745.25022006706,6847,3-40%,20
+To the study area,Van,Via parcel shop,0,0,3-40%,20
+To the study area,Van,All,0,0,3-40%,20
+To the study area,Cargo bike,Direct to customer,11914.32782981122,2744,3-40%,20
+To the study area,Cargo bike,Via parcel shop,0,0,3-40%,20
+To the study area,Cargo bike,All,0,0,3-40%,20
+To the study area,Long-distance,Direct to customer,0,0,3-40%,20
+To the study area,Long-distance,Via parcel shop,0,0,3-40%,20
+To the study area,Long-distance,All,0,0,3-40%,20
+To the study area,Feeder (parcel shop),Direct to customer,0,0,3-40%,20
+To the study area,Feeder (parcel shop),Via parcel shop,19464.053554492617,2394,3-40%,20
+To the study area,Feeder (parcel shop),All,0,0,3-40%,20
+From the study area,Van,Direct to customer,22014.80286329223,2728,4-60%,20
+From the study area,Van,Via parcel shop,0,0,4-60%,20
+From the study area,Van,All,0,0,4-60%,20
+From the study area,Cargo bike,Direct to customer,0,0,4-60%,20
+From the study area,Cargo bike,Via parcel shop,0,0,4-60%,20
+From the study area,Cargo bike,All,0,0,4-60%,20
+From the study area,Long-distance,Direct to customer,0,0,4-60%,20
+From the study area,Long-distance,Via parcel shop,0,0,4-60%,20
+From the study area,Long-distance,All,0,0,4-60%,20
+From the study area,Feeder (parcel shop),Direct to customer,0,0,4-60%,20
+From the study area,Feeder (parcel shop),Via parcel shop,91663.1726269133,11031,4-60%,20
+From the study area,Feeder (parcel shop),All,0,0,4-60%,20
+To the study area,Van,Direct to customer,59882.35895320767,5472,4-60%,20
+To the study area,Van,Via parcel shop,0,0,4-60%,20
+To the study area,Van,All,0,0,4-60%,20
+To the study area,Cargo bike,Direct to customer,17733.283632132116,4113,4-60%,20
+To the study area,Cargo bike,Via parcel shop,0,0,4-60%,20
+To the study area,Cargo bike,All,0,0,4-60%,20
+To the study area,Long-distance,Direct to customer,0,0,4-60%,20
+To the study area,Long-distance,Via parcel shop,0,0,4-60%,20
+To the study area,Long-distance,All,0,0,4-60%,20
+To the study area,Feeder (parcel shop),Direct to customer,0,0,4-60%,20
+To the study area,Feeder (parcel shop),Via parcel shop,19480.558528800997,2396,4-60%,20
+To the study area,Feeder (parcel shop),All,0,0,4-60%,20
+From the study area,Van,Direct to customer,22014.80286329223,2728,5-80%,20
+From the study area,Van,Via parcel shop,0,0,5-80%,20
+From the study area,Van,All,0,0,5-80%,20
+From the study area,Cargo bike,Direct to customer,0,0,5-80%,20
+From the study area,Cargo bike,Via parcel shop,0,0,5-80%,20
+From the study area,Cargo bike,All,0,0,5-80%,20
+From the study area,Long-distance,Direct to customer,0,0,5-80%,20
+From the study area,Long-distance,Via parcel shop,0,0,5-80%,20
+From the study area,Long-distance,All,0,0,5-80%,20
+From the study area,Feeder (parcel shop),Direct to customer,0,0,5-80%,20
+From the study area,Feeder (parcel shop),Via parcel shop,91663.1726269133,11031,5-80%,20
+From the study area,Feeder (parcel shop),All,0,0,5-80%,20
+To the study area,Van,Direct to customer,54334.259925723716,4140,5-80%,20
+To the study area,Van,Via parcel shop,0,0,5-80%,20
+To the study area,Van,All,0,0,5-80%,20
+To the study area,Cargo bike,Direct to customer,23281.38265961607,5445,5-80%,20
+To the study area,Cargo bike,Via parcel shop,0,0,5-80%,20
+To the study area,Cargo bike,All,0,0,5-80%,20
+To the study area,Long-distance,Direct to customer,0,0,5-80%,20
+To the study area,Long-distance,Via parcel shop,0,0,5-80%,20
+To the study area,Long-distance,All,0,0,5-80%,20
+To the study area,Feeder (parcel shop),Direct to customer,0,0,5-80%,20
+To the study area,Feeder (parcel shop),Via parcel shop,19480.558528800997,2396,5-80%,20
+To the study area,Feeder (parcel shop),All,0,0,5-80%,20
+From the study area,Van,Direct to customer,22014.80286329223,2728,6-100%,20
+From the study area,Van,Via parcel shop,0,0,6-100%,20
+From the study area,Van,All,0,0,6-100%,20
+From the study area,Cargo bike,Direct to customer,0,0,6-100%,20
+From the study area,Cargo bike,Via parcel shop,0,0,6-100%,20
+From the study area,Cargo bike,All,0,0,6-100%,20
+From the study area,Long-distance,Direct to customer,0,0,6-100%,20
+From the study area,Long-distance,Via parcel shop,0,0,6-100%,20
+From the study area,Long-distance,All,0,0,6-100%,20
+From the study area,Feeder (parcel shop),Direct to customer,0,0,6-100%,20
+From the study area,Feeder (parcel shop),Via parcel shop,91663.1726269133,11031,6-100%,20
+From the study area,Feeder (parcel shop),All,0,0,6-100%,20
+To the study area,Van,Direct to customer,48387.36525214605,2777,6-100%,20
+To the study area,Van,Via parcel shop,0,0,6-100%,20
+To the study area,Van,All,0,0,6-100%,20
+To the study area,Cargo bike,Direct to customer,29228.27733319374,6808,6-100%,20
+To the study area,Cargo bike,Via parcel shop,0,0,6-100%,20
+To the study area,Cargo bike,All,0,0,6-100%,20
+To the study area,Long-distance,Direct to customer,0,0,6-100%,20
+To the study area,Long-distance,Via parcel shop,0,0,6-100%,20
+To the study area,Long-distance,All,0,0,6-100%,20
+To the study area,Feeder (parcel shop),Direct to customer,0,0,6-100%,20
+To the study area,Feeder (parcel shop),Via parcel shop,19480.558528800997,2396,6-100%,20
+To the study area,Feeder (parcel shop),All,0,0,6-100%,20

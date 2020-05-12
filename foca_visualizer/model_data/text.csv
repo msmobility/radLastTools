@@ -1,0 +1,4 @@
+label,text
+share,"The plot shows the share of parcels by distribution mode (van vs cargo bike). The plot on the left shows parcels that are delivered or picked up at the final customer location. The plot on the right shows parcels delivered to/from parcel shops. Vertical axis is expressed in relative units (over 1)"
+tours,"The plot shows the number of tours by vehicle type"
+distance,"The plot shows the total distance travelled by vehicle type"

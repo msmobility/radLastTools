@@ -1,3 +1,6 @@
+pacman::p_load(data.table, dplyr, ggplot2, readr, tidyr, reshape)
+
+
 
 upper_folder = "C:/models/freightFlows/output/"
 scenario_folders = c(
@@ -19,12 +22,12 @@ scenarios = c(
 )
 
 scenario_pretty_names = c(
-  "1 - Munich 0%",
-  "2 - Munich 20% (high density)",
-  "3 - Munich 40% (high density)",
-  "4 - Munich 60% (high density)",
-  "4 - Munich 80% (high density)",
-  "5 - Munich 100% (high density)"
+  "1-0%",
+  "2-20%",
+  "3-40%",
+  "4-60%",
+  "5-80%",
+  "6-100%"
 )
 
 distribution_centers = c(
@@ -38,7 +41,11 @@ distribution_centers = c(
 
 
 weights_and_parcels_all = data.frame()
+weights_and_parcels_by_bound_all = data.frame()
 vehicles_all = data.frame()
+micro_depots = data.frame()
+zones_all = data.frame()
+all_parcels_by_zone = data.frame()
 
 for (i in 1:length(scenarios)){
   
@@ -49,18 +56,26 @@ for (i in 1:length(scenarios)){
   
   
   folder = paste(upper_folder, scenario_folders[[scenario_index]], "/", sep = "")
-  parcels = fread(paste(folder, "parcels.csv", sep = ""))
+  parcels = read_csv(paste(folder, "parcels.csv", sep = ""))
   
   parcels = parcels %>%
-    mutate(vehicle = factor(distributionType, levels = c("MOTORIZED", "CARGO_BIKE", "LD"),
-                            labels = c("Van", "Cargo bike", "Long-distance"))) %>%
+    mutate(vehicle = factor(distributionType, levels = c("MOTORIZED", "CARGO_BIKE", "LD", "FEEDER"),
+                            labels = c("Van", "Cargo bike", "Long-distance", "Feeder (parcel shop)"))) %>%
     mutate(customer_type = factor(transaction, levels = c("BUSINESS_CUSTOMER", "PRIVATE_CUSTOMER", "PARCEL_SHOP", "ALL"), 
                                   labels = c("Direct to customer", "Direct to customer", "Via parcel shop", "All")))
+  
+  
+  parcels$vehicle[parcels$transaction == "PARCEL_SHOP"] = "Feeder (parcel shop)"
   
   weights_and_parcels_by_bound = parcels %>%
     filter(assigned) %>%
     group_by(toDestination, vehicle, customer_type, .drop = F) %>%
     summarize(weight_kg = sum(weight_kg), n = n())
+  
+  weights_and_parcels_by_bound$toDestination = factor(weights_and_parcels_by_bound$toDestination,
+                                                      levels = c("TRUE", "FALSE"),
+                                                      labels = c("To the study area", "From the study area"))
+  
   
   weights_and_parcels = parcels %>%
     filter(assigned) %>%
@@ -70,6 +85,8 @@ for (i in 1:length(scenarios)){
   weights_and_parcels$scenario  = scenario_name
   weights_and_parcels$dc = selected_DC
   
+  weights_and_parcels_by_bound$scenario  = scenario_name
+  weights_and_parcels_by_bound$dc = selected_DC
   
   vehicle_emissions = fread(paste(folder, "vehicleWarmEmissionFile.csv", sep = ""))
   vehicle_emissions$CO = as.numeric( vehicle_emissions$CO)
@@ -85,7 +102,7 @@ for (i in 1:length(scenarios)){
     mutate(vehicle  = if_else(grepl("Shop", id), "Feeder (parcel shop)", 
                               if_else(grepl("feeder",id), "Feeder (micro depot)",
                                       if_else(grepl("van", id) & !grepl("feeder", id), "Van",
-                                              if_else(grepl("cargoBike", id), "Cargo Bike", "Long-distance"))))) %>%
+                                              if_else(grepl("cargoBike", id), "Cargo bike", "Long-distance"))))) %>%
     mutate(customer_type  = if_else(grepl("Shop",id), "Via parcel shop", 
                                     if_else(grepl("feeder",id), "Direct to customer",
                                             if_else(grepl("van", id) & !grepl("feeder", id), "Direct to customer",
@@ -116,9 +133,46 @@ for (i in 1:length(scenarios)){
   summary_vehicle_type$dc = selected_DC
   
   weights_and_parcels_all = weights_and_parcels_all %>% bind_rows(weights_and_parcels)
+  weights_and_parcels_by_bound_all = weights_and_parcels_by_bound_all %>% bind_rows(weights_and_parcels_by_bound)
   vehicles_all = vehicles_all %>% bind_rows(summary_vehicle_type)
   
-  rm(summary_vehicle_type, weights_and_parcels, weights_and_parcels_by_bound, ld_trucks, ld_trucks_assigned, parcels, vehicle_emissions)
+  rm(summary_vehicle_type, weights_and_parcels, weights_and_parcels_by_bound, ld_trucks, ld_trucks_assigned, vehicle_emissions)
+  
+  this_dc = read_csv(paste(folder, "distributionCenters.csv", sep = ""))
+  this_dc = this_dc %>% filter(dcId == selected_DC)
+  
+  zones = unique(this_dc$microZoneId)
+  zones = data.frame(micro_zone = zones) %>% filter(micro_zone != -1)
+  
+  md_area = this_dc %>% filter(object == "microDepotCatchmentArea") %>% select(microDepotId, micro_zone = microZoneId)
+  
+  zones =  zones %>% left_join(md_area, by = "micro_zone")
+  
+  md = this_dc %>% filter(object == "microDepot") %>% select(microDepotId,microDepotName,microDepotX, microDepotY)
+  
+  zones$scenario = scenario_name
+  zones$dc = selected_DC
+  
+  md$scenario = scenario_name
+  md$dc = selected_DC
+  
+  zones_all = zones_all %>% bind_rows(zones)
+  micro_depots = micro_depots %>% bind_rows(md)
+  
+  rm(md_area, md, zones,this_dc)
+  
+  parcels_by_zone = parcels %>%
+    filter(transaction != "PARCEL_SHOP", distributionCenter == selected_DC) %>%
+    mutate(micro_zone = if_else(toDestination, destMicroZone, origMicroZone)) %>%
+    group_by(micro_zone, distributionType) %>%
+    summarize(n = n())
+  
+  parcels_by_zone$scenario = scenario_name
+  parcels_by_zone$dc = selected_DC
+  
+  all_parcels_by_zone = all_parcels_by_zone %>% bind_rows(parcels_by_zone)
+  
+  rm(parcels, parcels_by_zone)
   
   print(paste("Processed", scenario_name))
   
@@ -126,5 +180,8 @@ for (i in 1:length(scenarios)){
 
 write_csv(vehicles_all, "foca_visualizer/model_data/vehicles.csv")
 write_csv(weights_and_parcels_all, "foca_visualizer/model_data/weights_parcels.csv")
-  
+write_csv(weights_and_parcels_by_bound_all, "foca_visualizer/model_data/weights_parcels_by_bound.csv")
+write_csv(zones_all, "foca_visualizer/model_data/zones_all.csv")
+write_csv(micro_depots, "foca_visualizer/model_data/micro_depots.csv")
+write_csv(all_parcels_by_zone, "foca_visualizer/model_data/all_parcels_by_zone.csv")
 

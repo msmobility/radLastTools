@@ -1,55 +1,73 @@
 vehicle,customer_type,weight_kg,n,scenario,dc
-Van,Direct to customer,99630.44544863202,12313,1 - Munich 0%,20
-Van,Via parcel shop,111143.73115571431,13427,1 - Munich 0%,20
-Van,All,0,0,1 - Munich 0%,20
-Cargo bike,Direct to customer,0,0,1 - Munich 0%,20
-Cargo bike,Via parcel shop,0,0,1 - Munich 0%,20
-Cargo bike,All,0,0,1 - Munich 0%,20
-Long-distance,Direct to customer,0,0,1 - Munich 0%,20
-Long-distance,Via parcel shop,0,0,1 - Munich 0%,20
-Long-distance,All,0,0,1 - Munich 0%,20
-Van,Direct to customer,93635.36032067961,10917,2 - Munich 20% (high density),20
-Van,Via parcel shop,111143.73115571431,13427,2 - Munich 20% (high density),20
-Van,All,0,0,2 - Munich 20% (high density),20
-Cargo bike,Direct to customer,5995.085127952406,1396,2 - Munich 20% (high density),20
-Cargo bike,Via parcel shop,0,0,2 - Munich 20% (high density),20
-Cargo bike,All,0,0,2 - Munich 20% (high density),20
-Long-distance,Direct to customer,0,0,2 - Munich 20% (high density),20
-Long-distance,Via parcel shop,0,0,2 - Munich 20% (high density),20
-Long-distance,All,0,0,2 - Munich 20% (high density),20
-Van,Direct to customer,88044.46582085849,9606,3 - Munich 40% (high density),20
-Van,Via parcel shop,110773.54797004584,13390,3 - Munich 40% (high density),20
-Van,All,0,0,3 - Munich 40% (high density),20
-Cargo bike,Direct to customer,11914.32782981122,2744,3 - Munich 40% (high density),20
-Cargo bike,Via parcel shop,0,0,3 - Munich 40% (high density),20
-Cargo bike,All,0,0,3 - Munich 40% (high density),20
-Long-distance,Direct to customer,0,0,3 - Munich 40% (high density),20
-Long-distance,Via parcel shop,0,0,3 - Munich 40% (high density),20
-Long-distance,All,0,0,3 - Munich 40% (high density),20
-Van,Direct to customer,81897.1618164999,8200,4 - Munich 60% (high density),20
-Van,Via parcel shop,111143.73115571431,13427,4 - Munich 60% (high density),20
-Van,All,0,0,4 - Munich 60% (high density),20
-Cargo bike,Direct to customer,17733.283632132116,4113,4 - Munich 60% (high density),20
-Cargo bike,Via parcel shop,0,0,4 - Munich 60% (high density),20
-Cargo bike,All,0,0,4 - Munich 60% (high density),20
-Long-distance,Direct to customer,0,0,4 - Munich 60% (high density),20
-Long-distance,Via parcel shop,0,0,4 - Munich 60% (high density),20
-Long-distance,All,0,0,4 - Munich 60% (high density),20
-Van,Direct to customer,76349.06278901595,6868,4 - Munich 80% (high density),20
-Van,Via parcel shop,111143.73115571431,13427,4 - Munich 80% (high density),20
-Van,All,0,0,4 - Munich 80% (high density),20
-Cargo bike,Direct to customer,23281.38265961607,5445,4 - Munich 80% (high density),20
-Cargo bike,Via parcel shop,0,0,4 - Munich 80% (high density),20
-Cargo bike,All,0,0,4 - Munich 80% (high density),20
-Long-distance,Direct to customer,0,0,4 - Munich 80% (high density),20
-Long-distance,Via parcel shop,0,0,4 - Munich 80% (high density),20
-Long-distance,All,0,0,4 - Munich 80% (high density),20
-Van,Direct to customer,70402.16811543828,5505,5 - Munich 100% (high density),20
-Van,Via parcel shop,111143.73115571431,13427,5 - Munich 100% (high density),20
-Van,All,0,0,5 - Munich 100% (high density),20
-Cargo bike,Direct to customer,29228.27733319374,6808,5 - Munich 100% (high density),20
-Cargo bike,Via parcel shop,0,0,5 - Munich 100% (high density),20
-Cargo bike,All,0,0,5 - Munich 100% (high density),20
-Long-distance,Direct to customer,0,0,5 - Munich 100% (high density),20
-Long-distance,Via parcel shop,0,0,5 - Munich 100% (high density),20
-Long-distance,All,0,0,5 - Munich 100% (high density),20
+Van,Direct to customer,99630.44544863202,12313,1-0%,20
+Van,Via parcel shop,0,0,1-0%,20
+Van,All,0,0,1-0%,20
+Cargo bike,Direct to customer,0,0,1-0%,20
+Cargo bike,Via parcel shop,0,0,1-0%,20
+Cargo bike,All,0,0,1-0%,20
+Long-distance,Direct to customer,0,0,1-0%,20
+Long-distance,Via parcel shop,0,0,1-0%,20
+Long-distance,All,0,0,1-0%,20
+Feeder (parcel shop),Direct to customer,0,0,1-0%,20
+Feeder (parcel shop),Via parcel shop,111143.73115571431,13427,1-0%,20
+Feeder (parcel shop),All,0,0,1-0%,20
+Van,Direct to customer,93635.36032067961,10917,2-20%,20
+Van,Via parcel shop,0,0,2-20%,20
+Van,All,0,0,2-20%,20
+Cargo bike,Direct to customer,5995.085127952406,1396,2-20%,20
+Cargo bike,Via parcel shop,0,0,2-20%,20
+Cargo bike,All,0,0,2-20%,20
+Long-distance,Direct to customer,0,0,2-20%,20
+Long-distance,Via parcel shop,0,0,2-20%,20
+Long-distance,All,0,0,2-20%,20
+Feeder (parcel shop),Direct to customer,0,0,2-20%,20
+Feeder (parcel shop),Via parcel shop,111143.73115571431,13427,2-20%,20
+Feeder (parcel shop),All,0,0,2-20%,20
+Van,Direct to customer,88044.46582085849,9606,3-40%,20
+Van,Via parcel shop,0,0,3-40%,20
+Van,All,0,0,3-40%,20
+Cargo bike,Direct to customer,11914.32782981122,2744,3-40%,20
+Cargo bike,Via parcel shop,0,0,3-40%,20
+Cargo bike,All,0,0,3-40%,20
+Long-distance,Direct to customer,0,0,3-40%,20
+Long-distance,Via parcel shop,0,0,3-40%,20
+Long-distance,All,0,0,3-40%,20
+Feeder (parcel shop),Direct to customer,0,0,3-40%,20
+Feeder (parcel shop),Via parcel shop,110773.54797004584,13390,3-40%,20
+Feeder (parcel shop),All,0,0,3-40%,20
+Van,Direct to customer,81897.1618164999,8200,4-60%,20
+Van,Via parcel shop,0,0,4-60%,20
+Van,All,0,0,4-60%,20
+Cargo bike,Direct to customer,17733.283632132116,4113,4-60%,20
+Cargo bike,Via parcel shop,0,0,4-60%,20
+Cargo bike,All,0,0,4-60%,20
+Long-distance,Direct to customer,0,0,4-60%,20
+Long-distance,Via parcel shop,0,0,4-60%,20
+Long-distance,All,0,0,4-60%,20
+Feeder (parcel shop),Direct to customer,0,0,4-60%,20
+Feeder (parcel shop),Via parcel shop,111143.73115571431,13427,4-60%,20
+Feeder (parcel shop),All,0,0,4-60%,20
+Van,Direct to customer,76349.06278901595,6868,5-80%,20
+Van,Via parcel shop,0,0,5-80%,20
+Van,All,0,0,5-80%,20
+Cargo bike,Direct to customer,23281.38265961607,5445,5-80%,20
+Cargo bike,Via parcel shop,0,0,5-80%,20
+Cargo bike,All,0,0,5-80%,20
+Long-distance,Direct to customer,0,0,5-80%,20
+Long-distance,Via parcel shop,0,0,5-80%,20
+Long-distance,All,0,0,5-80%,20
+Feeder (parcel shop),Direct to customer,0,0,5-80%,20
+Feeder (parcel shop),Via parcel shop,111143.73115571431,13427,5-80%,20
+Feeder (parcel shop),All,0,0,5-80%,20
+Van,Direct to customer,70402.16811543828,5505,6-100%,20
+Van,Via parcel shop,0,0,6-100%,20
+Van,All,0,0,6-100%,20
+Cargo bike,Direct to customer,29228.27733319374,6808,6-100%,20
+Cargo bike,Via parcel shop,0,0,6-100%,20
+Cargo bike,All,0,0,6-100%,20
+Long-distance,Direct to customer,0,0,6-100%,20
+Long-distance,Via parcel shop,0,0,6-100%,20
+Long-distance,All,0,0,6-100%,20
+Feeder (parcel shop),Direct to customer,0,0,6-100%,20
+Feeder (parcel shop),Via parcel shop,111143.73115571431,13427,6-100%,20
+Feeder (parcel shop),All,0,0,6-100%,20
