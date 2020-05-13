@@ -8,7 +8,6 @@ library(leaflet)
 library(sf)
 library(tmap)
 library(rgdal)
-library(shinyWidgets)
 library(here)
 library(shinydashboard)
  
