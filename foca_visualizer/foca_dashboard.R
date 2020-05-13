@@ -9,8 +9,19 @@ vehicle_labels = c("Cargo bike", "Feeder (micro depot)", "Van","Feeder (parcel s
 color_vehicles = c("#8cc37b", "#438771", "#455089", "#707a8b", "#bfbfbf")
 color_vehicles_without_feeder = c("#8cc37b", "#455089", "#707a8b", "#bfbfbf")
 
+cost_types_levels = c("dist_cost", "time_cost",  "service_cost", "extra_handling_cost")
+cost_types_labels = c("Distance-dependent vehicle costs", "Time-dependent costs", "Service costs", "Extre-handling costs at micro depots")
+cost_four_colors = c(	"#66545e", "#aa6f73", "#eea990", "#f6e0b5")
+
+title = tags$a(tags$img(src = "logo.png", height = '60', align = "right"),
+               tags$img(src = "logo_left.png", height = '60', align = "left"),
+               tags$style(".main-header {max-height: 200px}"),
+               tags$style(".main-header .logo {height: 200px}")
+               )
+
 ui = fluidPage(
-  titlePanel(title = "RadLast"),
+  headerPanel(title = title, windowTitle = "Visualize simulation model results"),
+  headerPanel(title = NULL, windowTitle = "Visualize simulation model results"),
   sidebarLayout(
     sidebarPanel(
       width = 1,
@@ -25,8 +36,7 @@ ui = fluidPage(
                  plotlyOutput("share")
           ),
           column(4,
-                 textOutput("readmeShare"),
-                 tableOutput("parcel_table")
+                 textOutput("readmeShare")
           )),
         tabPanel(
           title = "Tours",
@@ -54,27 +64,53 @@ ui = fluidPage(
           column(4,plotlyOutput("stickoxide"))
         ),
         tabPanel(
+          title = "Costs",
+          column(2,
+                 inputPanel(
+                   checkboxGroupInput(inputId = "segments", 
+                                      label = "Segments", choices = c("Cargo bike", "Feeder (micro depot)", "Van","Feeder (parcel shop)"), selected = c("Cargo bike", "Feeder (micro depot)", "Van")),
+                   sliderInput(inputId = "cost_km_van",
+                               label = "Vehicle costs per km (Van)", min = 0.0, max = 5.0, value = 1.7,step = 0.1),
+                   sliderInput(inputId = "cost_km_bike",
+                               label = "Vehicle costs per km (Cargo bike)", min = 0.0, max = 5.0, value = 0.9, step = 0.1),
+                   sliderInput(inputId = "cost_parcel_van",
+                               label = "Service cost costs per parcel (Van)", min = 0.0, max = 5.0, value = 1.3, step = 0.1),
+                   sliderInput(inputId = "cost_parcel_bike",
+                               label = "Service cost costs per parcel (Cargo bike)", min = 0.0, max = 5.0, value = 1.1, step = 0.1),
+                   sliderInput(inputId = "cost_parcel_handling",
+                               label = "Extra handling costs per kg (at micro depot)", min = 0.0, max = 5.0, value = 0.2, step = 0.1),
+                   sliderInput(inputId = "driver_cost_h",
+                               label = "Driver cost per hour", min = 0, max = 60, value = 25, step = 0.1),
+                   sliderInput(inputId = "rider_cost_h",
+                               label = "Rider cost per hour", min = 0, max = 60, value = 25, step = 0.1),
+                   numericInput(inputId = "y_axis",
+                               label = "Maximum value of vertical axis", value = 80000)
+                 )
+          ),
+          column(10,
+                 plotlyOutput("costs", height = 800)
+          )
+        ),
+        tabPanel(
           title = "Map",
-          column(4,
+          column(2,
                  inputPanel(
                    selectInput(inputId = "this_scenario", label =  "Scenario:", choices = NULL)
                  )
           ),
-          column(8,
+          column(10,
                  leafletOutput("map_area", height = 800)
           )
         ),
         tabPanel(
           title = "Density",
-          column(4,
+          column(2,
                  inputPanel(
-                   selectInput(inputId = "this_scenario_2", label =  "Scenario:", choices = NULL)
-                 ),
-                 inputPanel(
+                   selectInput(inputId = "this_scenario_2", label =  "Scenario:", choices = NULL),
                    selectInput(inputId = "this_mode", label =  "Mode:", choices = c("MOTORIZED", "CARGO_BIKE"))
                  )
           ),
-          column(8,
+          column(10,
                  leafletOutput("map_density", height = 800)
           )
         )
@@ -190,6 +226,55 @@ server = function(input, output, session){
 
   })
   
+  output$costs = renderPlotly({
+    vehicles_all = vehicles()
+    weights_and_parcels_all = weights_parcels()
+
+    vehicles_all = vehicles_all %>% filter(vehicle %in% input$segments)
+        
+    vehicles_all = vehicles_all %>%
+      mutate(dist_cost = distance/1000 * if_else(vehicle == "Cargo bike", as.numeric(input$cost_km_bike), as.numeric(input$cost_km_van)) ) %>% 
+      mutate(time_cost = total_time/3600 * if_else(vehicle == "Cargo bike", as.numeric(input$rider_cost_h), as.numeric(input$driver_cost_h)) )
+    
+    cost_vehicle = vehicles_all %>%
+      group_by(scenario, vehicle) %>%
+      summarize(dist_cost = sum(dist_cost), time_cost = sum(time_cost)) %>%
+      pivot_longer(cols= c(dist_cost, time_cost), names_to = "cost_type", values_to = "cost")
+
+    cost_vehicle_total = cost_vehicle %>% group_by(scenario, cost_type) %>%
+      summarize(cost = sum(cost)) %>% mutate(vehicle = "all")
+    
+    cost_vehicle = cost_vehicle %>% bind_rows(cost_vehicle_total)
+    
+    weights_and_parcels_all = weights_and_parcels_all %>% filter(vehicle %in% input$segments)
+    
+    weights_and_parcels_all = weights_and_parcels_all %>%
+      mutate(service_cost = n * if_else(vehicle == "Cargo bike", as.numeric(input$cost_parcel_bike), as.numeric(input$cost_parcel_van)) ) %>% 
+      mutate(extra_handling_cost = weight_kg * if_else(vehicle == "Cargo bike", as.numeric(input$cost_parcel_handling), 0 ) )
+    
+    parcel_costs = weights_and_parcels_all %>%
+      group_by(scenario, vehicle) %>%
+      summarize(service_cost = sum(service_cost), extra_handling_cost = sum(extra_handling_cost)) %>%
+      pivot_longer(cols= c(service_cost, extra_handling_cost), names_to = "cost_type", values_to = "cost")
+    
+    parcel_costs_total = parcel_costs %>% group_by(scenario, cost_type) %>%
+      summarize(cost = sum(cost)) %>% mutate(vehicle = "all")
+    
+    parcel_costs = parcel_costs %>% bind_rows(parcel_costs_total)
+    
+    costs = parcel_costs %>% bind_rows(cost_vehicle)
+    
+    costs$cost_type = factor(costs$cost_type, levels = cost_types_levels, labels = cost_types_labels)
+    
+    p = ggplot(costs, aes(x = scenario, y = cost, fill = cost_type)) +
+      geom_bar(stat = "identity", position = "stack") + theme_bw() +
+      theme(axis.text.x = element_text(angle = 90), legend.position = "bottom") + 
+      scale_y_continuous(expand = c(0,0), limits = c(0, input$y_axis)) + 
+      scale_fill_manual(name  ="Cost type", values = cost_four_colors) + 
+      facet_grid(.~vehicle)
+    ggplotly(p, height = 800)
+    
+  })
   
   output$readmeShare = renderText({
    description["share",]
