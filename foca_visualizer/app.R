@@ -1,15 +1,8 @@
-require(dplyr)
-require(ggplot2)
-require(tidyr)
-require(readr)
-require(shiny)
-require(plotly)
-require(leaflet)
-require(sf)
-require(tmap)
-require(rgdal)
-require(here)
-require(shinydashboard)
+if (!"pacman" %in% installed.packages()){
+  install.packages("pacman")
+}
+
+pacman::p_load(dplyr,ggplot2,tidyr,readr,shiny,plotly,leaflet,sf,tmap,rgdal,here,shinydashboard)
 
 this_folder = here()
 
