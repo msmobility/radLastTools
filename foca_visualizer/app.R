@@ -13,7 +13,7 @@ color_vehicles = c("#8cc37b", "#438771", "#455089", "#707a8b", "#bfbfbf")
 color_vehicles_without_feeder = c("#8cc37b", "#455089", "#707a8b", "#bfbfbf")
 
 cost_types_levels = c("dist_cost", "time_cost",  "service_cost", "extra_handling_cost")
-cost_types_labels = c("Distance-dependent vehicle costs", "Time-dependent costs", "Service costs", "Extre-handling costs at micro depots")
+cost_types_labels = c("Distance-dependent vehicle costs", "Time-dependent costs", "Service costs", "Extra-handling costs at micro depots")
 cost_four_colors = c(	"#66545e", "#aa6f73", "#eea990", "#f6e0b5")
 
 title = tags$a(tags$img(src = "logo.png", height = '60', align = "right"),
