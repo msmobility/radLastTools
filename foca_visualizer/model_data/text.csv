@@ -1,4 +1,6 @@
 label,text
-share,"The plot shows the share of parcels by distribution mode (van vs cargo bike). The plot on the left shows parcels that are delivered or picked up at the final customer location. The plot on the right shows parcels delivered to/from parcel shops. Vertical axis is expressed in relative units (over 1)"
-tours,"The plot shows the number of tours by vehicle type"
-distance,"The plot shows the total distance travelled by vehicle type"
+share,The figure shows the number of parcels by distribution type and mode. The first row are parcels sent by customers of the study area (pick-up) and the second row are parcels sent to customers of the study area. 
+tours,"The figure shows the number of tours by each type of vehicle and distribution type. The left plot is the number of long-distance trucks carrying parcels to/from the selected distribution center. The plot in the center is the number of tours to deliver and pick up parcels at the final customer locations (by van, or by cargo bike - including feeder trips to micro depots). The right plot is the number of vans to deliver and pick up parcels at parcel shops. "
+distance,The figure shows the the total distance travelled by vehicle type. 
+time,The figure shows the the total time travelled by vehicle type. 
+emissions,The figures show the CO2 emissions by vehicle type. The left plot shows the reference case where all motoruzed vehicles are diesel (except of electrically assisted cargo bikes). The right plot shows emissions with a variable percentage of electric vans or trucks. Use the controls below to observe the reduction in emissions. Emission factors can be modified. 
