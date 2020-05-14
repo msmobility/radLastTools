@@ -4,3 +4,6 @@ tours,"The figure shows the number of tours by each type of vehicle and distribu
 distance,The figure shows the the total distance travelled by vehicle type. 
 time,The figure shows the the total time travelled by vehicle type. 
 emissions,The figures show the CO2 emissions by vehicle type. The left plot shows the reference case where all motoruzed vehicles are diesel (except of electrically assisted cargo bikes). The right plot shows emissions with a variable percentage of electric vans or trucks. Use the controls below to observe the reduction in emissions. Emission factors can be modified. 
+costs,"The figure(s) show(s) the costs associated with the parcel distribution (only the last-mile). Choose the segments that you want to analyze. The left plot will show the total costs, while each figure to the right will show the costs of each one of the selected segment. The cost parameters can be modified. "
+map,This map shows the model analysis zones of the area served by the selected distribution center. The colors represent the the sub-areas served by micro depots. Micro depots are located at the black dots. 
+density,The maps show the parcel density delivered by van (left) and by cargo bike (right)

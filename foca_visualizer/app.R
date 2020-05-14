@@ -78,7 +78,7 @@ ui = fluidPage(
           title = "Emissions",
           column(2,
                  h4("Emissions"),
-                 helpText(description["share",]),
+                 helpText(description["emissions",]),
                  inputPanel(
                    h5("Basic settings:"),
                    sliderInput(inputId = "ev_share_van", label = "Percent of electric vans:", min = 0, max = 100, value = 0),
@@ -100,7 +100,7 @@ ui = fluidPage(
           title = "Costs",
           column(2,
                  h4("Costs"),
-                 helpText(description["share",]),
+                 helpText(description["costs",]),
                  inputPanel(
                    checkboxGroupInput(inputId = "segments", 
                                       label = "Segments", choices = c("Cargo bike", "Feeder (micro depot)", "Van","Feeder (parcel shop)"), selected = c("Cargo bike", "Feeder (micro depot)", "Van")),
@@ -130,7 +130,7 @@ ui = fluidPage(
           title = "Map",
           column(2,
                  h4("Study area"),
-                 helpText(description["share",]),
+                 helpText(description["map",]),
                  inputPanel(
                    selectInput(inputId = "this_scenario", label =  "Scenario:", choices = NULL)
                  )
@@ -143,7 +143,7 @@ ui = fluidPage(
           title = "Density",
           column(2,
                  h4("Demand density"),
-                 helpText(description["share",]),
+                 helpText(description["density",]),
                  inputPanel(
                    selectInput(inputId = "this_scenario_2", label =  "Scenario:", choices = NULL)
                  )
@@ -343,11 +343,9 @@ server = function(input, output, session){
   })
   
   output$map_area  = renderLeaflet({
-
     this_scenario = input$this_scenario
     zones_all = zones_all() %>% filter(scenario == this_scenario)
     micro_depots = micro_depots()
-    
     shp_muc = st_read(paste(this_folder, "foca_visualizer/maps/muc.shp", sep = "/"))
 
     shp_muc  =shp_muc %>% filter(id %in% zones_all$micro_zone) %>% left_join(zones_all, by = c("id" = "micro_zone"))
@@ -386,7 +384,6 @@ server = function(input, output, session){
     all_parcels_by_zone = all_parcels_by_zone() %>% filter(scenario == this_scenario, distributionType == "CARGO_BIKE")
     shp_muc = st_read(paste(this_folder, "foca_visualizer/maps/muc.shp", sep = "/"))
     shp_muc  = shp_muc %>% right_join(all_parcels_by_zone, by = c("id" = "micro_zone"))
-    
     if(nrow(all_parcels_by_zone) > 0){
       p =  tm_basemap(leaflet::providers$CartoDB)
       p = p + tm_shape(shp_muc, "Parcel density")

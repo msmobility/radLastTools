@@ -45,7 +45,7 @@ weights_and_parcels_by_bound_all = data.frame()
 vehicles_all = data.frame()
 micro_depots = data.frame()
 zones_all = data.frame()
-all_parcels_by_zone = data.frame()
+all_parcels_by_zone = data.frame
 
 for (i in 1:length(scenarios)){
   
