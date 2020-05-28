@@ -16,15 +16,8 @@ cost_types_levels = c("dist_cost", "time_cost",  "service_cost", "extra_handling
 cost_types_labels = c("Distance-dependent vehicle costs", "Time-dependent costs", "Service costs", "Extra-handling costs at micro depots")
 cost_four_colors = c(	"#66545e", "#aa6f73", "#eea990", "#f6e0b5")
 
-title = tags$a(tags$img(src = "logo.png", height = '60', align = "right"),
-               tags$img(src = "logo_left.png", height = '60', align = "left"),
-               tags$style(".main-header {max-height: 200px}"),
-               tags$style(".main-header .logo {height: 200px}")
-               )
 
-ui = fluidPage(
-  headerPanel(title = title, windowTitle = "Visualize simulation model results"),
-  headerPanel(title = NULL, windowTitle = "Visualize simulation model results"),
+foca = fluidPage(
   sidebarLayout(
     sidebarPanel(
       width = 1,
@@ -162,7 +155,7 @@ ui = fluidPage(
   )
 )
 
-server = function(input, output, session){
+serverFoca = function(input, output, session){
   
   weights_parcels = eventReactive(input$update, {
     weight_parcels = read_csv(paste(this_folder, "foca_visualizer/model_data/weights_parcels_by_bound.csv", sep ="/"))
@@ -402,7 +395,7 @@ server = function(input, output, session){
 
 
 
-shinyApp(ui, server)
+#shinyApp(ui, server)
 
 
 

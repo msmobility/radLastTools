@@ -2,30 +2,23 @@ if (!"pacman" %in% installed.packages()){
   install.packages("pacman")
 }
 
-pacman::p_load(dplyr,readr,raster,ggspatial,tidyr,broom,ggplot2,tidyr,readr,shiny,plotly,leaflet,sf,tmap,rgdal,rgeos,maptools,here,shinydashboard, RColorBrewer)
 
 this_folder = here()
 
-title = tags$a(tags$img(src = "logo.png", height = '60', align = "right"),
-               tags$img(src = "logo_left.png", height = '60', align = "left"),
-               tags$style(".main-header {max-height: 200px}"),
-               tags$style(".main-header .logo {height: 200px}")
-)
+d_centers_file = paste(this_folder, "/mode_choice_visualizer/input/distributionCenters.csv", sep = "")
 
-d_centers = read_csv2('distributionCenters.csv', col_types = cols(dcX = col_character(), dcY = col_character(), xcoord = col_character(), ycoord = col_character()))
+d_centers = read_csv2(d_centers_file, col_types = cols(dcX = col_character(), dcY = col_character(), xcoord = col_character(), ycoord = col_character()))
 d_centers = d_centers[order(d_centers$dcId),]
 d_centers = d_centers[11:20,]
 d_centers$dcX = as.double(d_centers$dcX)
 d_centers$dcY = as.double(d_centers$dcY)
 d_centers$xcoord = as.double(d_centers$xcoord)
 d_centers$ycoord = as.double(d_centers$ycoord)
-shp_muc = st_read("muc.shp")
-zones = st_read("zones.shp")
+shp_muc = st_read(paste(this_folder,  "/mode_choice_visualizer/input/muc.shp", sep = ""))
+zones = st_read(paste(this_folder, "/mode_choice_visualizer/input/zones.shp", sep = ""))
 zones = zones[order(zones$layer),]
 
-ui = fluidPage(
-  headerPanel(title = title, windowTitle = "Visualize results of mode choice model"),
-  headerPanel(title = NULL, windowTitle = "Visualize results of mode choice model"),
+modeChoice = fluidPage(
   sidebarLayout(
     sidebarPanel(
       width = 2,
@@ -172,7 +165,7 @@ ui = fluidPage(
 )
 
 
-server = function(input, output, session){
+serverModeChoice = function(input, output, session){
 
     # determine distances between AZ and DC
   d1 = abs(outer(zones$center_X,d_centers$dcX, '-'))
@@ -182,19 +175,19 @@ server = function(input, output, session){
   rownames(dist_AZDC) = zones$layer
   
   # read densities input of zones
-  den_l = as.data.frame(read_csv('dl.csv'))
+  den_l = as.data.frame(read_csv(paste(this_folder, '/mode_choice_visualizer/input/dl.csv', sep = "")))
   rownames(den_l) = den_l$X1
   den_l = den_l[,-1]
   
-  den_m = as.data.frame(read_csv('dm.csv'))
+  den_m = as.data.frame(read_csv(paste(this_folder, '/mode_choice_visualizer/input/dm.csv', sep = "")))
   rownames(den_m) = den_m$X1
   den_m = den_m[,-1]
   
-  den_s = as.data.frame(read_csv('ds.csv'))
+  den_s = as.data.frame(read_csv(paste(this_folder, '/mode_choice_visualizer/input/ds.csv', sep = "")))
   rownames(den_s) = den_s$X1
   den_s = den_s[,-1]
   
-  den_xs = as.data.frame(read_csv('dsx.csv'))
+  den_xs = as.data.frame(read_csv(paste(this_folder, '/mode_choice_visualizer/input/dsx.csv', sep = "")))
   rownames(den_xs) = den_xs$X1
   den_xs = den_xs[,-1]
   
@@ -546,4 +539,4 @@ server = function(input, output, session){
   })
 }
 
-shinyApp(ui, server)
+#shinyApp(ui, server)
