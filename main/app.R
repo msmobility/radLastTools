@@ -7,6 +7,7 @@ pacman::p_load(dplyr,readr,raster,ggspatial,tidyr,broom,ggplot2,tidyr,readr,shin
 
 this_folder = here()
 
+
 source(paste(this_folder, "/foca_visualizer/app_foca.R", sep  = ""))
 source(paste(this_folder, "/mode_choice_visualizer/app_mode_choice_visualizer.R", sep  = ""))
 
