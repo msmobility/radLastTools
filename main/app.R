@@ -3,7 +3,7 @@ if (!"pacman" %in% installed.packages()){
 }
 
 pacman::p_load(dplyr,ggplot2,tidyr,readr,shiny,plotly,leaflet,sf,tmap,rgdal,here,shinydashboard)
-pacman::p_load(dplyr,readr,raster,ggspatial,tidyr,broom,ggplot2,tidyr,readr,shiny,plotly,leaflet,sf,tmap,rgdal,rgeos,maptools,here,shinydashboard, RColorBrewer)
+pacman::p_load(dplyr,readr,raster,ggspatial,tidyr,broom,ggplot2,tidyr,readr,shiny,plotly,leaflet,sf,tmap,rgdal,rgeos,maptools,here,shinydashboard, RColorBrewer, matrixStats)
 
 this_folder = here()
 
