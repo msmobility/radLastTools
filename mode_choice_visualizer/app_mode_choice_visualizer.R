@@ -18,7 +18,9 @@ zones = st_read(paste(this_folder, "/mode_choice_visualizer/input/zones.shp", se
 zones = zones[order(zones$layer),]
 
 modeChoice = fluidPage(
+  tags$head(tags$style('.selectize-dropdown {z-index: 10000}')),
   sidebarLayout(
+    #position = "right",
     sidebarPanel(
       width = 2,
       helpText("Click on update to conduct the mode allocation based on the parameters chosen below"),
@@ -37,9 +39,7 @@ modeChoice = fluidPage(
       numericInput(inputId = "cap_truck",
                    label = "Capacity truck [m3]", value = 12.5),
       numericInput(inputId = "cap_feeder",
-                   label = "Capacity feeder [m3]", value = 12.5),
-      numericInput(inputId = "approx",
-                   label = "Approximation constant", value = 1.5)
+                   label = "Capacity feeder [m3]", value = 12.5)
     ),
     mainPanel(
       tabBox(
@@ -157,6 +157,24 @@ modeChoice = fluidPage(
                  plotlyOutput('density_histo') # histogram for densities per zone and parcel class
           )
         )
+        ),
+        tabPanel(
+          title = 'Congestion',
+          fluidRow(
+            column(3,
+                   h4("Congestion"),
+                   br(),
+                   helpText(HTML("The map shows the congestion factor per zone."))
+            ),
+            column(9,
+                   br(),
+                   br(),
+                   br(),
+                   leafletOutput("con_map"), # map showing the congestion factor per zone
+                   br(),
+                   br()
+            )
+          )
         )
       )
     )
@@ -190,6 +208,9 @@ serverModeChoice = function(input, output, session){
   rownames(den_xs) = den_xs$X1
   den_xs = den_xs[,-1]
   
+  congestion = as.data.frame(read_csv(paste(this_folder, '/mode_choice_visualizer/input/congestion.csv', sep = "")))
+  colnames(congestion) = 'congestion'
+  
   den = list(den_xs, den_s, den_m, den_l) # merge to one list
   
   active = den_xs+den_s+den_m+den_l
@@ -204,7 +225,7 @@ serverModeChoice = function(input, output, session){
     vol = c(0.005, 0.010, 0.050, 0.200) # in m3
     op_co_truck= input$op_co_truck # per km in euro
     op_co_bike= input$op_co_bike # per km in euro
-    k_approx = input$approx 
+    k_approx = 1.5 
     serv_co_bike = input$serv_co_bike # per parcel in euro
     serv_co_truck = input$serv_co_truck # per parcel in euro
     ex_handling_bike = input$ex_co_bike 
@@ -239,7 +260,7 @@ serverModeChoice = function(input, output, session){
           # extra handling cost bike
           cost_bike[l,2]=area*vol[l]*dens*ex_handling_bike
           # service cost
-          cost_bike[l,3]=area*dens*serv_co_bike
+          cost_bike[l,3]=area*dens*serv_co_bike*(1/congestion[zones_active[j],1])
           cost_truck[l,3]=area*dens*serv_co_truck
         }
         
@@ -256,7 +277,7 @@ serverModeChoice = function(input, output, session){
           sum_db = sum(c(den[[1]][zones_active[j],i], den[[2]][zones_active[j],i], den[[3]][zones_active[j],i], den[[4]][zones_active[j],i])*isBike)
           sum_dt = sum(c(den[[1]][zones_active[j],i], den[[2]][zones_active[j],i], den[[3]][zones_active[j],i], den[[4]][zones_active[j],i])*(1-isBike))
           routing_cost_bike = k_approx*op_co_bike*area*sqrt(sum_db)
-          routing_cost_truck = k_approx*op_co_truck*area*sqrt(sum_dt)
+          routing_cost_truck = k_approx*op_co_truck*area*sqrt(sum_dt)  #*congestion[zones_active[j],1]
           
           c_b = c_b + routing_cost_bike
           c_t = c_t + routing_cost_truck
@@ -398,6 +419,12 @@ serverModeChoice = function(input, output, session){
     color = colorRampPalette(brewer.pal(9,'Blues'))(100)
     color2 = colorRampPalette(brewer.pal(9,'BuGn'))(100)
     
+    # add congestion factor to zones
+    #test = zones
+    #test = dplyr::bind_cols(test,congestion)
+    zones = dplyr::bind_cols(zones,congestion)
+    
+    
     observeEvent(input$choice, { # render new mode map if dropdown menu is used
       d_cent = input$choice
       output$mode_map = renderLeaflet({
@@ -534,6 +561,11 @@ serverModeChoice = function(input, output, session){
         yaxis=yAx)
 
       fig1
+    })
+    
+    output$con_map = renderLeaflet({
+      p = tm_basemap(leaflet::providers$CartoDB) + tm_shape(shp_muc) + tm_borders() + tm_shape(zones) + tm_borders() + tm_fill(col = 'congestion', alpha = 0.4)
+      tmap_leaflet(p)
     })
   })
 }
