@@ -45,7 +45,7 @@ ui = fluidPage(
     widths = c(1,11),
     tabPanel("Mode choice optimization", modeChoice),
     tabPanel("Simulation model analysis", foca),
-    tabPanel("File Uploader", fileUploader)
+    tabPanel("File Uploader (experimental)", fileUploader)
   )
 
 )
