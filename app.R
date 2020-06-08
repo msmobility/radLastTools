@@ -1,15 +1,34 @@
-if (!"pacman" %in% installed.packages()){
-  install.packages("pacman")
-}
+# if (!"pacman" %in% installed.packages()){
+#   install.packages("pacman")
+# }
 
-pacman::p_load(dplyr,ggplot2,tidyr,readr,shiny,plotly,leaflet,sf,tmap,rgdal,here,shinydashboard)
-pacman::p_load(dplyr,readr,raster,ggspatial,tidyr,broom,ggplot2,tidyr,readr,shiny,plotly,leaflet,sf,tmap,rgdal,rgeos,maptools,here,shinydashboard, RColorBrewer, matrixStats)
+library(rgeos)
+library(ggplot2)
+library(tidyr)
+library(readr)
+library(shiny)
+library(plotly)
+library(leaflet)
+library(sf)
+library(tmap)
+library(rgdal)
+library(here)
+library(shinydashboard)
+library(shinyShortcut)
+library(dplyr)
+library(raster)
+library(ggspatial)
+library(broom)
+library(maptools)
+library(RColorBrewer)
+library(matrixStats)
 
 this_folder = here()
 
 
 source(paste(this_folder, "/foca_visualizer/app_foca.R", sep  = ""))
 source(paste(this_folder, "/mode_choice_visualizer/app_mode_choice_visualizer.R", sep  = ""))
+source(paste(this_folder, "/fileUploader.R", sep  = ""))
 
 
 title = tags$a(tags$img(src = "logo.png", height = '60', align = "right"),
@@ -25,7 +44,8 @@ ui = fluidPage(
   navlistPanel(
     widths = c(1,11),
     tabPanel("Mode choice optimization", modeChoice),
-    tabPanel("Simulation model analysis", foca)
+    tabPanel("Simulation model analysis", foca),
+    tabPanel("File Uploader", fileUploader)
   )
 
 )
@@ -34,6 +54,7 @@ ui = fluidPage(
 server = function(input, output, session){
   serverFoca(input,output, session)
   serverModeChoice(input,output, session)
+  serverUploader(input,output, session)
 }
 
 shinyApp(ui, server)

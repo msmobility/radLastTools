@@ -1,8 +1,6 @@
-if (!"pacman" %in% installed.packages()){
-  install.packages("pacman")
-}
-
-pacman::p_load(dplyr,ggplot2,tidyr,readr,shiny,plotly,leaflet,sf,tmap,rgdal,here,shinydashboard)
+# if (!"pacman" %in% installed.packages()){
+#   install.packages("pacman")
+# }
 
 this_folder = here()
 

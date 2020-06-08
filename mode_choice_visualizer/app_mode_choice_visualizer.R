@@ -1,7 +1,6 @@
-if (!"pacman" %in% installed.packages()){
-  install.packages("pacman")
-}
-
+# if (!"pacman" %in% installed.packages()){
+#   install.packages("pacman")
+# }
 
 this_folder = here()
 

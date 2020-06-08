@@ -1,0 +1,13 @@
+name: radLastTools
+title: radLastTools
+username:
+account: cllorca1
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 2412609
+bundleId: 3240804
+url: https://cllorca1.shinyapps.io/radLastTools/
+when: 1591596061.61159
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: .RData|script.R
