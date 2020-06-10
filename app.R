@@ -15,6 +15,7 @@ library(rgdal)
 library(here)
 library(shinydashboard)
 library(shinyShortcut)
+library(shinyFiles)
 library(dplyr)
 library(raster)
 library(ggspatial)
@@ -36,7 +37,6 @@ title = tags$a(tags$img(src = "logo_two_unis.png", height = '60', align = "right
                tags$style(".main-header .logo {height: 200px}")
 )
 
-
 ui = fluidPage(
   headerPanel(title = title, windowTitle = "RadLast tools"),
   headerPanel(title = NULL, windowTitle = "RadLast tools"),
@@ -51,9 +51,9 @@ ui = fluidPage(
 
 
 server = function(input, output, session){
-  serverFoca(input,output, session)
-  serverModeChoice(input,output, session)
   serverUploader(input,output, session)
+  serverModeChoice(input,output, session)
+  serverFoca(input,output, session)
 }
 
 shinyApp(ui, server)
