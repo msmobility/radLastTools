@@ -184,7 +184,7 @@ modeChoice = fluidPage(
 
 serverModeChoice = function(input, output, session){
 
-    # determine distances between AZ and DC
+  # determine distances between AZ and DC
   d1 = abs(outer(zones$center_X,d_centers$dcX, '-'))
   d2 = abs(outer(zones$center_Y,d_centers$dcY, '-'))
   dist_AZDC = (d1+d2)/1000
@@ -208,15 +208,31 @@ serverModeChoice = function(input, output, session){
   rownames(den_xs) = den_xs$X1
   den_xs = den_xs[,-1]
   
-  congestion = as.data.frame(read_csv(paste(this_folder, '/mode_choice_visualizer/input/congestion.csv', sep = "")))
-  colnames(congestion) = 'congestion'
+  congestion_default = as.data.frame(read_csv(paste(this_folder, '/mode_choice_visualizer/input/congestion.csv', sep = "")))
+  colnames(congestion_default) = 'congestion'
+  
+  congestion = reactiveVal(congestion_default)
   
   den = list(den_xs, den_s, den_m, den_l) # merge to one list
   
   active = den_xs+den_s+den_m+den_l
   active = active != 0 # shows in which zones distribution centers are active
   
+  observeEvent(input$replaceFiles,{  #replace inputs if the files are changed
+    congestionInFile = input$congestion_replacement_file
+    congestion_updated = as.data.frame(read_csv(congestionInFile$datapath))
+    message(congestion_updated)
+    colnames(congestion_updated) = 'congestion'
+    congestion(congestion_updated)
+  })
+  
+  
   observeEvent(input$update,{ # start calculation when hitting on update
+    
+   
+    message(congestion())
+   
+    
     
     # get parameter inputs
     area = 16
@@ -260,7 +276,7 @@ serverModeChoice = function(input, output, session){
           # extra handling cost bike
           cost_bike[l,2]=area*vol[l]*dens*ex_handling_bike
           # service cost
-          cost_bike[l,3]=area*dens*serv_co_bike*(1/congestion[zones_active[j],1])
+          cost_bike[l,3]=area*dens*serv_co_bike*(1/congestion()[zones_active[j],1])
           cost_truck[l,3]=area*dens*serv_co_truck
         }
         
@@ -422,7 +438,7 @@ serverModeChoice = function(input, output, session){
     # add congestion factor to zones
     #test = zones
     #test = dplyr::bind_cols(test,congestion)
-    zones = dplyr::bind_cols(zones,congestion)
+    zones = dplyr::bind_cols(zones,congestion())
     
     
     observeEvent(input$choice, { # render new mode map if dropdown menu is used
