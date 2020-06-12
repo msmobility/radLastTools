@@ -20,7 +20,7 @@ foca = fluidPage(
     sidebarPanel(
       width = 1,
       helpText("Click on update to load the results of the simulations"),
-      actionButton("update", "Update", width = 100)
+      actionButton("update_foca", "Update", width = 100)
     ),
     mainPanel(
       tabBox(
@@ -155,7 +155,7 @@ foca = fluidPage(
 
 serverFoca = function(input, output, session){
   
-  weights_parcels = eventReactive(input$update, {
+  weights_parcels = eventReactive(input$update_foca, {
     weight_parcels = read_csv(paste(this_folder, "foca_visualizer/model_data/weights_parcels_by_bound.csv", sep ="/"))
     weight_parcels$vehicle = factor(weight_parcels$vehicle, levels = vehicle_labels)
     scenarios = unique(weight_parcels$scenario)
@@ -164,21 +164,21 @@ serverFoca = function(input, output, session){
     weight_parcels
   })
   
-  vehicles = eventReactive(input$update, {
+  vehicles = eventReactive(input$update_foca, {
     vehicles = read_csv(paste(this_folder, "foca_visualizer/model_data/vehicles.csv", sep ="/"))
     vehicles$vehicle = factor(vehicles$vehicle, levels = vehicle_labels)
     vehicles
   })
   
-  zones_all = eventReactive(input$update, {
+  zones_all = eventReactive(input$update_foca, {
     read_csv(paste(this_folder, "foca_visualizer/model_data/zones_all.csv", sep ="/"))
   })
   
-  micro_depots = eventReactive(input$update, {
+  micro_depots = eventReactive(input$update_foca, {
     read_csv(paste(this_folder, "foca_visualizer/model_data/micro_depots.csv", sep ="/"))
   })
   
-  all_parcels_by_zone = eventReactive(input$update, {
+  all_parcels_by_zone = eventReactive(input$update_foca, {
     read_csv(paste(this_folder, "foca_visualizer/model_data/all_parcels_by_zone.csv", sep ="/"))
   })
   
