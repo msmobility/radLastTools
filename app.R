@@ -23,6 +23,7 @@ library(broom)
 library(maptools)
 library(RColorBrewer)
 library(matrixStats)
+library(sp)
 
 this_folder = here()
 

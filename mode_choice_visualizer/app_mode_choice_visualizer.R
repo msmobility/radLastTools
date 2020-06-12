@@ -183,9 +183,20 @@ serverModeChoice = function(input, output, session){
   
   updateSelectInput(session, inputId = "choice", choices = as.list(d_centers_def$dcId))
   
-  shp_def = st_read(paste(this_folder,  "/mode_choice_visualizer/input/muc.shp", sep = ""))
+  #shp_def = st_read(paste(this_folder,  "/mode_choice_visualizer/input/muc.shp", sep = ""))
+  
+  unzip(paste(this_folder, "/mode_choice_visualizer/input/zones.zip", sep = ""), exdir = paste(this_folder, "/mode_choice_visualizer/input/", sep = ""))
   zones_def = st_read(paste(this_folder, "/mode_choice_visualizer/input/zones.shp", sep = ""))
   zones_def = zones_def[order(zones_def$layer),]
+  zones_def$center_X = 0
+  zones_def$center_Y = 0
+  centroids = as.data.frame(st_centroid(zones_def$geometry))
+  for (i in 1:nrow(centroids)) {
+    centroids$center_X[i] = centroids$geometry[[i]][[1]]
+    centroids$center_Y[i] = centroids$geometry[[i]][[2]]
+  }
+  zones_def$center_X = centroids$center_X
+  zones_def$center_Y = centroids$center_Y
   
   # read densities input of zones
   den_ldef = as.data.frame(read_csv(paste(this_folder, '/mode_choice_visualizer/input/dl.csv', sep = "")))
@@ -211,7 +222,7 @@ serverModeChoice = function(input, output, session){
 
   congestion_input = reactiveVal(congestion_default)
   zones_input = reactiveVal(zones_def)
-  shp_input = reactiveVal(shp_def)
+  #shp_input = reactiveVal(shp_def)
   den_xs_input = reactiveVal(den_xsdef)
   den_s_input = reactiveVal(den_sdef)
   den_m_input = reactiveVal(den_mdef)
@@ -261,17 +272,33 @@ serverModeChoice = function(input, output, session){
       den_lup = den_lup[,-1]
       den_l_input(den_lup)
     }
-    ind = which(upload == 'zones.shp')
+    ind = which(upload == 'zones.zip')
     if (length(ind)!=0) {
-      zones_updated = st_read(upload$datapath[ind])
+      # get directory
+      zones_exportPath = unlist(strsplit(upload$datapath, split=paste((ind-1),'.zip', sep = ""), fixed=TRUE))[1]
+      
+      # unzip in directory
+      unzip(upload$datapath[ind], exdir = zones_exportPath)
+      zones_updated = st_read(paste(zones_exportPath, 'zones.shp', sep=""))
       zones_updated = zones_updated[order(zones_updated$layer),]
+      
+      # determine centroids
+      zones_updated$center_X = 0
+      zones_updated$center_Y = 0
+      centroids = as.data.frame(st_centroid(zones_updated$geometry))
+      for (i in 1:nrow(centroids)) {
+        centroids$center_X[i] = centroids$geometry[[i]][[1]]
+        centroids$center_Y[i] = centroids$geometry[[i]][[2]]
+      }
+      zones_updated$center_X = centroids$center_X
+      zones_updated$center_Y = centroids$center_Y
       zones_input(zones_updated)
     }
-    ind = which(upload == 'muc.shp')
-    if (length(ind)!=0) {
-      shp_updated = st_read(upload$datapath[ind])
-      shp_input(shp_updated)
-    }
+    #ind = which(upload == 'muc.shp')
+    #if (length(ind)!=0) {
+    #  shp_updated = st_read(upload$datapath[ind])
+    #  shp_input(shp_updated)
+    #}
     ind = which(upload == 'distributionCenters.csv')
     if (length(ind)!=0) {
       d_centers_updated = as.data.frame(read_csv2(upload$datapath[ind], col_types = cols(dcX = col_character(), dcY = col_character(), xcoord = col_character(), ycoord = col_character())))
@@ -294,7 +321,7 @@ serverModeChoice = function(input, output, session){
     den_m <<- isolate(den_m_input())
     den_l <<- isolate(den_l_input())
     congestion <<- isolate(congestion_input())
-    shp <<- isolate(shp_input())
+    #shp <<- isolate(shp_input())
     area <- isolate(area_input())
     d_centers <<- isolate(d_centers_input())
     #updateSelectInput(session, inputId = "choice", choices = as.list(d_centers$dcId))
@@ -307,7 +334,7 @@ serverModeChoice = function(input, output, session){
     # determine distances between AZ and DC
     d1 = abs(outer(zones$center_X,d_centers$dcX, '-'))
     d2 = abs(outer(zones$center_Y,d_centers$dcY, '-'))
-    dist_AZDC = (d1+d2)/1000
+    dist_AZDC <<- (d1+d2)/1000
     colnames(dist_AZDC) = d_centers$dcId
     rownames(dist_AZDC) = zones$layer
   
@@ -524,14 +551,14 @@ serverModeChoice = function(input, output, session){
         colnames(d_point) = c('dcX', 'dcY')
         d_point = st_as_sf(d_point, coords=c("dcX" , "dcY"), crs=31468)
         tmap_mode('view')
-        p =  tm_basemap(leaflet::providers$CartoDB) + tm_shape(shp) + tm_borders() + tm_shape(zones)+ tm_borders()+tm_fill(col = toString(d_cent), alpha = 0.4, title = paste("Mode Choice for DC",d_cent), colourNA=NULL, drop.levels = TRUE, showNA = FALSE)+tm_shape(d_point)+tm_dots(size=0.1, col = 'red')
+        p =  tm_basemap(leaflet::providers$CartoDB) + tm_shape(zones) + tm_borders()+tm_fill(col = toString(d_cent), alpha = 0.4, title = paste("Mode Choice for DC",d_cent), colourNA=NULL, drop.levels = TRUE, showNA = FALSE)+tm_shape(d_point)+tm_dots(size=0.1, col = 'red') # + tm_shape(shp) + tm_borders() 
         tmap_leaflet(p)
       })
     })
     observeEvent(input$choice_parcel, { # render new density map if dropdown menu is used
       output$density_map = renderLeaflet({
         col_choice = input$choice_parcel
-        p = tm_basemap(leaflet::providers$CartoDB) + tm_shape(shp) + tm_borders() + tm_shape(zones) + tm_borders() + tm_fill(col = col_choice, alpha = 0.4)
+        p = tm_basemap(leaflet::providers$CartoDB) + tm_shape(zones) + tm_borders() + tm_fill(col = col_choice, alpha = 0.4) #+ tm_shape(shp) + tm_borders() 
         tmap_leaflet(p)
       })
     })
@@ -655,7 +682,7 @@ serverModeChoice = function(input, output, session){
     })
     
     output$con_map = renderLeaflet({
-      p = tm_basemap(leaflet::providers$CartoDB) + tm_shape(shp) + tm_borders() + tm_shape(zones) + tm_borders() + tm_fill(col = 'congestion', alpha = 0.4)
+      p = tm_basemap(leaflet::providers$CartoDB) + tm_shape(zones) + tm_borders() + tm_fill(col = 'congestion', alpha = 0.4) #+ tm_shape(shp) + tm_borders() 
       tmap_leaflet(p)
     })
   })
