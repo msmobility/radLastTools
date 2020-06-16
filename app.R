@@ -24,6 +24,7 @@ library(maptools)
 library(RColorBrewer)
 library(matrixStats)
 library(sp)
+library(utils)
 
 this_folder = here()
 

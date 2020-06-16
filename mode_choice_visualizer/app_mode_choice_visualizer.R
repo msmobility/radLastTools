@@ -185,7 +185,7 @@ serverModeChoice = function(input, output, session){
   
   #shp_def = st_read(paste(this_folder,  "/mode_choice_visualizer/input/muc.shp", sep = ""))
   
-  unzip(paste(this_folder, "/mode_choice_visualizer/input/zones.zip", sep = ""), exdir = paste(this_folder, "/mode_choice_visualizer/input/", sep = ""))
+  unzip(paste(this_folder, "/mode_choice_visualizer/input/zones.zip", sep = ""), exdir = paste(this_folder, "/mode_choice_visualizer/input", sep = ""))
   zones_def = st_read(paste(this_folder, "/mode_choice_visualizer/input/zones.shp", sep = ""))
   zones_def = zones_def[order(zones_def$layer),]
   zones_def$center_X = 0
@@ -275,11 +275,11 @@ serverModeChoice = function(input, output, session){
     ind = which(upload == 'zones.zip')
     if (length(ind)!=0) {
       # get directory
-      zones_exportPath = unlist(strsplit(upload$datapath, split=paste((ind-1),'.zip', sep = ""), fixed=TRUE))[1]
-      
+      zones_exportPath = unlist(strsplit(upload$datapath, split=paste("/", (ind-1),'.zip', sep = ""), fixed=TRUE))[1]
+      print(zones_exportPath)
       # unzip in directory
       unzip(upload$datapath[ind], exdir = zones_exportPath)
-      zones_updated = st_read(paste(zones_exportPath, 'zones.shp', sep=""))
+      zones_updated = st_read(paste(zones_exportPath, "/", 'zones.shp', sep=""))
       zones_updated = zones_updated[order(zones_updated$layer),]
       
       # determine centroids
