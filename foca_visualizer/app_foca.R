@@ -18,9 +18,12 @@ cost_four_colors = c(	"#66545e", "#aa6f73", "#eea990", "#f6e0b5")
 foca = fluidPage(
   sidebarLayout(
     sidebarPanel(
-      width = 1,
+      width = 2,
       helpText("Click on update to load the results of the simulations"),
+      checkboxGroupInput("scenario_selector", choiceValues =  NULL, choiceNames = NULL, label = "Available scenarios:"),
       actionButton("update_foca", "Update", width = 100)
+      
+      
     ),
     mainPanel(
       tabBox(
@@ -155,8 +158,13 @@ foca = fluidPage(
 
 serverFoca = function(input, output, session){
   
+  listOfScenarios = read_csv(paste(this_folder, "foca_visualizer/model_data/weights_parcels_by_bound.csv", sep ="/"))
+  scenarios = unique(listOfScenarios$scenario)
+  updateCheckboxGroupInput(session, inputId = "scenario_selector", choices = scenarios)
+  
   weights_parcels = eventReactive(input$update_foca, {
     weight_parcels = read_csv(paste(this_folder, "foca_visualizer/model_data/weights_parcels_by_bound.csv", sep ="/"))
+    weight_parcels = weight_parcels %>% filter(scenario %in% input$scenario_selector)
     weight_parcels$vehicle = factor(weight_parcels$vehicle, levels = vehicle_labels)
     scenarios = unique(weight_parcels$scenario)
     updateSelectInput(session, inputId = "this_scenario", choices = scenarios)
@@ -166,12 +174,15 @@ serverFoca = function(input, output, session){
   
   vehicles = eventReactive(input$update_foca, {
     vehicles = read_csv(paste(this_folder, "foca_visualizer/model_data/vehicles.csv", sep ="/"))
+    vehicles = vehicles %>% filter(scenario %in% input$scenario_selector)
     vehicles$vehicle = factor(vehicles$vehicle, levels = vehicle_labels)
     vehicles
   })
   
   zones_all = eventReactive(input$update_foca, {
-    read_csv(paste(this_folder, "foca_visualizer/model_data/zones_all.csv", sep ="/"))
+    zones_all = read_csv(paste(this_folder, "foca_visualizer/model_data/zones_all.csv", sep ="/"))
+    zones_all = zones_all %>% filter(scenario %in% input$scenario_selector)
+    zones_all
   })
   
   micro_depots = eventReactive(input$update_foca, {
@@ -179,7 +190,9 @@ serverFoca = function(input, output, session){
   })
   
   all_parcels_by_zone = eventReactive(input$update_foca, {
-    read_csv(paste(this_folder, "foca_visualizer/model_data/all_parcels_by_zone.csv", sep ="/"))
+    parcels = read_csv(paste(this_folder, "foca_visualizer/model_data/all_parcels_by_zone.csv", sep ="/"))
+    parcels = parcels %>% filter(scenario %in% input$scenario_selector)
+    parcels
   })
   
   output$share = renderPlotly({
