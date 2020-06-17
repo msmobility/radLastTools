@@ -351,21 +351,18 @@ serverFoca = function(input, output, session){
     zones_all = zones_all() %>% filter(scenario == this_scenario)
     micro_depots = micro_depots()
     shp_muc = st_read(paste(this_folder, "foca_visualizer/maps/muc.shp", sep = "/"))
+    shp_reg = st_read(paste(this_folder, "foca_visualizer/maps/reg.shp", sep = "/"))
 
-    shp_muc  =shp_muc %>% filter(id %in% zones_all$micro_zone) %>% left_join(zones_all, by = c("id" = "micro_zone"))
-
-    shp_muc$microDepotId = as.factor(shp_muc$microDepotId)
+    shp = shp_muc %>% bind_rows(shp_reg)
     
-    shp_md = st_as_sf(micro_depots, coords = c("microDepotX", "microDepotY"), crs = 31468, agr = "constant")
+    shp  = shp %>% filter(id %in% zones_all$micro_zone) %>% left_join(zones_all, by = c("id" = "micro_zone"))
 
+    shp$microDepotId = as.factor(shp$microDepotId)
+    
     p =  tm_basemap(leaflet::providers$CartoDB)
-
     
-    p = p + tm_shape(shp_muc, "Catchment area") +
+    p = p + tm_shape(shp, "Catchment area") +
       tm_polygons(alpha = 0.6, "microDepotId", border.alpha = 0.5)
-    
-    p = p + tm_shape(shp_md, "Micro depot locations") +
-      tm_dots("black")
     
     tmap_leaflet(p)
     
@@ -375,9 +372,13 @@ serverFoca = function(input, output, session){
     this_scenario = input$this_scenario_2
     all_parcels_by_zone = all_parcels_by_zone() %>% filter(scenario == this_scenario, distributionType == "MOTORIZED")
     shp_muc = st_read(paste(this_folder, "foca_visualizer/maps/muc.shp", sep = "/"))
-    shp_muc  = shp_muc %>% right_join(all_parcels_by_zone, by = c("id" = "micro_zone"))
+    shp_reg = st_read(paste(this_folder, "foca_visualizer/maps/reg.shp", sep = "/"))
+    
+    shp = shp_muc %>% bind_rows(shp_reg)
+    
+    shp  = shp %>% right_join(all_parcels_by_zone, by = c("id" = "micro_zone"))
     p =  tm_basemap(leaflet::providers$CartoDB)
-    p = p + tm_shape(shp_muc, "Parcel density") +
+    p = p + tm_shape(shp, "Parcel density") +
       tm_polygons(alpha = 0.6, "n", border.alpha = 0.5,convert2density = T, breaks = seq(1:10)*200)
     tmap_leaflet(p)
     
@@ -387,10 +388,14 @@ serverFoca = function(input, output, session){
     this_scenario = input$this_scenario_2
     all_parcels_by_zone = all_parcels_by_zone() %>% filter(scenario == this_scenario, distributionType == "CARGO_BIKE")
     shp_muc = st_read(paste(this_folder, "foca_visualizer/maps/muc.shp", sep = "/"))
-    shp_muc  = shp_muc %>% right_join(all_parcels_by_zone, by = c("id" = "micro_zone"))
+    shp_reg = st_read(paste(this_folder, "foca_visualizer/maps/reg.shp", sep = "/"))
+    
+    shp = shp_muc %>% bind_rows(shp_reg)
+    
+    shp  = shp %>% right_join(all_parcels_by_zone, by = c("id" = "micro_zone"))
     if(nrow(all_parcels_by_zone) > 0){
       p =  tm_basemap(leaflet::providers$CartoDB)
-      p = p + tm_shape(shp_muc, "Parcel density")
+      p = p + tm_shape(shp, "Parcel density")
       p = p +  tm_polygons(alpha = 0.6, "n", border.alpha = 0.5,convert2density = T, breaks = seq(1:10)*200)
       tmap_leaflet(p)
     } 
