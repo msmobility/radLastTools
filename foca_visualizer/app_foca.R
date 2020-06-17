@@ -7,8 +7,8 @@ this_folder = here()
 description = read.csv(paste(this_folder,"foca_visualizer/model_data/text.csv", sep = "/"), row.names = 1, as.is = T)
 
 vehicle_labels = c("Cargo bike", "Feeder (micro depot)", "Van","Feeder (parcel shop)", "Long-distance")
-color_vehicles = c("#8cc37b", "#438771", "#455089", "#707a8b", "#bfbfbf")
-color_vehicles_without_feeder = c("#8cc37b", "#455089", "#707a8b", "#bfbfbf")
+color_vehicles = c("Cargo bike" = "#8cc37b", "Feeder (micro depot)" =  "#438771",  "Van" = "#455089","Feeder (parcel shop)" =  "#707a8b", "Long-distance"= "#bfbfbf")
+color_vehicles_without_feeder = c("Cargo bike" = "#8cc37b", "Van" = "#455089", "Feeder (parcel shop)" =  "#707a8b", "Long-distance" = "#bfbfbf")
 
 cost_types_levels = c("dist_cost", "time_cost",  "service_cost", "extra_handling_cost")
 cost_types_labels = c("Distance-dependent vehicle costs", "Time-dependent costs", "Service costs", "Extra-handling costs at micro depots")
@@ -111,9 +111,7 @@ foca = fluidPage(
                    sliderInput(inputId = "driver_cost_h",
                                label = "Driver cost per hour", min = 0, max = 60, value = 25, step = 0.1),
                    sliderInput(inputId = "rider_cost_h",
-                               label = "Rider cost per hour", min = 0, max = 60, value = 25, step = 0.1),
-                   numericInput(inputId = "y_axis",
-                               label = "Maximum value of vertical axis", value = 80000)
+                               label = "Rider cost per hour", min = 0, max = 60, value = 25, step = 0.1)
                  )
           ),
           column(10,
@@ -270,7 +268,6 @@ serverFoca = function(input, output, session){
       mutate(co2_kg = (fuel * as.numeric(input$g_co2_l_diesel) + electricity * as.numeric(input$g_co2_kwh))/1000) %>%
       mutate(case = "a) Reference (all diesel)")
     
-    max_value = sum(vehicles_all_diesel$co2_kg) * 1.25 / length(unique(vehicles_all_diesel$scenario))
     
     vehicles_all_with_ev = vehicles_all %>% 
       mutate(distance_diesel = distance * if_else(vehicle == "Cargo bike",0,if_else(vehicle == "Long-distance", 1 - as.numeric(input$ev_share_ld)/100, 1 - as.numeric(input$ev_share_van)/100))) %>%
@@ -288,7 +285,7 @@ serverFoca = function(input, output, session){
       geom_bar(stat = "identity", position = "stack") + theme_bw() +
       theme(axis.text.x = element_text(angle = 90),legend.position = "bottom") + 
       scale_fill_manual(values = color_vehicles) + 
-      scale_y_continuous(expand = c(0,0), limits = c(0,max_value)) + 
+      scale_y_continuous(expand = c(0,0)) + 
       facet_wrap(.~case)
     ggplotly(p, height = 800)
 
@@ -339,7 +336,7 @@ serverFoca = function(input, output, session){
     p = ggplot(costs, aes(x = scenario, y = cost, fill = cost_type)) +
       geom_bar(stat = "identity", position = "stack") + theme_bw() +
       theme(axis.text.x = element_text(angle = 90), legend.position = "bottom") + 
-      scale_y_continuous(expand = c(0,0), limits = c(0, input$y_axis)) + 
+      scale_y_continuous(expand = c(0,0)) + 
       scale_fill_manual(name  ="Cost type", values = cost_four_colors) + 
       facet_grid(.~vehicle)
     ggplotly(p, height = 800)
