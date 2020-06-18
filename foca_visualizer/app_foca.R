@@ -29,9 +29,9 @@ foca = fluidPage(
       tabBox(
         width = "75%",
         tabPanel(
-          title = "Share",
+          title = "Parcels",
           column(2,
-                 h4("Share of parcels"),
+                 h4("Number of parcels"),
                  helpText(description["share",])
           ),
           column(8,
@@ -201,10 +201,9 @@ serverFoca = function(input, output, session){
       facet_grid(toDestination~customer_type) + theme_bw() + 
       theme(axis.text.x = element_text(angle = 90)) + 
       scale_fill_manual(values = color_vehicles_without_feeder, name = "Vehicle type") +
-      xlab("Scenario") + ylab("Number of parcels by vehicle type and market") + 
+      xlab("Scenario") + ylab("Parcels") + 
       scale_y_continuous(expand = c(0,0))
     ggplotly(p, height = 800)
-    
   })
   
   output$parcel_table = renderTable({
@@ -220,7 +219,7 @@ serverFoca = function(input, output, session){
       facet_wrap(.~customer_type) + theme_bw()  + 
       theme(axis.text.x = element_text(angle = 90)) + 
       scale_fill_manual(values = color_vehicles) + 
-      xlab("Scenario") + ylab("Number of tours by vehicle type") + 
+      xlab("Scenario") + ylab("Tours") + 
       scale_y_continuous(expand = c(0,0))
     ggplotly(p, height = 800)
     
@@ -232,7 +231,7 @@ serverFoca = function(input, output, session){
       geom_bar(stat = "identity", position = "stack") + theme_bw() + 
       theme(axis.text.x = element_text(angle = 90)) + 
       scale_fill_manual(values = color_vehicles) + 
-      xlab("Scenario") + ylab("Distance travelled by vehicle type (km)")+ 
+      xlab("Scenario") + ylab("Distance (km)")+ 
       scale_y_continuous(expand = c(0,0))
     ggplotly(p, height = 800)
     
@@ -244,6 +243,7 @@ serverFoca = function(input, output, session){
       geom_bar(stat = "identity", position = "stack") + theme_bw() + 
       theme(axis.text.x = element_text(angle = 90)) + 
       scale_fill_manual(values = color_vehicles) + 
+      xlab("Scenario") + ylab("Time (h)") + 
       scale_y_continuous(expand = c(0,0))
     ggplotly(p, height = 800)
     
@@ -285,7 +285,8 @@ serverFoca = function(input, output, session){
       geom_bar(stat = "identity", position = "stack") + theme_bw() +
       theme(axis.text.x = element_text(angle = 90),legend.position = "bottom") + 
       scale_fill_manual(values = color_vehicles) + 
-      scale_y_continuous(expand = c(0,0)) + 
+      scale_y_continuous(expand = c(0,0)) +
+      xlab("Scenario") + ylab("CO2 Emissions (Kg)") + 
       facet_wrap(.~case)
     ggplotly(p, height = 800)
 
@@ -338,6 +339,7 @@ serverFoca = function(input, output, session){
       theme(axis.text.x = element_text(angle = 90), legend.position = "bottom") + 
       scale_y_continuous(expand = c(0,0)) + 
       scale_fill_manual(name  ="Cost type", values = cost_four_colors) + 
+      xlab("Scenario") + ylab("Cost (EUR)") + 
       facet_grid(.~vehicle)
     ggplotly(p, height = 800)
     

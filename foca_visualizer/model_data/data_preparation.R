@@ -8,7 +8,12 @@ scenario_folders = c(
   "60_cargo_bike_dc20_v3",
   "80_cargo_bike_dc20_v3",
   "100_cargo_bike_dc20_v3",
-  "0_cargo_bike_dc10"
+  "0_cargo_bike_dc10",
+  "20_cargo_bike_dc10",
+  "40_cargo_bike_dc10",
+  "60_cargo_bike_dc10",
+  "80_cargo_bike_dc10",
+  "100_cargo_bike_dc10"
 )
 
 scenarios = c(
@@ -18,18 +23,27 @@ scenarios = c(
   60,
   80,
   100,
-  "0reg"
+  "0reg",
+  "20reg",
+  "40reg",
+  "60reg",
+  "80reg",
+  "100reg"
 )
 
 scenario_pretty_names = c(
-  "1-0% MUC",
-  "2-20% MUC",
-  "3-40% MUC",
-  "4-60% MUC",
-  "5-80% MUC",
-  "6-100% MUC",
-  "7-0% REG"
-  
+  "01-0% MUC",
+  "02-20% MUC",
+  "03-40% MUC",
+  "04-60% MUC",
+  "05-80% MUC",
+  "06-100% MUC",
+  "07-0% REG",
+  "08-20% REG",
+  "09-40% REG",
+  "10-60% REG",
+  "11-80% REG",
+  "12-100% REG"
 )
 
 distribution_centers = c(
@@ -39,6 +53,11 @@ distribution_centers = c(
   20,
   20,
   20,
+  10,
+  10,
+  10,
+  10,
+  10,
   10
 )
 
