@@ -120,7 +120,7 @@ modeChoice = fluidPage(
                  br(),
                  br(),
                  br(),
-                 selectInput(inputId = "choice_parcel", label = "Select demand class", choices = as.list(c('All','L','M','S','XS'))),
+                 selectInput(inputId = "choice_parcel", label = "Select demand class", choices = as.list(c('all','L','M','S','XS'))),
                  leafletOutput("density_map"), # map showing the parcel densities per zone
                  br(),
                  br()
@@ -180,8 +180,8 @@ serverModeChoice = function(input, output, session){
   d_centers_def$ycoord = as.double(d_centers_def$ycoord)
   
   d_centers_def <<- d_centers_def
-  
-  updateSelectInput(session, inputId = "choice", choices = as.list(d_centers_def$dcId))
+  choices = c('Positions of all distribution centers',as.list(d_centers_def$dcId))
+  updateSelectInput(session, inputId = "choice", choices = choices)
   
   #shp_def = st_read(paste(this_folder,  "/mode_choice_visualizer/input/muc.shp", sep = ""))
   
@@ -307,7 +307,8 @@ serverModeChoice = function(input, output, session){
       d_centers_updated$xcoord = as.double(d_centers_updated$xcoord)
       d_centers_updated$ycoord = as.double(d_centers_updated$ycoord)
       
-      updateSelectInput(session, inputId = "choice", choices = as.list(d_centers_updated$dcId))
+      choices = c('Positions of all distribution centers',as.list(d_centers_updated$dcId))
+      updateSelectInput(session, inputId = "choice", choices = choices)
       d_centers_input(d_centers_updated)
   }
   })
@@ -509,7 +510,7 @@ serverModeChoice = function(input, output, session){
     zones$S = rowSums(den_s)
     zones$M = rowSums(den_m)
     zones$L = rowSums(den_l)
-    zones$All = zones$XS + zones$S + zones$M + zones$L
+    zones$all = zones$XS + zones$S + zones$M + zones$L
     
     # determine cost for all truck delivery and for selected mode choice
     # naming of variable is bad as allTruck_cost also contains cost of selected mdoe choice
@@ -545,20 +546,31 @@ serverModeChoice = function(input, output, session){
     zones = dplyr::bind_cols(zones,congestion)
     
     observeEvent(input$choice, { # render new mode map if dropdown menu is used
+      if (strcmp(input$choice, 'Positions of all distribution centers')==TRUE) {
+        message("im If")
+        output$mode_map = renderLeaflet({
+        d_points = cbind.data.frame(d_centers[,'dcName'],d_centers[,'xcoord'],d_centers[,'ycoord'],d_centers[,'dcX'],d_centers[,'dcY'])
+        colnames(d_points) = c('Name','Lon','Lat', 'EPSG:31468X', 'EPSG:31468Y')
+        d_points = d_point = st_as_sf(d_points, coords=c('EPSG:31468X' , 'EPSG:31468Y'), crs=31468)
+        p =  tm_basemap(leaflet::providers$CartoDB) + tm_shape(zones) + tm_borders()+tm_shape(d_points)+tm_dots(size=0.1, col = 'red') # + tm_shape(shp) + tm_borders() 
+        tmap_leaflet(p)
+        })
+      }
+      else {
       d_cent = input$choice
       output$mode_map = renderLeaflet({
-        d_point = cbind.data.frame(d_centers[toString(which(d_centers$dcId==d_cent)), 'dcX'], d_centers[toString(which(d_centers$dcId==d_cent)), 'dcY'])
-        colnames(d_point) = c('dcX', 'dcY')
-        d_point = st_as_sf(d_point, coords=c("dcX" , "dcY"), crs=31468)
-        tmap_mode('view')
+        d_point = cbind.data.frame(d_centers[toString(which(d_centers$dcId==d_cent)), 'dcName'], d_centers[toString(which(d_centers$dcId==d_cent)), 'xcoord'], d_centers[toString(which(d_centers$dcId==d_cent)), 'ycoord'], d_centers[toString(which(d_centers$dcId==d_cent)), 'dcX'], d_centers[toString(which(d_centers$dcId==d_cent)), 'dcY'])
+        colnames(d_point) = c('Name','Lon','Lat', 'EPSG:31468X', 'EPSG:31468Y')
+        d_point = st_as_sf(d_point, coords=c('EPSG:31468X', 'EPSG:31468Y'), crs=31468)
         p =  tm_basemap(leaflet::providers$CartoDB) + tm_shape(zones) + tm_borders()+tm_fill(col = toString(d_cent), alpha = 0.4, title = paste("Mode Choice for DC",d_cent), colourNA=NULL, drop.levels = TRUE, showNA = FALSE)+tm_shape(d_point)+tm_dots(size=0.1, col = 'red') # + tm_shape(shp) + tm_borders() 
         tmap_leaflet(p)
       })
+    }
     })
     observeEvent(input$choice_parcel, { # render new density map if dropdown menu is used
       output$density_map = renderLeaflet({
         col_choice = input$choice_parcel
-        p = tm_basemap(leaflet::providers$CartoDB) + tm_shape(zones) + tm_borders() + tm_fill(col = col_choice, alpha = 0.4) #+ tm_shape(shp) + tm_borders() 
+        p = tm_basemap(leaflet::providers$CartoDB) + tm_shape(zones) + tm_borders() + tm_fill(col = col_choice, alpha = 0.4, title = paste("Densities per zone of ",col_choice,"parcels")) #+ tm_shape(shp) + tm_borders() 
         tmap_leaflet(p)
       })
     })
@@ -682,7 +694,7 @@ serverModeChoice = function(input, output, session){
     })
     
     output$con_map = renderLeaflet({
-      p = tm_basemap(leaflet::providers$CartoDB) + tm_shape(zones) + tm_borders() + tm_fill(col = 'congestion', alpha = 0.4) #+ tm_shape(shp) + tm_borders() 
+      p = tm_basemap(leaflet::providers$CartoDB) + tm_shape(zones) + tm_borders() + tm_fill(col = 'congestion', alpha = 0.4, title = "Congestion factors") #+ tm_shape(shp) + tm_borders() 
       tmap_leaflet(p)
     })
   })

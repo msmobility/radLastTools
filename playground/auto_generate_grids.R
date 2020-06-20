@@ -66,6 +66,7 @@ ui = fluidPage(
 server = function(input, output, session){
   
   shp_city = st_read(paste(this_folder, "foca_visualizer/maps/muc.shp", sep = "/"))
+  germany <<- st_read("landkreise-in-germany.shp")
   
   demand = reactiveVal(value = data.frame(id = 0,
                                           share_xs  =0.25,
@@ -116,7 +117,9 @@ server = function(input, output, session){
   output$map = renderLeaflet({
     grid = grid()
     p =  tm_basemap(leaflet::providers$CartoDB)
+    p = p + tm_shape(germany, "Germany") +  tm_borders()
     p = p + tm_shape(grid, "Grid")
+
     p = p +  tm_polygons(alpha = 0.) + tm_text("id")
     p = p + tm_shape(shp_city, "City")
     p = p +  tm_polygons(alpha = 0.2, col = "gray", border.alpha = 0)
