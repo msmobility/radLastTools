@@ -2,10 +2,10 @@ object;zone;dcId;dcName;dcX;dcY;commodityGroup;xcoord;ycoord
 distributionCenter;9162;13;GLS in Geretsried (Depot 81);4457757.969;5305920.81;PACKET;11.43370932;47.89010705
 distributionCenter;9162;14;DPD in Geretsried (Depot 182);4457950.379;5305641.42;PACKET;11.4363093;47.88760706
 distributionCenter;9162;16;UPS Depot Garching;4471220.59;5346190.346;PACKET;11.61100682;48.25300647
-distributionCenter;9162;17;UPS Depot M棠题錩nchen Ost / Kirchheim;4482549.362;5335380.59;PACKET;11.76400667;48.15620695
+distributionCenter;9162;17;UPS Depot Muenchen Ost / Kirchheim;4482549.362;5335380.59;PACKET;11.76400667;48.15620695
 distributionCenter;9162;19;UPS Depot Wolfratshausen;4457220.712;5307092.307;PACKET;11.42640941;47.90060704
-distributionCenter;9162;20;DHL Zustellbasis Neuhausen-Nymphenburg (M棠题錩nchen City);4464678.284;5334217.782;PACKET;11.52390746;48.14500687
-distributionCenter;9162;21;DHL Zustellbasis M棠题錩nchen Riesenfeld MechZB;4467452.133;5339093.975;PACKET;11.56080711;48.18900672
-distributionCenter;9162;22;DHL Zustellbasis in M棠题錩nchen Neuaubing MechZB;4457007.608;5333491.944;PACKET;11.42090821;48.13800658
+distributionCenter;9162;20;DHL Zustellbasis Neuhausen-Nymphenburg (Muenchen City);4464678.284;5334217.782;PACKET;11.52390746;48.14500687
+distributionCenter;9162;21;DHL Zustellbasis Muenchen Riesenfeld MechZB;4467452.133;5339093.975;PACKET;11.56080711;48.18900672
+distributionCenter;9162;22;DHL Zustellbasis in Muenchen Neuaubing MechZB;4457007.608;5333491.944;PACKET;11.42090821;48.13800658
 distributionCenter;9162;23;DHL Zustellbasis in Ottobrunn;4473898.545;5326039.884;PACKET;11.64830739;48.0719073
-distributionCenter;9162;24;DHL Zustellbasis in Unterschlei棠躺妩heim;4469904.65;5347309.136;PACKET;11.59320682;48.26300634
+distributionCenter;9162;24;DHL Zustellbasis in Unterschleissheim;4469904.65;5347309.136;PACKET;11.59320682;48.26300634
