@@ -49,7 +49,6 @@ ui = fluidPage(
     tabPanel("Simulation model analysis", foca),
     tabPanel("File Uploader", fileUploader)
   )
-
 )
 
 

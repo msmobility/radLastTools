@@ -173,11 +173,23 @@ serverModeChoice = function(input, output, session){
   
   d_centers_file = paste(this_folder, "/mode_choice_visualizer/input/distributionCenters.csv", sep = "")
   
-  d_centers_def = read_csv2(d_centers_file, col_types = cols(dcX = col_character(), dcY = col_character(), xcoord = col_character(), ycoord = col_character()))
-  d_centers_def$dcX = as.double(d_centers_def$dcX)
-  d_centers_def$dcY = as.double(d_centers_def$dcY)
+  d_centers_def = read_csv2(d_centers_file, col_types = cols(xcoord = col_character(), ycoord = col_character()))
   d_centers_def$xcoord = as.double(d_centers_def$xcoord)
   d_centers_def$ycoord = as.double(d_centers_def$ycoord)
+  
+  # convert to sf and transform to epsg 31468
+  d_centers_def = st_as_sf(d_centers_def, coords = c('xcoord','ycoord'), crs = 4326, remove = FALSE)
+  d_centers_def = st_transform(d_centers_def, crs = 31468)
+  d_centers_def$dcX = 0
+  d_centers_def$dcY = 0
+  centroids <<- as.data.frame(st_centroid(d_centers_def$geometry))
+  for (i in 1:nrow(centroids)) {
+    centroids$dcX[i] = centroids$geometry[[i]][[1]]
+    centroids$dcY[i] = centroids$geometry[[i]][[2]]
+  }
+  d_centers_def$dcX = centroids$dcX
+  d_centers_def$dcY = centroids$dcY
+  
   
   d_centers_def <<- d_centers_def
   choices = c('Positions of all distribution centers',as.list(d_centers_def$dcId))
@@ -187,7 +199,8 @@ serverModeChoice = function(input, output, session){
   
   unzip(paste(this_folder, "/mode_choice_visualizer/input/zones.zip", sep = ""), exdir = paste(this_folder, "/mode_choice_visualizer/input", sep = ""))
   zones_def = st_read(paste(this_folder, "/mode_choice_visualizer/input/zones.shp", sep = ""))
-  zones_def = zones_def[order(zones_def$layer),]
+  #zones_def = zones_def[order(zones_def$layer),]
+  zones_def = st_transform(zones_def, crs = 31468) # transform to EPSG:31468
   zones_def$center_X = 0
   zones_def$center_Y = 0
   centroids = as.data.frame(st_centroid(zones_def$geometry))
@@ -280,7 +293,8 @@ serverModeChoice = function(input, output, session){
       # unzip in directory
       unzip(upload$datapath[ind], exdir = zones_exportPath)
       zones_updated = st_read(paste(zones_exportPath, "/", 'zones.shp', sep=""))
-      zones_updated = zones_updated[order(zones_updated$layer),]
+      #zones_updated = zones_updated[order(zones_updated$layer),]
+      zones_updated = st_transform(zones_updated, crs = 31468) # transform to EPSG:31468
       
       # determine centroids
       zones_updated$center_X = 0
@@ -301,12 +315,22 @@ serverModeChoice = function(input, output, session){
     #}
     ind = which(upload == 'distributionCenters.csv')
     if (length(ind)!=0) {
-      d_centers_updated = as.data.frame(read_csv2(upload$datapath[ind], col_types = cols(dcX = col_character(), dcY = col_character(), xcoord = col_character(), ycoord = col_character())))
-      d_centers_updated$dcX = as.double(d_centers_updated$dcX)
-      d_centers_updated$dcY = as.double(d_centers_updated$dcY)
+      d_centers_updated = as.data.frame(read_csv2(upload$datapath[ind], col_types = cols(xcoord = col_character(), ycoord = col_character())))
       d_centers_updated$xcoord = as.double(d_centers_updated$xcoord)
       d_centers_updated$ycoord = as.double(d_centers_updated$ycoord)
       
+      d_centers_updated = st_as_sf(d_centers_updated, coords = c('xcoord','ycoord'), crs = 4326, remove = FALSE)
+      d_centers_updated = st_transform(d_centers_updated, crs = 31468)
+      
+      d_centers_updated$dcX = 0
+      d_centers_updated$dcY = 0
+      centroids <<- as.data.frame(st_centroid(d_centers_updated$geometry))
+      for (i in 1:nrow(centroids)) {
+        centroids$dcX[i] = centroids$geometry[[i]][[1]]
+        centroids$dcY[i] = centroids$geometry[[i]][[2]]
+      }
+      d_centers_updated$dcX = centroids$dcX
+      d_centers_updated$dcY = centroids$dcY
       choices = c('Positions of all distribution centers',as.list(d_centers_updated$dcId))
       updateSelectInput(session, inputId = "choice", choices = choices)
       d_centers_input(d_centers_updated)
@@ -366,7 +390,7 @@ serverModeChoice = function(input, output, session){
     # determine cost || looping is not really what r is made for so I might look 
     # for a different solution if performance is too bad
     for (i in 1:nrow(d_centers)) { # over all distribution centers
-      zones_active = which(active[,i]==TRUE)
+      zones_active <<- which(active[,i]==TRUE)
       total_cost = matrix(0, ncol=5, nrow=length(zones_active))
       colnames(total_cost) = c('0000', '1000', '1100', '1110', '1111') # if 1 then demand class (in order xs, s,m,l) is served by bike, truck otherwise
       rownames(total_cost) = zones_active
@@ -412,11 +436,11 @@ serverModeChoice = function(input, output, session){
               cost_log[ind_c, 'size'] = 'all'
               cost_log[ind_c, 'mode'] = m
               cost_log[ind_c,'AZ'] = names(zones_active[j])
-              cost_log[ind_c,'DC'] = d_centers[i,'dcId']
+              cost_log[ind_c,'DC'] = d_centers[i,'dcId'][[1]]
             }
             else {
               cost_log[ind_c,'AZ'] = names(zones_active[j])
-              cost_log[ind_c,'DC'] = d_centers[i,'dcId']
+              cost_log[ind_c,'DC'] = d_centers[i,'dcId'][[1]]
               cost_log[ind_c,'size'] = l
               cost_log[ind_c,'mode'] = m
               cost_log[ind_c, 7:10] = cost_truck[l,]*(1-isBike[l])
@@ -549,9 +573,11 @@ serverModeChoice = function(input, output, session){
       if (strcmp(input$choice, 'Positions of all distribution centers')==TRUE) {
         message("im If")
         output$mode_map = renderLeaflet({
-        d_points = cbind.data.frame(d_centers[,'dcName'],d_centers[,'xcoord'],d_centers[,'ycoord'],d_centers[,'dcX'],d_centers[,'dcY'])
-        colnames(d_points) = c('Name','Lon','Lat', 'EPSG:31468X', 'EPSG:31468Y')
-        d_points = d_point = st_as_sf(d_points, coords=c('EPSG:31468X' , 'EPSG:31468Y'), crs=31468)
+        d_points <- d_centers
+        d_points$dcId = NULL
+        d_points$dcY = NULL
+        d_points$dcX = NULL
+        colnames(d_points) = c('Name','Lon','Lat', 'geometry')
         p =  tm_basemap(leaflet::providers$CartoDB) + tm_shape(zones) + tm_borders()+tm_shape(d_points)+tm_dots(size=0.1, col = 'red') # + tm_shape(shp) + tm_borders() 
         tmap_leaflet(p)
         })
@@ -559,9 +585,11 @@ serverModeChoice = function(input, output, session){
       else {
       d_cent = input$choice
       output$mode_map = renderLeaflet({
-        d_point = cbind.data.frame(d_centers[toString(which(d_centers$dcId==d_cent)), 'dcName'], d_centers[toString(which(d_centers$dcId==d_cent)), 'xcoord'], d_centers[toString(which(d_centers$dcId==d_cent)), 'ycoord'], d_centers[toString(which(d_centers$dcId==d_cent)), 'dcX'], d_centers[toString(which(d_centers$dcId==d_cent)), 'dcY'])
-        colnames(d_point) = c('Name','Lon','Lat', 'EPSG:31468X', 'EPSG:31468Y')
-        d_point = st_as_sf(d_point, coords=c('EPSG:31468X', 'EPSG:31468Y'), crs=31468)
+        d_point = d_centers[which(d_centers$dcId == d_cent),]
+        d_point$dcId = NULL
+        d_point$dcY = NULL
+        d_point$dcX = NULL
+        colnames(d_point) = c('Name','Lon','Lat', 'geometry')
         p =  tm_basemap(leaflet::providers$CartoDB) + tm_shape(zones) + tm_borders()+tm_fill(col = toString(d_cent), alpha = 0.4, title = paste("Mode Choice for DC",d_cent), colourNA=NULL, drop.levels = TRUE, showNA = FALSE)+tm_shape(d_point)+tm_dots(size=0.1, col = 'red') # + tm_shape(shp) + tm_borders() 
         tmap_leaflet(p)
       })
