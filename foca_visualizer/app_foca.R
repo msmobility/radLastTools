@@ -19,9 +19,9 @@ foca = fluidPage(
   sidebarLayout(
     sidebarPanel(
       width = 2,
-      helpText("Click on update to load the results of the simulations"),
-      checkboxGroupInput("scenario_selector", choiceValues =  NULL, choiceNames = NULL, label = "Available scenarios:"),
-      actionButton("update_foca", "Update", width = 100)
+      helpText("Klicken Sie auf Aktualisieren, um die Ergebnisse der Simulationen zu laden"),
+      checkboxGroupInput("scenario_selector", choiceValues =  NULL, choiceNames = NULL, label = "Verfügbare Szenarien:"),
+      actionButton("update_foca", "Aktualisieren", width = 100)
       
       
     ),
@@ -29,18 +29,18 @@ foca = fluidPage(
       tabBox(
         width = "75%",
         tabPanel(
-          title = "Parcels",
+          title = "Pakete",
           column(2,
-                 h4("Number of parcels"),
+                 h4("Anzahl von Paketen"),
                  helpText(description["share",])
           ),
           column(8,
                  plotlyOutput("share")
           )),
         tabPanel(
-          title = "Tours",
+          title = "Touren",
           column(2,
-                 h4("Number of tours"),
+                 h4("Anzah von Touren"),
                  helpText(description["tours",])
           ),
           column(8,
@@ -49,9 +49,9 @@ foca = fluidPage(
           
         ),
         tabPanel(
-          title = "Distance",
+          title = "Distanz",
           column(2,
-                 h4("Distance travelled"),
+                 h4("Zurückgelegten Fahrzeugkilometer"),
                  helpText(description["distance",])
           ),
           column(8,
@@ -59,9 +59,9 @@ foca = fluidPage(
           )
         ),
         tabPanel(
-          title = "Time",
+          title = "Fahrzeit",
           column(2,
-                 h4("Operating time"),
+                 h4("Gesamtfahrzeit"),
                  helpText(description["time",])
           ),
           column(8,
@@ -69,49 +69,49 @@ foca = fluidPage(
           )
         ),
         tabPanel(
-          title = "Emissions",
+          title = "Emissionen",
           column(2,
-                 h4("Emissions"),
+                 h4("Emissionen"),
                  helpText(description["emissions",]),
                  inputPanel(
                    h5("Basic settings:"),
-                   sliderInput(inputId = "ev_share_van", label = "Percent of electric vans:", min = 0, max = 100, value = 0),
-                   sliderInput(inputId = "ev_share_ld", label = "Percent of electric long-distance trucks:", min = 0, max = 100, value = 0)
+                   sliderInput(inputId = "ev_share_van", label = "Prozent von elektrischen Transporter:", min = 0, max = 100, value = 0),
+                   sliderInput(inputId = "ev_share_ld", label = "Prozent von elektrischen Fernvekehr-LKW", min = 0, max = 100, value = 0)
                    ),
                  inputPanel(
                    h5("Advanced settings:"),
-                   numericInput(inputId = "l_diesel_100_km", label = "Fuel consumption (l/100 km)", value = 20),
-                   numericInput(inputId = "g_co2_l_diesel", label = "Fuel CO2 emissions (g/l)", value = 3170),
-                   numericInput(inputId = "kwh_100_km_e_van", label = "Electric consumption of vans (kWh/100 km)", value = 50),
-                   numericInput(inputId = "kwh_100_km_e_bike", label = "Electric consumption of cargo bikes (kWh/100 km)", value = 3),
-                   numericInput(inputId = "g_co2_kwh", label = "CO2 emissions by electricity production (g/kWh)", value = 518)
+                   numericInput(inputId = "l_diesel_100_km", label = "Kraftstoffverbrauch eines Dieselfahrzeugs (l/100 km)", value = 20),
+                   numericInput(inputId = "g_co2_l_diesel", label = "Kraftstoff CO2 Emissionen (g/l)", value = 3170),
+                   numericInput(inputId = "kwh_100_km_e_van", label = "Stromverbrauch eines Elektrotransporters (kWh/100 km)", value = 50),
+                   numericInput(inputId = "kwh_100_km_e_bike", label = "Stromverbrauch eines Lastenrades (kWh/100 km)", value = 3),
+                   numericInput(inputId = "g_co2_kwh", label = "CO2 Emissionen aus Stroerzeugung (g/kWh)", value = 518)
                  )
           ),
           column(10,
                  plotlyOutput("carbon_dioxide"))
         ),
         tabPanel(
-          title = "Costs",
+          title = "Kosten",
           column(2,
                  h4("Costs"),
                  helpText(description["costs",]),
                  inputPanel(
                    checkboxGroupInput(inputId = "segments", 
-                                      label = "Segments", choices = c("Cargo bike", "Feeder (micro depot)", "Van","Feeder (parcel shop)"), selected = c("Cargo bike", "Feeder (micro depot)", "Van")),
+                                      label = "Segmente", choices = c("Cargo bike", "Feeder (micro depot)", "Van","Feeder (parcel shop)"), selected = c("Cargo bike", "Feeder (micro depot)", "Van")),
                    sliderInput(inputId = "cost_km_van",
-                               label = "Vehicle costs per km (Van)", min = 0.0, max = 5.0, value = 1.7,step = 0.1),
+                               label = "Distanzsabhängig Kosten (Transporter) (EUR/km)", min = 0.0, max = 5.0, value = 1.7,step = 0.1),
                    sliderInput(inputId = "cost_km_bike",
-                               label = "Vehicle costs per km (Cargo bike)", min = 0.0, max = 5.0, value = 0.9, step = 0.1),
+                               label = "Distanzsabhängig Kosten (Lastenrad) (EUR/km)", min = 0.0, max = 5.0, value = 0.9, step = 0.1),
                    sliderInput(inputId = "cost_parcel_van",
-                               label = "Service cost costs per parcel (Van)", min = 0.0, max = 5.0, value = 1.3, step = 0.1),
+                               label = "Servicekosten (Transporter) (EUR/Pakete)", min = 0.0, max = 5.0, value = 1.3, step = 0.1),
                    sliderInput(inputId = "cost_parcel_bike",
-                               label = "Service cost costs per parcel (Cargo bike)", min = 0.0, max = 5.0, value = 1.1, step = 0.1),
+                               label = "Servicekosten (Lastenrad) (EUR/Pakete)", min = 0.0, max = 5.0, value = 1.1, step = 0.1),
                    sliderInput(inputId = "cost_parcel_handling",
-                               label = "Extra handling costs per kg (at micro depot)", min = 0.0, max = 5.0, value = 0.2, step = 0.1),
+                               label = "Extra Servicekosten in Mikrodepot (EUR/kg)", min = 0.0, max = 5.0, value = 0.2, step = 0.1),
                    sliderInput(inputId = "driver_cost_h",
-                               label = "Driver cost per hour", min = 0, max = 60, value = 25, step = 0.1),
+                               label = "Fahrerkosten Transporter (EUR/h)", min = 0, max = 60, value = 25, step = 0.1),
                    sliderInput(inputId = "rider_cost_h",
-                               label = "Rider cost per hour", min = 0, max = 60, value = 25, step = 0.1)
+                               label = "Radfahrerkosten (EUR/h)", min = 0, max = 60, value = 25, step = 0.1)
                  )
           ),
           column(10,
@@ -119,12 +119,12 @@ foca = fluidPage(
           )
         ),
         tabPanel(
-          title = "Map",
+          title = "Studienbereich",
           column(2,
-                 h4("Study area"),
+                 h4("Studienbereich"),
                  helpText(description["map",]),
                  inputPanel(
-                   selectInput(inputId = "this_scenario", label =  "Scenario:", choices = NULL)
+                   selectInput(inputId = "this_scenario", label =  "Szenario:", choices = NULL)
                  )
           ),
           column(10,
@@ -132,12 +132,12 @@ foca = fluidPage(
           )
         ),
         tabPanel(
-          title = "Density",
+          title = "Paketdichte",
           column(2,
-                 h4("Demand density"),
+                 h4("Dichte der Paketnachfrage"),
                  helpText(description["density",]),
                  inputPanel(
-                   selectInput(inputId = "this_scenario_2", label =  "Scenario:", choices = NULL)
+                   selectInput(inputId = "this_scenario_2", label =  "Szenario:", choices = NULL)
                  )
           ),
           column(5,
@@ -201,7 +201,7 @@ serverFoca = function(input, output, session){
       facet_grid(toDestination~customer_type) + theme_bw() + 
       theme(axis.text.x = element_text(angle = 90)) + 
       scale_fill_manual(values = color_vehicles_without_feeder, name = "Vehicle type") +
-      xlab("Scenario") + ylab("Parcels") + 
+      xlab("Szenario") + ylab("Pakete") + 
       scale_y_continuous(expand = c(0,0))
     ggplotly(p, height = 800)
   })
@@ -219,7 +219,7 @@ serverFoca = function(input, output, session){
       facet_wrap(.~customer_type) + theme_bw()  + 
       theme(axis.text.x = element_text(angle = 90)) + 
       scale_fill_manual(values = color_vehicles) + 
-      xlab("Scenario") + ylab("Tours") + 
+      xlab("Szenario") + ylab("Touren") + 
       scale_y_continuous(expand = c(0,0))
     ggplotly(p, height = 800)
     
@@ -231,7 +231,7 @@ serverFoca = function(input, output, session){
       geom_bar(stat = "identity", position = "stack") + theme_bw() + 
       theme(axis.text.x = element_text(angle = 90)) + 
       scale_fill_manual(values = color_vehicles) + 
-      xlab("Scenario") + ylab("Distance (km)")+ 
+      xlab("Scenario") + ylab("Distanz (km)")+ 
       scale_y_continuous(expand = c(0,0))
     ggplotly(p, height = 800)
     
@@ -243,7 +243,7 @@ serverFoca = function(input, output, session){
       geom_bar(stat = "identity", position = "stack") + theme_bw() + 
       theme(axis.text.x = element_text(angle = 90)) + 
       scale_fill_manual(values = color_vehicles) + 
-      xlab("Scenario") + ylab("Time (h)") + 
+      xlab("Szenario") + ylab("Fahrzeit (h)") + 
       scale_y_continuous(expand = c(0,0))
     ggplotly(p, height = 800)
     
@@ -266,7 +266,7 @@ serverFoca = function(input, output, session){
       mutate(fuel = distance_diesel/1000/100 * fuel_100_km ) %>%
       mutate(electricity = distance_electric/1000/100 * electric_100_km) %>% 
       mutate(co2_kg = (fuel * as.numeric(input$g_co2_l_diesel) + electricity * as.numeric(input$g_co2_kwh))/1000) %>%
-      mutate(case = "a) Reference (all diesel)")
+      mutate(case = "a) Referenz (alle Diesel)")
     
     
     vehicles_all_with_ev = vehicles_all %>% 
@@ -275,7 +275,7 @@ serverFoca = function(input, output, session){
       mutate(fuel = distance_diesel/1000/100 * fuel_100_km ) %>%
       mutate(electricity = distance_electric/1000/100 * electric_100_km) %>% 
       mutate(co2_kg = (fuel * as.numeric(input$g_co2_l_diesel) + electricity * as.numeric(input$g_co2_kwh))/1000) %>%
-      mutate(case = "b) Electrification (Variable share of electric vehicles)")
+      mutate(case = "b) Elektrifizierung (nach Anteil E-Fahrzeugen)")
     
     vehicles_all_2 = vehicles_all_diesel %>% bind_rows(vehicles_all_with_ev)
     
@@ -286,7 +286,7 @@ serverFoca = function(input, output, session){
       theme(axis.text.x = element_text(angle = 90),legend.position = "bottom") + 
       scale_fill_manual(values = color_vehicles) + 
       scale_y_continuous(expand = c(0,0)) +
-      xlab("Scenario") + ylab("CO2 Emissions (Kg)") + 
+      xlab("Szenario") + ylab("CO2 Emissionen (Kg)") + 
       facet_wrap(.~case)
     ggplotly(p, height = 800)
 
@@ -338,8 +338,8 @@ serverFoca = function(input, output, session){
       geom_bar(stat = "identity", position = "stack") + theme_bw() +
       theme(axis.text.x = element_text(angle = 90), legend.position = "bottom") + 
       scale_y_continuous(expand = c(0,0)) + 
-      scale_fill_manual(name  ="Cost type", values = cost_four_colors) + 
-      xlab("Scenario") + ylab("Cost (EUR)") + 
+      scale_fill_manual(name  ="Kostenart", values = cost_four_colors) + 
+      xlab("Szenario") + ylab("Kosten (EUR)") + 
       facet_grid(.~vehicle)
     ggplotly(p, height = 800)
     
@@ -360,7 +360,7 @@ serverFoca = function(input, output, session){
     
     p =  tm_basemap(leaflet::providers$CartoDB)
     
-    p = p + tm_shape(shp, "Catchment area") +
+    p = p + tm_shape(shp, "Einzugsgebiet des Verteilzentrums") +
       tm_polygons(alpha = 0.6, "microDepotId", border.alpha = 0.5)
     
     tmap_leaflet(p)
@@ -377,7 +377,7 @@ serverFoca = function(input, output, session){
     
     shp  = shp %>% right_join(all_parcels_by_zone, by = c("id" = "micro_zone"))
     p =  tm_basemap(leaflet::providers$CartoDB)
-    p = p + tm_shape(shp, "Parcel density") +
+    p = p + tm_shape(shp, "Paketdichte") +
       tm_polygons(alpha = 0.6, "n", border.alpha = 0.5,convert2density = T, breaks = seq(1:10)*200)
     tmap_leaflet(p)
     
