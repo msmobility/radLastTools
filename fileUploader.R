@@ -3,31 +3,22 @@ fileUploader = fluidPage(
     #fluidRow(
     #  column(4,
             br(),
-             h4("File Upload"),
-            helpText(HTML('Please ensure that all input data is provided as .csv-files and named correctly. The shape of analysis zones has to be specified in a shape file. It can be uploaded as a zipped file containing the shape file components: .dbf, .prj, .shp and .shx.')),
+             h4("Datei-Upload"),
+            helpText(HTML('Bitte stellen Sie sicher, dass alle Eingabedaten als .csv-Dateien bereitgestellt und korrekt benannt werden. Die Zonen müssen in einer Shape-Datei definiert werden. Diese kann als gezippte Datei hochgeladen werden, welche die Komponenten der Shape-Datei enthält: .dbf, .prj, .shp und .shx.<br><br>Eine detaillierte Anleitung zum Datei-Upload können Sie unter folgendem Link finden: <br>https://github.com/msmobility/radLastTools/wiki')),
             br(),
             fluidRow(
             column(5,
-                   helpText(HTML('The correct file names are as follows:<br><br> \'area.csv\' areas of zones <br>\'congestion.csv\' congestion factors<br>\'dxs.csv\' parcel densities for XS<br>\'ds.csv\' parcel densities for S<br>\'dm.csv\' parcel densities for M<br>\'dl.csv\' parcel densities for L<br>\'zones.zip\' shapefile of zones'))
+                   helpText(HTML('Die korrekten Dateinamen sind:<br><br> \'area.csv\' Flächenangaben der Zonen  <br>\'distributionCenters.csv\' Koordinaten der Verteilzentren<br>\'congestion.csv\' Staufaktoren<br>\'dxs.csv\' Paketdichten für XS<br>\'ds.csv\' Paketdichten für S<br>\'dm.csv\' Paketdichten für M<br>\'dl.csv\' Paketdichten für L<br>\'zones.zip\' Shapefile der Zonen'))
             ),
             column(7,
-             helpText(HTML("In order to determine a mode choice for the uploaded input, browse and select one or more files, click on \'Confirm upload\' and conduct a new Mode Choice Optimization ")),
-             fileInput(inputId = "replace_inputs", label = "File", multiple = TRUE),
-             actionButton(inputId = "replaceFiles", "Confirm upload"),
+             helpText(HTML("Um die Zustellungsmodi für die hochgeladenen Eingaben zu bestimmen, wählen Sie eine oder mehrere Dateien, klicken auf \'Upload bestätigen\' und ermitteln dann erneut die Zustellungsmodi.")),
+             fileInput(inputId = "replace_inputs", label = "Datei", multiple = TRUE),
+             actionButton(inputId = "replaceFiles", "Upload bestätigen"),
              br(),
              )
             )
   )
-    #  column(8,
-    #        br(),
-    #        br(),
-    #        br(),
-    #        br(),
-      
-    #  )
-    #)
 )
-#)
 
 serverUploader = function(input, output, session){
  }

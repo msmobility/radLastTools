@@ -45,9 +45,9 @@ ui = fluidPage(
   headerPanel(title = NULL, windowTitle = "RadLast tools"),
   navlistPanel(
     widths = c(1,11),
-    tabPanel("Mode choice optimization", modeChoice),
+    tabPanel("Optimierung der Zustellung", modeChoice),
     tabPanel("Simulation model analysis", foca),
-    tabPanel("File Uploader", fileUploader)
+    tabPanel("Datei Upload", fileUploader)
   )
 )
 

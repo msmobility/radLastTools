@@ -10,47 +10,47 @@ modeChoice = fluidPage(
     #position = "right",
     sidebarPanel(
       width = 2,
-      helpText("Click on update to conduct the mode allocation based on the parameters chosen below"),
-      actionButton(inputId = "update", "Update", width = 100),
+      helpText("Klicken Sie auf Aktualisieren um die Zustellungsmodi basierend auf den unten gewählten Parametern zu ermitteln"),
+      actionButton(inputId = "update", "Aktualisieren", width = 100),
       helpText(" "),
       numericInput(inputId = "serv_co_truck",
-                   label = "Service cost truck [EUR/parcel]", value = 1.2585),
+                   label = "Servicekosten LKW [EUR/Paket]", value = 1.2585),
       numericInput(inputId = "serv_co_bike",
-                   label = "Service cost cargo bike [EUR/parcel]", value = 1.0152),
+                   label = "Servicekosten Lastenrad [EUR/Paket]", value = 1.0152),
       numericInput(inputId = "op_co_truck",
-                   label = "Operating cost truck [EUR/km]", value = 1.7765),
+                   label = "Betriebskosten LKW [EUR/km]", value = 1.7765),
       numericInput(inputId = "op_co_bike",
-                   label = "Operating cost cargo bike [EUR/km]", value = 0.9200),
+                   label = "Betriebskosten Lastenrad [EUR/km]", value = 0.9200),
       numericInput(inputId = "ex_co_bike",
-                   label = "Extra handling cost bike [EUR/m3]", value = 8.4),
+                   label = "zusätzliche Bearbeitungskosten Lastenrad [EUR/m3]", value = 8.4),
       numericInput(inputId = "cap_truck",
-                   label = "Capacity truck [m3]", value = 12.5),
+                   label = "Kapazität LKW [m3]", value = 12.5),
       numericInput(inputId = "cap_feeder",
-                   label = "Capacity feeder [m3]", value = 12.5)
+                   label = "Kapazität ?ZUBRINGER? [m3]", value = 12.5)
     ),
     mainPanel(
       tabBox(
         width = "75%",
         tabPanel(
-          title = "Mode allocation",
+          title = "Zustellungsmodi",
           fluidRow(
             column(3,
-                 h4("Mode Allocation"),
+                 h4("Zustellungsmodi"),
                  br(),
-                 helpText(HTML('The map shows the result of the mode allocation for the chosen distribution center.','<br><br>','The distribution modes are:<br> 1: All truck delivery<br>2: Cargo bike for XS <br>3: Cargo bike for XS and S<br>4: Cargo bike for XS, S and M<br> 5: All bike delivery'),
+                 helpText(HTML('Die Karte zeigt die Zustellungsmodi für alle Zonen, in welchen das gewählte Verteilzentrum aktiv ist.','<br><br>','Zustellungsmodi:<br> 1: Reine LKW-Zustellung<br>2: Lastenrad für XS <br>3: Lastenrad für XS und S<br>4: Lastenrad für XS, S und M<br> 5: Reine Lastenrad-Zustellung'),
                  )),
             column(9,
                  br(),
                  br(),
                  br(),
-                 selectInput(inputId = "choice", label = "Select distribution center", choices = NULL),#as.list(d_centers$dcId)), # drop down menu for map
+                 selectInput(inputId = "choice", label = "Wählen Sie ein Verteilzentrum", choices = NULL),#as.list(d_centers$dcId)), # drop down menu for map
                  leafletOutput("mode_map"), # mode choice map
                  br(),
                  br()
           )),
           fluidRow(
             column(3,
-                   helpText(HTML('The figure shows each modes\' total share in the proposed allocation.'),
+                   helpText(HTML('Die Abbildung zeigt die Anteile der einzelnen Modi in der ermittelten Zuweisung.'),
                    )),
             column(9,
               plotlyOutput("pie_mode") # pie chart for shares of modes
@@ -58,12 +58,12 @@ modeChoice = fluidPage(
           )
         ),
         tabPanel(
-          title = "Costs",
+          title = "Kosten",
           fluidRow(
           column(3,
-                 h4("Costs"),
+                 h4("Kosten"),
                  br(),
-                 helpText(HTML('The figure shows the estimated total cost structure of the proposed allocation. For purposes of comparison, the cost structure of an all truck delivery was estimated as well and added to the plot.'))
+                 helpText(HTML('Die Abbildung zeigt die geschätzten Gesamtkosten der vorgeschlagenen Zuweisung. Zu Vergleichszwecken wurde dieser die geschätzte Kostenstruktur einer reinen LKW-Zustellung gegenüber gestellt.'))
               ),
           column(9,
                  br(),
@@ -75,7 +75,7 @@ modeChoice = fluidPage(
           ),
           fluidRow(
             column(3,
-                   helpText(HTML("The histogram depicts the distribution of costs per zone in the proposed allocation.<br><br> Costs are grouped into intervals and plotted on the x-axis. The y-axis represents the number of zones whose costs are within the respective interval."))
+                   helpText(HTML("Das Histogramm zeigt die Verteilung der Kosten pro Zone in der vorgeschlagenen Zuweisung.<br><br> Die Kosten werden in Intervalle gruppiert und auf der x-Achse aufgetragen. Die y-Achse stellt die Anzahl der Zonen dar, deren Kosten innerhalb des jeweiligen Intervalls liegen."))
             ),
             column(9,
                    plotlyOutput("zones_cost_histo") # histogram costs per zone
@@ -83,12 +83,12 @@ modeChoice = fluidPage(
           )
           ),
         tabPanel(
-          title = "Mode of Transport",
+          title = "Transportmittel",
           fluidRow(
           column(3,
-                 h4("Mode of Transport"),
+                 h4("Transportmittel"),
                  br(),
-                 helpText(HTML('The first chart shows the shares of parcels delivered by truck and by cargo bike in the proposed mode allocation.'))
+                 helpText(HTML('Die erste Abbildung zeigt die Anteile der per LKW und Lastenfahrrad zugestellten Pakete in der ermittelten Zuweisung.'))
           ),
           column(9,
                  br(),
@@ -100,7 +100,7 @@ modeChoice = fluidPage(
         fluidRow(
           column(3,
                  br(),
-                 helpText(HTML('The same statistic is depicted here for every demand class individually.'))
+                 helpText(HTML('Die gleiche Statistik wird hier für jede Paketklasse einzeln dargestellt.'))
           ),
           column(9,
                  br(),
@@ -109,18 +109,18 @@ modeChoice = fluidPage(
           )
         )),
         tabPanel(
-          title = "Demand Properties",
+          title = "Nachfrage",
           fluidRow(
           column(3,
-                 h4("Demand Properties"),
+                 h4("Nachfrage"),
                  br(),
-                 helpText(HTML("The map shows the parcel density per zone."))
+                 helpText(HTML("Die Karte zeigt die Paketdichte einer jeden Zone."))
           ),
           column(9,
                  br(),
                  br(),
                  br(),
-                 selectInput(inputId = "choice_parcel", label = "Select demand class", choices = as.list(c('all','L','M','S','XS'))),
+                 selectInput(inputId = "choice_parcel", label = "Wählen Sie eine Paketklasse", choices = as.list(c('gesamt','L','M','S','XS'))),
                  leafletOutput("density_map"), # map showing the parcel densities per zone
                  br(),
                  br()
@@ -128,7 +128,7 @@ modeChoice = fluidPage(
         ),
         fluidRow(
           column(3,
-                 helpText(HTML('The chart shows the shares of each demand class in the input data.'))
+                 helpText(HTML('Die Abbildung zeigt den Anteil einer jeden Paketklasse an der Gesamtnachfrage der eingelesenen Daten.'))
                  ),
           column(9,
                  plotlyOutput("pie_classes"), # pie chart for parcel class shares
@@ -138,7 +138,7 @@ modeChoice = fluidPage(
         ),
         fluidRow(
           column(3,
-                 helpText(HTML("The histogram depicts the distribution of parcel densities per zone and demand class.<br><br> Densities are grouped into intervals and plotted on the x-axis. The y-axis represents the number of zones whose parcel density is within the respective interval."))
+                 helpText(HTML("Das Histogramm stellt die Verteilung der Paketdichten pro Zone und Nachfrageklasse dar.<br><br> Die Dichten werden in Intervallen gruppiert und auf der x-Achse aufgetragen. Die y-Achse stellt die Anzahl der Zonen dar, deren Paketdichte innerhalb des jeweiligen Intervalls liegt."))
           ),
           column(9,
                  plotlyOutput('density_histo') # histogram for densities per zone and parcel class
@@ -146,12 +146,12 @@ modeChoice = fluidPage(
         )
         ),
         tabPanel(
-          title = 'Congestion',
+          title = 'Stau',
           fluidRow(
             column(3,
-                   h4("Congestion"),
+                   h4("Stau"),
                    br(),
-                   helpText(HTML("The map shows the congestion factor per zone."))
+                   helpText(HTML("Die Karte zeigt die Staufaktoren pro Zone."))
             ),
             column(9,
                    br(),
@@ -192,7 +192,7 @@ serverModeChoice = function(input, output, session){
   
   
   d_centers_def <<- d_centers_def
-  choices = c('Positions of all distribution centers',as.list(d_centers_def$dcId))
+  choices = c('Positionen aller Verteilzentren',as.list(d_centers_def$dcId))
   updateSelectInput(session, inputId = "choice", choices = choices)
   
   #shp_def = st_read(paste(this_folder,  "/mode_choice_visualizer/input/muc.shp", sep = ""))
@@ -287,8 +287,9 @@ serverModeChoice = function(input, output, session){
     }
     ind = which(upload == 'zones.zip')
     if (length(ind)!=0) {
+      message(ind)
       # get directory
-      zones_exportPath = unlist(strsplit(upload$datapath, split=paste("/", (ind-1),'.zip', sep = ""), fixed=TRUE))[1]
+      zones_exportPath = unlist(strsplit(upload$datapath[ind], split=paste("/", (ind-1),'.zip', sep = ""), fixed=TRUE))[1]
       print(zones_exportPath)
       # unzip in directory
       unzip(upload$datapath[ind], exdir = zones_exportPath)
@@ -324,14 +325,14 @@ serverModeChoice = function(input, output, session){
       
       d_centers_updated$dcX = 0
       d_centers_updated$dcY = 0
-      centroids <<- as.data.frame(st_centroid(d_centers_updated$geometry))
+      centroids = as.data.frame(st_centroid(d_centers_updated$geometry))
       for (i in 1:nrow(centroids)) {
         centroids$dcX[i] = centroids$geometry[[i]][[1]]
         centroids$dcY[i] = centroids$geometry[[i]][[2]]
       }
       d_centers_updated$dcX = centroids$dcX
       d_centers_updated$dcY = centroids$dcY
-      choices = c('Positions of all distribution centers',as.list(d_centers_updated$dcId))
+      choices = c('Positionen aller Verteilzentren',as.list(d_centers_updated$dcId))
       updateSelectInput(session, inputId = "choice", choices = choices)
       d_centers_input(d_centers_updated)
   }
@@ -534,7 +535,7 @@ serverModeChoice = function(input, output, session){
     zones$S = rowSums(den_s)
     zones$M = rowSums(den_m)
     zones$L = rowSums(den_l)
-    zones$all = zones$XS + zones$S + zones$M + zones$L
+    zones$gesamt = zones$XS + zones$S + zones$M + zones$L
     
     # determine cost for all truck delivery and for selected mode choice
     # naming of variable is bad as allTruck_cost also contains cost of selected mdoe choice
@@ -570,8 +571,7 @@ serverModeChoice = function(input, output, session){
     zones = dplyr::bind_cols(zones,congestion)
     
     observeEvent(input$choice, { # render new mode map if dropdown menu is used
-      if (strcmp(input$choice, 'Positions of all distribution centers')==TRUE) {
-        message("im If")
+      if (strcmp(input$choice, 'Positionen aller Verteilzentren')==TRUE) {
         output$mode_map = renderLeaflet({
         d_points <- d_centers
         d_points$dcId = NULL
@@ -590,7 +590,7 @@ serverModeChoice = function(input, output, session){
         d_point$dcY = NULL
         d_point$dcX = NULL
         colnames(d_point) = c('Name','Lon','Lat', 'geometry')
-        p =  tm_basemap(leaflet::providers$CartoDB) + tm_shape(zones) + tm_borders()+tm_fill(col = toString(d_cent), alpha = 0.4, title = paste("Mode Choice for DC",d_cent), colourNA=NULL, drop.levels = TRUE, showNA = FALSE)+tm_shape(d_point)+tm_dots(size=0.1, col = 'red') # + tm_shape(shp) + tm_borders() 
+        p =  tm_basemap(leaflet::providers$CartoDB) + tm_shape(zones) + tm_borders()+tm_fill(col = toString(d_cent), alpha = 0.4, title = paste("Zustellungsmodi für Zentrum",d_cent), colourNA=NULL, drop.levels = TRUE, showNA = FALSE)+tm_shape(d_point)+tm_dots(size=0.1, col = 'red') # + tm_shape(shp) + tm_borders() 
         tmap_leaflet(p)
       })
     }
@@ -598,19 +598,19 @@ serverModeChoice = function(input, output, session){
     observeEvent(input$choice_parcel, { # render new density map if dropdown menu is used
       output$density_map = renderLeaflet({
         col_choice = input$choice_parcel
-        p = tm_basemap(leaflet::providers$CartoDB) + tm_shape(zones) + tm_borders() + tm_fill(col = col_choice, alpha = 0.4, title = paste("Densities per zone of ",col_choice,"parcels")) #+ tm_shape(shp) + tm_borders() 
+        p = tm_basemap(leaflet::providers$CartoDB) + tm_shape(zones) + tm_borders() + tm_fill(col = col_choice, alpha = 0.4, title = paste("Dichten pro Zone für Klasse ",col_choice)) #+ tm_shape(shp) + tm_borders() 
         tmap_leaflet(p)
       })
     })
     
     output$zones_cost_histo = renderPlotly({ # histogram cost per zone
-      xAx <- list(title = "Costs in Euro")
-      yAx <- list(title = "Number of zones")
+      xAx <- list(title = "Kosten in Euro")
+      yAx <- list(title = "Anzahl der Zonen")
       mode_costs_df = as.data.frame(mode_costs_df)
       colnames(mode_costs_df) = 'cost'
       
-      fig = plot_ly(mode_costs_df, type='histogram', x=~cost, name = 'cost in euro', xbins = list(start=0))
-      fig <- fig %>% layout(title="Costs per Zone",
+      fig = plot_ly(mode_costs_df, type='histogram', x=~cost, name = 'Kosten in Euro', xbins = list(start=0))
+      fig <- fig %>% layout(title="Kosten pro Zone",
         bargap=0.2, xaxis=xAx, yaxis=yAx)
       fig
     })
@@ -618,43 +618,43 @@ serverModeChoice = function(input, output, session){
     output$pie_mode = renderPlotly({ # pie mode share
       fig <- plot_ly(mode_pie_data, labels = rownames(mode_pie_data), values = ~Count, type = 'pie', textposition = 'inside',
                      textinfo = 'label+percent', sort = FALSE, marker = list(colors = c(color[75], color[60], color[45], color[30], color[15])))
-      fig = layout(fig, title = 'Share of Distribution Modes')
+      fig = layout(fig, title = 'Anteile der Zustellungsmodi')
       fig
     })
     
     output$pie_classes = renderPlotly({ # pie demand classes share
       tmp_df = data.table::transpose(as.data.frame(vehicle_pie_data))
-      rownames(tmp_df) = c('All', 'XS', 'S', 'M', 'L')
-      colnames(tmp_df) = c('Truck', 'Cargo bike', 'Total')
+      rownames(tmp_df) = c('Gesamt', 'XS', 'S', 'M', 'L')
+      colnames(tmp_df) = c('LKW', 'Lastenrad', 'Total')
       fig <- plot_ly(tmp_df[2:5,3, drop=FALSE], labels = c('XS','S','M','L'), values = ~Total, type = 'pie', textposition = 'inside',
                      textinfo = 'label+percent', sort = FALSE, marker = list(colors = c(color[15], color[35], color[55], color[75])))
-      fig = layout(fig, title = 'Share of Demand Classes')
+      fig = layout(fig, title = 'Anteile der Paketklassen')
       fig
     })
     
     output$pie_vehicles = renderPlotly({ # pie share of transportation mode
-      fig = plot_ly(vehicle_pie_data[1:2, , drop=FALSE], labels = c('Truck', 'Cargo bike'), values = ~All, type = 'pie', textposition = 'inside',
+      fig = plot_ly(vehicle_pie_data[1:2, , drop=FALSE], labels = c('LKW', 'Lastenrad'), values = ~All, type = 'pie', textposition = 'inside',
                     textinfo = 'label+percent', sort = FALSE, marker = list(colors = c(color[75], color[15])))
-      fig = layout(fig, title = 'Mode of Transport total')
+      fig = layout(fig, title = 'Transportmittel gesamt')
       fig
     })
     
     output$pie_vehPerClass = renderPlotly({ # pie share of transportation mode by demand class
       color = colorRampPalette(brewer.pal(9,'Blues'))(100)
       fig = plot_ly(vehicle_pie_data[1:2, , drop=FALSE])
-      fig = fig %>% add_pie(labels = c('Truck', 'Cargo bike'), values = ~XS, type = 'pie', textposition = 'inside',
+      fig = fig %>% add_pie(labels = c('LKW', 'Lastenrad'), values = ~XS, type = 'pie', textposition = 'inside',
                      textinfo = 'label+percent', sort = FALSE, domain = list(row = 0, column = 0), marker = list(colors = c(color[75], color[15])))
       
-      fig = fig %>% add_pie(labels = c('Truck', 'Cargo bike'), values = ~S, type = 'pie', textposition = 'inside',
+      fig = fig %>% add_pie(labels = c('LKW', 'Lastenrad'), values = ~S, type = 'pie', textposition = 'inside',
                             textinfo = 'label+percent', sort = FALSE, domain = list(row = 0, column = 1), marker = list(colors = c(color[75], color[15])))
       
-      fig = fig %>% add_pie(labels = c('Truck', 'Cargo bike'), values = ~M, type = 'pie', textposition = 'inside',
+      fig = fig %>% add_pie(labels = c('LKW', 'Lastenrad'), values = ~M, type = 'pie', textposition = 'inside',
                             textinfo = 'label+percent', sort = FALSE, domain = list(row = 1, column = 0), marker = list(colors = c(color[75], color[15])))
       
-      fig = fig %>% add_pie(labels = c('Truck', 'Cargo bike'), values = ~L, type = 'pie', textposition = 'inside',
+      fig = fig %>% add_pie(labels = c('LKW', 'Lastenrad'), values = ~L, type = 'pie', textposition = 'inside',
                             textinfo = 'label+percent', sort = FALSE, domain = list(row = 1, column = 1), marker = list(colors = c(color[75], color[15])))
       
-      fig <- fig %>% layout(title='Mode of Transport by Demand Class', showlegend = T,
+      fig <- fig %>% layout(title='Transportmittel nach Paketklasse', showlegend = T,
                             grid=list(rows=2, columns=2, ygap=0.19),
                             xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
                             yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
@@ -673,14 +673,14 @@ serverModeChoice = function(input, output, session){
       cost_data$config = c('All truck', 'Model choice')
       cost_data[,1:7] = round(cost_data[,1:7],digits = 2)
       
-      fig <- plot_ly(cost_data, x = ~config, type = 'bar', y = ~`Long-haul cost truck`, text = ~`Long-haul cost truck`, textposition = 'inside', name = 'Long-haul cost truck', marker = list(color = c(color[30])), hoverinfo = 'text')
-      fig <- fig %>% add_trace(y = ~`Service cost truck`, name = 'Service cost truck', text =~`Service cost truck`,textposition = 'inside', marker = list(color = c(color[60])))
-      fig <- fig %>% add_trace(y = ~`Routing cost truck`, name = 'Routing cost truck', text =~`Routing cost truck`,textposition = 'inside', marker = list(color = c(color[90])))
-      fig <- fig %>% add_trace(y = ~`Long-haul cost bike`, name = 'Long-haul cost bike', text =~`Long-haul cost bike`,textposition = 'inside', marker = list(color = c(color2[15])))
-      fig <- fig %>% add_trace(y = ~`Service cost bike`, name = 'Service cost bike', text =~`Service cost bike`,textposition = 'inside', marker = list(color = c(color2[45])))
-      fig <- fig %>% add_trace(y = ~`Routing cost bike`, name = 'Routing cost bike', text =~`Routing cost bike`,textposition = 'inside', marker = list(color = c(color2[60])))
-      fig <- fig %>% add_trace(y = ~`Extra cost bike`, name = 'Extra cost bike', text =~`Extra cost bike`,textposition = 'inside', marker = list(color = c(color2[75])))
-      fig <- fig %>% layout(yaxis = list(title = 'Total Cost in Euro'), xaxis = list(title = 'Mode configuration'), barmode = 'stack',
+      fig <- plot_ly(cost_data, x = ~config, type = 'bar', y = ~`Long-haul cost truck`, text = ~`Long-haul cost truck`, textposition = 'inside', name = 'Langstreckenkosten LKW', marker = list(color = c(color[30])), hoverinfo = 'text')
+      fig <- fig %>% add_trace(y = ~`Service cost truck`, name = 'Servicekosten LKW', text =~`Service cost truck`,textposition = 'inside', marker = list(color = c(color[60])))
+      fig <- fig %>% add_trace(y = ~`Routing cost truck`, name = 'Wegekosten LKW', text =~`Routing cost truck`,textposition = 'inside', marker = list(color = c(color[90])))
+      fig <- fig %>% add_trace(y = ~`Long-haul cost bike`, name = 'Langstreckenkosten Rad', text =~`Long-haul cost bike`,textposition = 'inside', marker = list(color = c(color2[15])))
+      fig <- fig %>% add_trace(y = ~`Service cost bike`, name = 'Servicekosten Rad', text =~`Service cost bike`,textposition = 'inside', marker = list(color = c(color2[45])))
+      fig <- fig %>% add_trace(y = ~`Routing cost bike`, name = 'Wegekosten Rad', text =~`Routing cost bike`,textposition = 'inside', marker = list(color = c(color2[60])))
+      fig <- fig %>% add_trace(y = ~`Extra cost bike`, name = 'zusätzliche Kosten Rad', text =~`Extra cost bike`,textposition = 'inside', marker = list(color = c(color2[75])))
+      fig <- fig %>% layout(yaxis = list(title = 'Gesamtkosten in Euro'), xaxis = list(title = 'Moduskonfiguration'), barmode = 'stack',
                             annotations = list(x = ~config, y = c(round(sum(cost_data[1,1:7]),digits=2),round(sum(cost_data[2,1:7]),digits=2)),  text = c(paste(round(sum(cost_data[1,1:7]),digits=2)),paste(round(sum(cost_data[2,1:7]),digits=2))), showarrow = F, xanchor="center", yanchor='bottom'))
       fig
       
@@ -688,32 +688,32 @@ serverModeChoice = function(input, output, session){
     })
 
     output$density_histo = renderPlotly({ # histogram densities per zone and demand class
-      xAx <- list(title = "Parcels per km2")
-      yAx <- list(title = "Number of zones")
+      xAx <- list(title = "Pakete pro km2")
+      yAx <- list(title = "Anzahl der Zonen")
       
       fig1 <- plot_ly(
         type='histogram', marker = list(color = c(color[15])),
         x=~zones$XS,
-        name = 'Parcels XS',
+        name = 'Pakete XS',
         xbins = list(start=0, size=25))
       
       fig1 <- fig1 %>% add_trace(
         type='histogram', marker = list(color = color[35]),
         x=~zones$S,
-        name = 'Parcels S')
+        name = 'Pakete S')
       
       fig1 <- fig1 %>% add_trace(
         type='histogram', marker = list(color = color[55]),
         x=~zones$M,
-        name='Parcels M')
+        name='Pakete M')
       
       fig1 <- fig1 %>% add_trace(
         type='histogram', marker = list(color = color[75]),
         x=~zones$L,
-        name='Parcels L')
+        name='Pakete L')
       
       fig1 <- fig1 %>% layout(
-        title="Parcel Densities per Demand Class",
+        title="Paketdichten pro Paketklasse",
         bargap=0.2,
         xaxis=xAx,
         yaxis=yAx)
@@ -722,7 +722,7 @@ serverModeChoice = function(input, output, session){
     })
     
     output$con_map = renderLeaflet({
-      p = tm_basemap(leaflet::providers$CartoDB) + tm_shape(zones) + tm_borders() + tm_fill(col = 'congestion', alpha = 0.4, title = "Congestion factors") #+ tm_shape(shp) + tm_borders() 
+      p = tm_basemap(leaflet::providers$CartoDB) + tm_shape(zones) + tm_borders() + tm_fill(col = 'congestion', alpha = 0.4, title = "Staufaktoren") #+ tm_shape(shp) + tm_borders() 
       tmap_leaflet(p)
     })
   })
