@@ -20,7 +20,7 @@ foca = fluidPage(
     sidebarPanel(
       width = 2,
       helpText("Klicken Sie auf Aktualisieren, um die Ergebnisse der Simulationen zu laden"),
-      checkboxGroupInput("scenario_selector", choiceValues =  NULL, choiceNames = NULL, label = "Verfügbare Szenarien:"),
+      checkboxGroupInput("scenario_selector", choiceValues =  NULL, choiceNames = NULL, label = "VerfÃ¼gbare Szenarien:"),
       actionButton("update_foca", "Aktualisieren", width = 100)
       
       
@@ -51,7 +51,7 @@ foca = fluidPage(
         tabPanel(
           title = "Distanz",
           column(2,
-                 h4("Zurückgelegten Fahrzeugkilometer"),
+                 h4("ZurÃ¼ckgelegten Fahrzeugkilometer"),
                  helpText(description["distance",])
           ),
           column(8,
@@ -99,9 +99,9 @@ foca = fluidPage(
                    checkboxGroupInput(inputId = "segments", 
                                       label = "Segmente", choices = c("Cargo bike", "Feeder (micro depot)", "Van","Feeder (parcel shop)"), selected = c("Cargo bike", "Feeder (micro depot)", "Van")),
                    sliderInput(inputId = "cost_km_van",
-                               label = "Distanzsabhängig Kosten (Transporter) (EUR/km)", min = 0.0, max = 5.0, value = 1.7,step = 0.1),
+                               label = "DistanzsabhÃ¤ngig Kosten (Transporter) (EUR/km)", min = 0.0, max = 5.0, value = 1.7,step = 0.1),
                    sliderInput(inputId = "cost_km_bike",
-                               label = "Distanzsabhängig Kosten (Lastenrad) (EUR/km)", min = 0.0, max = 5.0, value = 0.9, step = 0.1),
+                               label = "DistanzsabhÃ¤ngig Kosten (Lastenrad) (EUR/km)", min = 0.0, max = 5.0, value = 0.9, step = 0.1),
                    sliderInput(inputId = "cost_parcel_van",
                                label = "Servicekosten (Transporter) (EUR/Pakete)", min = 0.0, max = 5.0, value = 1.3, step = 0.1),
                    sliderInput(inputId = "cost_parcel_bike",

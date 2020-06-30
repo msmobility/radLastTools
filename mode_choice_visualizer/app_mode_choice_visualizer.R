@@ -10,7 +10,7 @@ modeChoice = fluidPage(
     #position = "right",
     sidebarPanel(
       width = 2,
-      helpText("Klicken Sie auf Aktualisieren um die Zustellungsmodi basierend auf den unten gewählten Parametern zu ermitteln"),
+      helpText("Klicken Sie auf Aktualisieren um die Zustellungsmodi basierend auf den unten gewÃ¤hlten Parametern zu ermitteln"),
       actionButton(inputId = "update", "Aktualisieren", width = 100),
       helpText(" "),
       numericInput(inputId = "serv_co_truck",
@@ -22,11 +22,11 @@ modeChoice = fluidPage(
       numericInput(inputId = "op_co_bike",
                    label = "Betriebskosten Lastenrad [EUR/km]", value = 0.9200),
       numericInput(inputId = "ex_co_bike",
-                   label = "zusätzliche Bearbeitungskosten Lastenrad [EUR/m3]", value = 8.4),
+                   label = "zusÃ¤tzliche Bearbeitungskosten Lastenrad [EUR/m3]", value = 8.4),
       numericInput(inputId = "cap_truck",
-                   label = "Kapazität LKW [m3]", value = 12.5),
+                   label = "KapazitÃ¤t LKW [m3]", value = 12.5),
       numericInput(inputId = "cap_feeder",
-                   label = "Kapazität ?ZUBRINGER? [m3]", value = 12.5)
+                   label = "KapazitÃ¤t ?ZUBRINGER? [m3]", value = 12.5)
     ),
     mainPanel(
       tabBox(
@@ -37,13 +37,13 @@ modeChoice = fluidPage(
             column(3,
                  h4("Zustellungsmodi"),
                  br(),
-                 helpText(HTML('Die Karte zeigt die Zustellungsmodi für alle Zonen, in welchen das gewählte Verteilzentrum aktiv ist.','<br><br>','Zustellungsmodi:<br> 1: Reine LKW-Zustellung<br>2: Lastenrad für XS <br>3: Lastenrad für XS und S<br>4: Lastenrad für XS, S und M<br> 5: Reine Lastenrad-Zustellung'),
+                 helpText(HTML('Die Karte zeigt die Zustellungsmodi fÃ¼r alle Zonen, in welchen das gewÃ¤hlte Verteilzentrum aktiv ist.','<br><br>','Zustellungsmodi:<br> 1: Reine LKW-Zustellung<br>2: Lastenrad fÃ¼r XS <br>3: Lastenrad fÃ¼r XS und S<br>4: Lastenrad fÃ¼r XS, S und M<br> 5: Reine Lastenrad-Zustellung'),
                  )),
             column(9,
                  br(),
                  br(),
                  br(),
-                 selectInput(inputId = "choice", label = "Wählen Sie ein Verteilzentrum", choices = NULL),#as.list(d_centers$dcId)), # drop down menu for map
+                 selectInput(inputId = "choice", label = "WÃ¤hlen Sie ein Verteilzentrum", choices = NULL),#as.list(d_centers$dcId)), # drop down menu for map
                  leafletOutput("mode_map"), # mode choice map
                  br(),
                  br()
@@ -63,7 +63,7 @@ modeChoice = fluidPage(
           column(3,
                  h4("Kosten"),
                  br(),
-                 helpText(HTML('Die Abbildung zeigt die geschätzten Gesamtkosten der vorgeschlagenen Zuweisung. Zu Vergleichszwecken wurde dieser die geschätzte Kostenstruktur einer reinen LKW-Zustellung gegenüber gestellt.'))
+                 helpText(HTML('Die Abbildung zeigt die geschÃ¤tzten Gesamtkosten der vorgeschlagenen Zuweisung. Zu Vergleichszwecken wurde dieser die geschÃ¤tzte Kostenstruktur einer reinen LKW-Zustellung gegenÃ¼ber gestellt.'))
               ),
           column(9,
                  br(),
@@ -100,7 +100,7 @@ modeChoice = fluidPage(
         fluidRow(
           column(3,
                  br(),
-                 helpText(HTML('Die gleiche Statistik wird hier für jede Paketklasse einzeln dargestellt.'))
+                 helpText(HTML('Die gleiche Statistik wird hier fÃ¼r jede Paketklasse einzeln dargestellt.'))
           ),
           column(9,
                  br(),
@@ -120,7 +120,7 @@ modeChoice = fluidPage(
                  br(),
                  br(),
                  br(),
-                 selectInput(inputId = "choice_parcel", label = "Wählen Sie eine Paketklasse", choices = as.list(c('gesamt','L','M','S','XS'))),
+                 selectInput(inputId = "choice_parcel", label = "WÃ¤hlen Sie eine Paketklasse", choices = as.list(c('gesamt','L','M','S','XS'))),
                  leafletOutput("density_map"), # map showing the parcel densities per zone
                  br(),
                  br()
@@ -590,7 +590,7 @@ serverModeChoice = function(input, output, session){
         d_point$dcY = NULL
         d_point$dcX = NULL
         colnames(d_point) = c('Name','Lon','Lat', 'geometry')
-        p =  tm_basemap(leaflet::providers$CartoDB) + tm_shape(zones) + tm_borders()+tm_fill(col = toString(d_cent), alpha = 0.4, title = paste("Zustellungsmodi für Zentrum",d_cent), colourNA=NULL, drop.levels = TRUE, showNA = FALSE)+tm_shape(d_point)+tm_dots(size=0.1, col = 'red') # + tm_shape(shp) + tm_borders() 
+        p =  tm_basemap(leaflet::providers$CartoDB) + tm_shape(zones) + tm_borders()+tm_fill(col = toString(d_cent), alpha = 0.4, title = paste("Zustellungsmodi fÃ¼r Zentrum",d_cent), colourNA=NULL, drop.levels = TRUE, showNA = FALSE)+tm_shape(d_point)+tm_dots(size=0.1, col = 'red') # + tm_shape(shp) + tm_borders() 
         tmap_leaflet(p)
       })
     }
@@ -598,7 +598,7 @@ serverModeChoice = function(input, output, session){
     observeEvent(input$choice_parcel, { # render new density map if dropdown menu is used
       output$density_map = renderLeaflet({
         col_choice = input$choice_parcel
-        p = tm_basemap(leaflet::providers$CartoDB) + tm_shape(zones) + tm_borders() + tm_fill(col = col_choice, alpha = 0.4, title = paste("Dichten pro Zone für Klasse ",col_choice)) #+ tm_shape(shp) + tm_borders() 
+        p = tm_basemap(leaflet::providers$CartoDB) + tm_shape(zones) + tm_borders() + tm_fill(col = col_choice, alpha = 0.4, title = paste("Dichten pro Zone fÃ¼r Klasse ",col_choice)) #+ tm_shape(shp) + tm_borders() 
         tmap_leaflet(p)
       })
     })
@@ -679,7 +679,7 @@ serverModeChoice = function(input, output, session){
       fig <- fig %>% add_trace(y = ~`Long-haul cost bike`, name = 'Langstreckenkosten Rad', text =~`Long-haul cost bike`,textposition = 'inside', marker = list(color = c(color2[15])))
       fig <- fig %>% add_trace(y = ~`Service cost bike`, name = 'Servicekosten Rad', text =~`Service cost bike`,textposition = 'inside', marker = list(color = c(color2[45])))
       fig <- fig %>% add_trace(y = ~`Routing cost bike`, name = 'Wegekosten Rad', text =~`Routing cost bike`,textposition = 'inside', marker = list(color = c(color2[60])))
-      fig <- fig %>% add_trace(y = ~`Extra cost bike`, name = 'zusätzliche Kosten Rad', text =~`Extra cost bike`,textposition = 'inside', marker = list(color = c(color2[75])))
+      fig <- fig %>% add_trace(y = ~`Extra cost bike`, name = 'zusÃ¤tzliche Kosten Rad', text =~`Extra cost bike`,textposition = 'inside', marker = list(color = c(color2[75])))
       fig <- fig %>% layout(yaxis = list(title = 'Gesamtkosten in Euro'), xaxis = list(title = 'Moduskonfiguration'), barmode = 'stack',
                             annotations = list(x = ~config, y = c(round(sum(cost_data[1,1:7]),digits=2),round(sum(cost_data[2,1:7]),digits=2)),  text = c(paste(round(sum(cost_data[1,1:7]),digits=2)),paste(round(sum(cost_data[2,1:7]),digits=2))), showarrow = F, xanchor="center", yanchor='bottom'))
       fig

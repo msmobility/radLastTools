@@ -35,7 +35,7 @@ source(paste(this_folder, "/mode_choice_visualizer/app_mode_choice_visualizer.R"
 source(paste(this_folder, "/fileUploader.R", sep  = ""))
 
 
-title = tags$a(tags$img(src = "logo_two_unis.png", height = '60', align = "right"),
+title = tags$a(tags$img(src = "logo_two_unis_2.png", height = '60', align = "right"),
                tags$style(".main-header {max-height: 200px}"),
                tags$style(".main-header .logo {height: 200px}")
 )
@@ -46,7 +46,7 @@ ui = fluidPage(
   navlistPanel(
     widths = c(1,11),
     tabPanel("Optimierung der Zustellung", modeChoice),
-    tabPanel("Simulation model analysis", foca),
+    tabPanel("Visualisierung des Simulationsmodells", foca),
     tabPanel("Datei Upload", fileUploader)
   )
 )
