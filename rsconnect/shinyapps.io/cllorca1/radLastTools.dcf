@@ -5,9 +5,9 @@ account: cllorca1
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 2412609
-bundleId: 3286435
+bundleId: 3319739
 url: https://cllorca1.shinyapps.io/radLastTools/
-when: 1592468234.72155
+when: 1593181726.49625
 asMultiple: FALSE
 asStatic: FALSE
-ignoredFiles: .RData|script.R|playground/auto_generate_grids.R
+ignoredFiles: .RData|script.R|playground/auto_generate_grids.R|playground/landkreise-in-germany.dbf|playground/landkreise-in-germany.prj|playground/landkreise-in-germany.shp|playground/landkreise-in-germany.shx
