@@ -84,7 +84,7 @@ foca = fluidPage(
                    numericInput(inputId = "g_co2_l_diesel", label = "Kraftstoff CO2 Emissionen (g/l)", value = 3170),
                    numericInput(inputId = "kwh_100_km_e_van", label = "Stromverbrauch eines Elektrotransporters (kWh/100 km)", value = 50),
                    numericInput(inputId = "kwh_100_km_e_bike", label = "Stromverbrauch eines Lastenrades (kWh/100 km)", value = 3),
-                   numericInput(inputId = "g_co2_kwh", label = "CO2 Emissionen aus Stroerzeugung (g/kWh)", value = 518)
+                   numericInput(inputId = "g_co2_kwh", label = "CO2 Emissionen aus Stromerzeugung (g/kWh)", value = 518)
                  )
           ),
           column(10,
