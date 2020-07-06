@@ -22,11 +22,11 @@ modeChoice = fluidPage(
       numericInput(inputId = "op_co_bike",
                    label = "Betriebskosten Lastenrad [EUR/km]", value = 0.9200),
       numericInput(inputId = "ex_co_bike",
-                   label = "zusätzliche Bearbeitungskosten Lastenrad [EUR/m3]", value = 8.4),
+                   label = "Umschlagskosten Mikrodepot [EUR/m3]", value = 8.4),
       numericInput(inputId = "cap_truck",
                    label = "Kapazität LKW [m3]", value = 12.5),
       numericInput(inputId = "cap_feeder",
-                   label = "Kapazität ?ZUBRINGER? [m3]", value = 12.5)
+                   label = "Kapazität Feeder [m3]", value = 12.5)
     ),
     mainPanel(
       tabBox(
@@ -670,7 +670,7 @@ serverModeChoice = function(input, output, session){
     output$cost_comp = renderPlotly({ # bar chart cost structure
       cost_data = data.table::transpose(allTruck_cost)
       colnames(cost_data) = rownames(allTruck_cost)
-      cost_data$config = c('All truck', 'Model choice')
+      cost_data$config = c('Reine LWK-Zustellung', 'Optimierte Moduszuteilung')
       cost_data[,1:7] = round(cost_data[,1:7],digits = 2)
       
       fig <- plot_ly(cost_data, x = ~config, type = 'bar', y = ~`Long-haul cost truck`, text = ~`Long-haul cost truck`, textposition = 'inside', name = 'Langstreckenkosten LKW', marker = list(color = c(color[30])), hoverinfo = 'text')
@@ -679,7 +679,7 @@ serverModeChoice = function(input, output, session){
       fig <- fig %>% add_trace(y = ~`Long-haul cost bike`, name = 'Langstreckenkosten Rad', text =~`Long-haul cost bike`,textposition = 'inside', marker = list(color = c(color2[15])))
       fig <- fig %>% add_trace(y = ~`Service cost bike`, name = 'Servicekosten Rad', text =~`Service cost bike`,textposition = 'inside', marker = list(color = c(color2[45])))
       fig <- fig %>% add_trace(y = ~`Routing cost bike`, name = 'Wegekosten Rad', text =~`Routing cost bike`,textposition = 'inside', marker = list(color = c(color2[60])))
-      fig <- fig %>% add_trace(y = ~`Extra cost bike`, name = 'zusätzliche Kosten Rad', text =~`Extra cost bike`,textposition = 'inside', marker = list(color = c(color2[75])))
+      fig <- fig %>% add_trace(y = ~`Extra cost bike`, name = 'Umschlagskosten Mikrodepot', text =~`Extra cost bike`,textposition = 'inside', marker = list(color = c(color2[75])))
       fig <- fig %>% layout(yaxis = list(title = 'Gesamtkosten in Euro'), xaxis = list(title = 'Moduskonfiguration'), barmode = 'stack',
                             annotations = list(x = ~config, y = c(round(sum(cost_data[1,1:7]),digits=2),round(sum(cost_data[2,1:7]),digits=2)),  text = c(paste(round(sum(cost_data[1,1:7]),digits=2)),paste(round(sum(cost_data[2,1:7]),digits=2))), showarrow = F, xanchor="center", yanchor='bottom'))
       fig
