@@ -2,6 +2,8 @@
 #   install.packages("pacman")
 # }
 
+printout = 0 # set to 1 if tool should print some statistics to terminal, 0 otherwise
+
 this_folder = here()
 
 modeChoice = fluidPage(
@@ -14,19 +16,21 @@ modeChoice = fluidPage(
       actionButton(inputId = "update", "Aktualisieren", width = 100),
       helpText(" "),
       numericInput(inputId = "serv_co_truck",
-                   label = "Servicekosten LKW [EUR/Paket]", value = 1.2585),
+                   label = "Servicekosten Transporter [EUR/Paket]", value = 1.2585),
       numericInput(inputId = "serv_co_bike",
-                   label = "Servicekosten Lastenrad [EUR/Paket]", value = 1.0152),
+                   label = "Servicekosten Lastenrad [EUR/Paket]", value = 1.13265),
+      numericInput(inputId = "op_co_feeder",
+                   label = "Kosten Vorletzte Meile [EUR/km]", value = 2.1333),
       numericInput(inputId = "op_co_truck",
-                   label = "Betriebskosten LKW [EUR/km]", value = 1.7765),
+                   label = "Kosten Allerletzte Meile Transporter [EUR/km]", value = 3.185),
       numericInput(inputId = "op_co_bike",
-                   label = "Betriebskosten Lastenrad [EUR/km]", value = 0.9200),
+                   label = "Kosten Allerletzte Meile Lastenrad [EUR/km]", value = 3.437),
       numericInput(inputId = "ex_co_bike",
-                   label = "Umschlagskosten Mikrodepot [EUR/m3]", value = 8.4),
+                   label = "Umschlagskosten Mikrodepot [EUR/Paktenheiten]", value = 0.84),
       numericInput(inputId = "cap_truck",
-                   label = "Kapazität LKW [m3]", value = 12.5),
+                   label = "Kapazität LKW [Paktenheiten]", value = 120.0),
       numericInput(inputId = "cap_feeder",
-                   label = "Kapazität Feeder [m3]", value = 12.5)
+                   label = "Kapazität Feeder [Paktenheiten]", value = 240.0)
     ),
     mainPanel(
       tabBox(
@@ -367,13 +371,14 @@ serverModeChoice = function(input, output, session){
     # get parameter inputs
 
     capacity_feeder = input$cap_feeder # in m3
-    capacity_truck = input$cap_feeder # in m3
-    vol = c(0.005, 0.010, 0.050, 0.200) # in m3
+    capacity_truck = input$cap_truck # in m3
+    vol = c(0.5, 1.0, 4.0, 8.0) # in m3
     op_co_truck= input$op_co_truck # per km in euro
     op_co_bike= input$op_co_bike # per km in euro
-    k_approx = 1.5 
+    k_approx = 0.82
     serv_co_bike = input$serv_co_bike # per parcel in euro
     serv_co_truck = input$serv_co_truck # per parcel in euro
+    op_co_feeder = input$op_co_feeder
     ex_handling_bike = input$ex_co_bike 
     
     cost_bike = matrix(0,nrow = 4, ncol = 4)
@@ -383,7 +388,7 @@ serverModeChoice = function(input, output, session){
     colnames(cost_truck) = c('long-haul c', 'extra handling c', 'service c', 'routing c') # if 1 then demand class (in order xs, s,m,l) is served by bike, truck otherwise
     rownames(cost_truck) = c('xs','s','m','l')
     costs_per_mode = list()
-    cost_log = as.data.frame(matrix(nrow=0, ncol=15))
+    cost_log <<- as.data.frame(matrix(nrow=0, ncol=15))
     colnames(cost_log) =  c('AZ', 'X', 'Y','DC','size','mode', 'c_lh_t', 'c_extra_t','c_ser_t','c_rout_truck','c_lh_b', 'c_extra_b','c_ser_b' ,'c_rout_bike', 'c_total')
     
     ind_c = 1
@@ -401,13 +406,13 @@ serverModeChoice = function(input, output, session){
         for (l in 1:4) { # cost components for every demand class
           dens = den[[l]][zones_active[j],i]
           # longhaul cost
-          cost_bike[l,1]=area[zones_active[j],1]*vol[l]*dens*2*d_AD*op_co_truck/capacity_feeder
-          cost_truck[l,1]=area[zones_active[j],1]*vol[l]*dens*2*d_AD*op_co_truck/capacity_truck
+          cost_bike[l,1]=area[zones_active[j],1]*vol[l]*dens*2*d_AD*op_co_feeder/capacity_feeder
+          cost_truck[l,1]=area[zones_active[j],1]*vol[l]*dens*2*d_AD*op_co_feeder/capacity_truck
           # extra handling cost bike
           cost_bike[l,2]=area[zones_active[j],1]*vol[l]*dens*ex_handling_bike
           # service cost
-          cost_bike[l,3]=area[zones_active[j],1]*dens*serv_co_bike*(1/congestion[zones_active[j],1])
-          cost_truck[l,3]=area[zones_active[j],1]*dens*serv_co_truck
+          cost_bike[l,3]=area[zones_active[j],1]*dens*serv_co_bike
+          cost_truck[l,3]=area[zones_active[j],1]*dens*serv_co_truck*congestion[zones_active[j],1]
         }
         
         isBike = matrix(0,nrow = 1 ,ncol = 4) # logical indicating which class served by bike
@@ -423,7 +428,7 @@ serverModeChoice = function(input, output, session){
           sum_db = sum(c(den[[1]][zones_active[j],i], den[[2]][zones_active[j],i], den[[3]][zones_active[j],i], den[[4]][zones_active[j],i])*isBike)
           sum_dt = sum(c(den[[1]][zones_active[j],i], den[[2]][zones_active[j],i], den[[3]][zones_active[j],i], den[[4]][zones_active[j],i])*(1-isBike))
           routing_cost_bike = k_approx*op_co_bike*area[zones_active[j],1]*sqrt(sum_db)
-          routing_cost_truck = k_approx*op_co_truck*area[zones_active[j],1]*sqrt(sum_dt)  #*congestion[zones_active[j],1]
+          routing_cost_truck = k_approx*op_co_truck*area[zones_active[j],1]*sqrt(sum_dt)*congestion[zones_active[j],1]
           
           c_b = c_b + routing_cost_bike
           c_t = c_t + routing_cost_truck
@@ -456,6 +461,8 @@ serverModeChoice = function(input, output, session){
       }
       costs_per_mode[[i]] = total_cost
     }
+    
+    cost_log <<- cost_log
   
     mode_choice = matrix(0,ncol=nrow(zones),nrow = nrow(d_centers)) # modes for all DC and zones combination
     mode_costs_df = c() # holds costs of chosen modes || for cost chart
@@ -493,41 +500,40 @@ serverModeChoice = function(input, output, session){
     for (i in 1:ncol(mode_choice_num)) { # zones
       for (j in 1:nrow(mode_choice_num)) { # d_centers
         if (mode_choice_num[j,i]==1) {
-          vehicle_pie_data[1,2] = vehicle_pie_data[1,2]+den[[1]][i,j] #xs
-          vehicle_pie_data[1,3] = vehicle_pie_data[1,3]+den[[2]][i,j] #s
-          vehicle_pie_data[1,4] = vehicle_pie_data[1,4]+den[[3]][i,j] #m
-          vehicle_pie_data[1,5] = vehicle_pie_data[1,5]+den[[4]][i,j] #l
+          vehicle_pie_data[1,2] = vehicle_pie_data[1,2]+den[[1]][i,j]*area[i,1] #xs
+          vehicle_pie_data[1,3] = vehicle_pie_data[1,3]+den[[2]][i,j]*area[i,1] #s
+          vehicle_pie_data[1,4] = vehicle_pie_data[1,4]+den[[3]][i,j]*area[i,1] #m
+          vehicle_pie_data[1,5] = vehicle_pie_data[1,5]+den[[4]][i,j]*area[i,1] #l
         }
         else if (mode_choice_num[j,i]==2) {
-          vehicle_pie_data[2,2] = vehicle_pie_data[2,2]+den[[1]][i,j]
-          vehicle_pie_data[1,3] = vehicle_pie_data[1,3]+den[[2]][i,j] 
-          vehicle_pie_data[1,4] = vehicle_pie_data[1,4]+den[[3]][i,j] 
-          vehicle_pie_data[1,5] = vehicle_pie_data[1,5]+den[[4]][i,j] 
+          vehicle_pie_data[2,2] = vehicle_pie_data[2,2]+den[[1]][i,j]*area[i,1]
+          vehicle_pie_data[1,3] = vehicle_pie_data[1,3]+den[[2]][i,j]*area[i,1] 
+          vehicle_pie_data[1,4] = vehicle_pie_data[1,4]+den[[3]][i,j]*area[i,1] 
+          vehicle_pie_data[1,5] = vehicle_pie_data[1,5]+den[[4]][i,j]*area[i,1] 
         }
         else if (mode_choice_num[j,i]==3) {
-          vehicle_pie_data[2,2] = vehicle_pie_data[2,2]+den[[1]][i,j]
-          vehicle_pie_data[2,3] = vehicle_pie_data[2,3]+den[[2]][i,j] 
-          vehicle_pie_data[1,4] = vehicle_pie_data[1,4]+den[[3]][i,j] 
-          vehicle_pie_data[1,5] = vehicle_pie_data[1,5]+den[[4]][i,j] 
+          vehicle_pie_data[2,2] = vehicle_pie_data[2,2]+den[[1]][i,j]*area[i,1]
+          vehicle_pie_data[2,3] = vehicle_pie_data[2,3]+den[[2]][i,j]*area[i,1] 
+          vehicle_pie_data[1,4] = vehicle_pie_data[1,4]+den[[3]][i,j]*area[i,1] 
+          vehicle_pie_data[1,5] = vehicle_pie_data[1,5]+den[[4]][i,j]*area[i,1] 
         }
         else if (mode_choice_num[j,i]==4) {
-          vehicle_pie_data[2,2] = vehicle_pie_data[2,2]+den[[1]][i,j]
-          vehicle_pie_data[2,3] = vehicle_pie_data[2,3]+den[[2]][i,j] 
-          vehicle_pie_data[2,4] = vehicle_pie_data[2,4]+den[[3]][i,j] 
-          vehicle_pie_data[1,5] = vehicle_pie_data[1,5]+den[[4]][i,j] 
+          vehicle_pie_data[2,2] = vehicle_pie_data[2,2]+den[[1]][i,j]*area[i,1]
+          vehicle_pie_data[2,3] = vehicle_pie_data[2,3]+den[[2]][i,j]*area[i,1] 
+          vehicle_pie_data[2,4] = vehicle_pie_data[2,4]+den[[3]][i,j]*area[i,1] 
+          vehicle_pie_data[1,5] = vehicle_pie_data[1,5]+den[[4]][i,j]*area[i,1] 
         }
         else if (mode_choice_num[j,i]==5) {
-          vehicle_pie_data[2,2] = vehicle_pie_data[2,2]+den[[1]][i,j]
-          vehicle_pie_data[2,3] = vehicle_pie_data[2,3]+den[[2]][i,j] 
-          vehicle_pie_data[2,4] = vehicle_pie_data[2,4]+den[[3]][i,j] 
-          vehicle_pie_data[2,5] = vehicle_pie_data[2,5]+den[[4]][i,j] 
+          vehicle_pie_data[2,2] = vehicle_pie_data[2,2]+den[[1]][i,j]*area[i,1]
+          vehicle_pie_data[2,3] = vehicle_pie_data[2,3]+den[[2]][i,j]*area[i,1] 
+          vehicle_pie_data[2,4] = vehicle_pie_data[2,4]+den[[3]][i,j]*area[i,1] 
+          vehicle_pie_data[2,5] = vehicle_pie_data[2,5]+den[[4]][i,j]*area[i,1] 
         }
       }
     }
     vehicle_pie_data[1,1]=vehicle_pie_data[1,2]+vehicle_pie_data[1,3]+vehicle_pie_data[1,4]+vehicle_pie_data[1,5]
     vehicle_pie_data[2,1]=vehicle_pie_data[2,2]+vehicle_pie_data[2,3]+vehicle_pie_data[2,4]+vehicle_pie_data[2,5]
     ## update area
-    vehicle_pie_data = vehicle_pie_data*area[1,1] # convert densities to number of parcels
     vehicle_pie_data[3,] = colSums(vehicle_pie_data)
     
     zones = dplyr::bind_cols(zones,mode_choice)
@@ -590,7 +596,32 @@ serverModeChoice = function(input, output, session){
         d_point$dcY = NULL
         d_point$dcX = NULL
         colnames(d_point) = c('Name','Lon','Lat', 'geometry')
-        p =  tm_basemap(leaflet::providers$CartoDB) + tm_shape(zones) + tm_borders()+tm_fill(col = toString(d_cent), alpha = 0.4, title = paste("Zustellungsmodi für Zentrum",d_cent), colourNA=NULL, drop.levels = TRUE, showNA = FALSE)+tm_shape(d_point)+tm_dots(size=0.1, col = 'red') # + tm_shape(shp) + tm_borders() 
+        tmp <- levels(zones[[toString(d_cent)]])
+        pal <- character(0)
+        for (i in 1:length(tmp)) {
+          if (tmp[i] == "1") {
+            pal <- append(pal, color[75])
+          }
+          else if (tmp[i] == "2") {
+            pal<- append(pal,  color[60]) 
+          }
+          else if (tmp[i] == "3") {
+            pal<- append(pal,  color[45])
+          }
+          else if (tmp[i] == "4") {
+            pal <- append(pal,  color[30])
+          }
+          else if (tmp[i] == "5") {
+            pal <- append(pal,  color[15])
+          }
+        }
+        
+        #print("palette to be used: ")
+        #for (i in length(pal)) {
+        #  print(pal[i]) 
+        #}
+
+        p =  tm_basemap(leaflet::providers$CartoDB) + tm_shape(zones) + tm_borders()+tm_fill(col = toString(d_cent), palette = pal ,alpha = 0.6, title = paste("Zustellungsmodi für Zentrum",d_cent) ,colourNA=NULL, drop.levels = TRUE, showNA = FALSE) + tm_shape(d_point)+tm_dots(size=0.1, col = 'red') # + tm_shape(shp) + tm_borders() 
         tmap_leaflet(p)
       })
     }
@@ -616,6 +647,10 @@ serverModeChoice = function(input, output, session){
     })
     
     output$pie_mode = renderPlotly({ # pie mode share
+      if (printout == 1) {
+        print("share of modes in proposed allocation:")
+        print(mode_pie_data)
+      }
       fig <- plot_ly(mode_pie_data, labels = rownames(mode_pie_data), values = ~Count, type = 'pie', textposition = 'inside',
                      textinfo = 'label+percent', sort = FALSE, marker = list(colors = c(color[75], color[60], color[45], color[30], color[15])))
       fig = layout(fig, title = 'Anteile der Zustellungsmodi')
@@ -626,6 +661,10 @@ serverModeChoice = function(input, output, session){
       tmp_df = data.table::transpose(as.data.frame(vehicle_pie_data))
       rownames(tmp_df) = c('Gesamt', 'XS', 'S', 'M', 'L')
       colnames(tmp_df) = c('LKW', 'Lastenrad', 'Total')
+      if (printout == 1) {
+        print("Number of parcels delivered:")
+        print(tmp_df)
+      }
       fig <- plot_ly(tmp_df[2:5,3, drop=FALSE], labels = c('XS','S','M','L'), values = ~Total, type = 'pie', textposition = 'inside',
                      textinfo = 'label+percent', sort = FALSE, marker = list(colors = c(color[15], color[35], color[55], color[75])))
       fig = layout(fig, title = 'Anteile der Paketklassen')
@@ -672,6 +711,10 @@ serverModeChoice = function(input, output, session){
       colnames(cost_data) = rownames(allTruck_cost)
       cost_data$config = c('Reine LWK-Zustellung', 'Optimierte Moduszuteilung')
       cost_data[,1:7] = round(cost_data[,1:7],digits = 2)
+      if (printout == 1) {
+        print("Cost structure:")
+        print(allTruck_cost)
+      }
       
       fig <- plot_ly(cost_data, x = ~config, type = 'bar', y = ~`Long-haul cost truck`, text = ~`Long-haul cost truck`, textposition = 'inside', name = 'Langstreckenkosten LKW', marker = list(color = c(color[30])), hoverinfo = 'text')
       fig <- fig %>% add_trace(y = ~`Service cost truck`, name = 'Servicekosten LKW', text =~`Service cost truck`,textposition = 'inside', marker = list(color = c(color[60])))
@@ -683,14 +726,22 @@ serverModeChoice = function(input, output, session){
       fig <- fig %>% layout(yaxis = list(title = 'Gesamtkosten in Euro'), xaxis = list(title = 'Moduskonfiguration'), barmode = 'stack',
                             annotations = list(x = ~config, y = c(round(sum(cost_data[1,1:7]),digits=2),round(sum(cost_data[2,1:7]),digits=2)),  text = c(paste(round(sum(cost_data[1,1:7]),digits=2)),paste(round(sum(cost_data[2,1:7]),digits=2))), showarrow = F, xanchor="center", yanchor='bottom'))
       fig
-      
-      
     })
 
     output$density_histo = renderPlotly({ # histogram densities per zone and demand class
       xAx <- list(title = "Pakete pro km2")
       yAx <- list(title = "Anzahl der Zonen")
-      
+      if (printout == 1) {
+        print("Densities:")
+        print("XS")
+        print(zones$XS)
+        print("S")
+        print(zones$S)
+        print("M")
+        print(zones$M)
+        print("L")
+        print(zones$L)
+      }
       fig1 <- plot_ly(
         type='histogram', marker = list(color = c(color[15])),
         x=~zones$XS,
@@ -722,6 +773,10 @@ serverModeChoice = function(input, output, session){
     })
     
     output$con_map = renderLeaflet({
+      if (printout == 1) {
+        print("Congestion factors:")
+        print(zones$congestion)
+      }
       p = tm_basemap(leaflet::providers$CartoDB) + tm_shape(zones) + tm_borders() + tm_fill(col = 'congestion', alpha = 0.4, title = "Staufaktoren") #+ tm_shape(shp) + tm_borders() 
       tmap_leaflet(p)
     })
