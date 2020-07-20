@@ -81,10 +81,10 @@ foca = fluidPage(
                  inputPanel(
                    h5("Advanced settings:"),
                    numericInput(inputId = "l_diesel_100_km", label = "Kraftstoffverbrauch eines Dieselfahrzeugs (l/100 km)", value = 20),
-                   numericInput(inputId = "g_co2_l_diesel", label = "Kraftstoff CO2 Emissionen (g/l)", value = 3170),
-                   numericInput(inputId = "kwh_100_km_e_van", label = "Stromverbrauch eines Elektrotransporters (kWh/100 km)", value = 50),
-                   numericInput(inputId = "kwh_100_km_e_bike", label = "Stromverbrauch eines Lastenrades (kWh/100 km)", value = 3),
-                   numericInput(inputId = "g_co2_kwh", label = "CO2 Emissionen aus Stromerzeugung (g/kWh)", value = 518)
+                   numericInput(inputId = "g_co2_l_diesel", label = "Kraftstoff CO2 Emissionen (g/l)", value = 3170, step = 41),
+                   numericInput(inputId = "kwh_100_km_e_van", label = "Stromverbrauch eines Elektrotransporters (kWh/100 km)", value = 50, step = 1),
+                   numericInput(inputId = "kwh_100_km_e_bike", label = "Stromverbrauch eines Lastenrades (kWh/100 km)", value = 3, step = 0.1),
+                   numericInput(inputId = "g_co2_kwh", label = "CO2 Emissionen aus Stromerzeugung (g/kWh)", value = 518, step = 1)
                  )
           ),
           column(10,
@@ -96,22 +96,19 @@ foca = fluidPage(
                  h4("Costs"),
                  helpText(description["costs",]),
                  inputPanel(
-                   checkboxGroupInput(inputId = "segments", 
-                                      label = "Segmente", choices = c("Cargo bike", "Feeder (micro depot)", "Van","Feeder (parcel shop)"), selected = c("Cargo bike", "Feeder (micro depot)", "Van")),
-                   sliderInput(inputId = "cost_km_van",
-                               label = "Distanzsabhängig Kosten (Transporter) (EUR/km)", min = 0.0, max = 5.0, value = 1.7,step = 0.1),
-                   sliderInput(inputId = "cost_km_bike",
-                               label = "Distanzsabhängig Kosten (Lastenrad) (EUR/km)", min = 0.0, max = 5.0, value = 0.9, step = 0.1),
-                   sliderInput(inputId = "cost_parcel_van",
-                               label = "Servicekosten (Transporter) (EUR/Pakete)", min = 0.0, max = 5.0, value = 1.3, step = 0.1),
-                   sliderInput(inputId = "cost_parcel_bike",
-                               label = "Servicekosten (Lastenrad) (EUR/Pakete)", min = 0.0, max = 5.0, value = 1.1, step = 0.1),
-                   sliderInput(inputId = "cost_parcel_handling",
-                               label = "Extra Servicekosten in Mikrodepot (EUR/kg)", min = 0.0, max = 5.0, value = 0.2, step = 0.1),
-                   sliderInput(inputId = "driver_cost_h",
-                               label = "Fahrerkosten Transporter (EUR/h)", min = 0, max = 60, value = 25, step = 0.1),
-                   sliderInput(inputId = "rider_cost_h",
-                               label = "Radfahrerkosten (EUR/h)", min = 0, max = 60, value = 25, step = 0.1)
+                   checkboxGroupInput(inputId = "segments", label = "Segmente", choices =
+                                        c("Cargo bike", "Feeder (micro depot)", "Van","Feeder (parcel shop)"),
+                                      selected = c("Cargo bike", "Feeder (micro depot)", "Van")),
+                   numericInput(inputId = "cost_km_van", label = "Distanzsabhängig Kosten (Transporter) (EUR/km)", value = 1.7765, step = 0.1),
+                   numericInput(inputId = "cost_km_bike",label = "Distanzsabhängig Kosten (Lastenrad) (EUR/km)", value = 0.9200, step = 0.1),
+                   numericInput(inputId = "cost_km_long_haul", label = "Kosten Vorletzte Meile Zuliefer (EUR/km)", value = 1.7765, step = 0.1),
+                   numericInput(inputId = "cost_parcel_van", label = "Servicekosten (Transporter) (EUR/Pakete)",value = 1.139, step = 0.1),
+                   numericInput(inputId = "cost_parcel_bike", label = "Servicekosten (Lastenrad) (EUR/Pakete)", value = 1.025, step = 0.1),
+                   numericInput(inputId = "cost_parcel_handling",label = "Extra Servicekosten in Mikrodepot (EUR/Einheit)", value = 0.76, step = 0.1),
+                   numericInput(inputId = "cost_parcel_bike", label = "Servicekosten (Lastenrad) (EUR/Pakete)", value = 1.025, step = 0.1),
+                   numericInput(inputId = "cost_parcel_handling",label = "Extra Servicekosten in Mikrodepot (EUR/Einheit)", value = 0.76, step = 0.1),
+                   numericInput(inputId = "driver_cost_h",label = "Gehalt Fahrer (EUR/h)", value = 25, step = 1),
+                   numericInput(inputId = "rider_cost_h",label = "Gehalt Radfahrer (EUR/h)", value = 25, step = 1)
                  )
           ),
           column(10,
@@ -301,12 +298,15 @@ serverFoca = function(input, output, session){
     vehicles_all = vehicles_all %>% filter(vehicle %in% input$segments)
         
     vehicles_all = vehicles_all %>%
-      mutate(dist_cost = distance/1000 * if_else(vehicle == "Cargo bike", as.numeric(input$cost_km_bike), as.numeric(input$cost_km_van)) ) %>% 
-      mutate(time_cost = total_time/3600 * if_else(vehicle == "Cargo bike", as.numeric(input$rider_cost_h), as.numeric(input$driver_cost_h)))
+      mutate(dist_cost = distance/1000 * if_else(vehicle == "Cargo bike",
+                                                 as.numeric(input$cost_km_bike),if_else(vehicle =="Feeder (micro depot)", as.numeric(input$cost_km_long_haul), as.numeric(input$cost_km_van)))) %>%
+    mutate(time_cost = total_time/3600 * if_else(vehicle == "Cargo bike", as.numeric(input$rider_cost_h), as.numeric(input$driver_cost_h)))
     
     cost_vehicle = vehicles_all %>%
       group_by(scenario, vehicle) %>%
       summarize(dist_cost = sum(dist_cost), time_cost = sum(time_cost)) %>%
+      #summarize(dist_cost = sum(dist_cost)) %>%
+      #pivot_longer(cols= c(dist_cost), names_to = "cost_type", values_to = "cost")
       pivot_longer(cols= c(dist_cost, time_cost), names_to = "cost_type", values_to = "cost")
 
     cost_vehicle_total = cost_vehicle %>% group_by(scenario, cost_type) %>%
@@ -318,7 +318,9 @@ serverFoca = function(input, output, session){
     
     weights_and_parcels_all = weights_and_parcels_all %>%
       mutate(service_cost = n * if_else(vehicle == "Cargo bike", as.numeric(input$cost_parcel_bike), as.numeric(input$cost_parcel_van)) ) %>% 
-      mutate(extra_handling_cost = weight_kg * if_else(vehicle == "Cargo bike", as.numeric(input$cost_parcel_handling), 0 ) )
+      mutate(extra_handling_cost = n * 0.72 * if_else(vehicle == "Cargo bike", as.numeric(input$cost_parcel_handling), 0 ) )
+    
+    ##the factor 0.72 accounts for an average volume in S-packet equivalents, given the shares in FOCA (20.07.2020) - only xs and s!
     
     parcel_costs = weights_and_parcels_all %>%
       group_by(scenario, vehicle) %>%

@@ -2,10 +2,10 @@ pacman::p_load(data.table, dplyr, ggplot2, readr, tidyr, reshape, data.table)
 
 upper_folder = "C:/models/freightFlows/output/"
 
-scenario_folders = c("mc_cargo_bike_reg", "mc_cargo_bike_reg_base",
-                     "mc_cargo_bike", "mc_cargo_bike_base")
-scenarios = c("0-REG: Optimized", "1-REG: Reference - no cargo bike", 
-              "0-MUC: Optimized", "1-MUC: Reference - no cargo bike")
+scenario_folders = c("mc_cargo_bike_reg_base","mc_cargo_bike_reg", 
+                     "mc_cargo_bike_base", "mc_cargo_bike" )
+scenarios = c("0-REG: Reference - no cargo bike", "1-REG: Optimized ", 
+              "2-MUC: Reference - no cargo bike", "3-MUC: Optimized")
 scenario_pretty_names = scenarios
 distribution_centers = c(10,10,14,14)
 
