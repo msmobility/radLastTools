@@ -1,145 +1,49 @@
 vehicle,customer_type,weight_kg,n,scenario,dc
-Van,Direct to customer,99630.44544863202,12313,01-0% MUC,20
-Van,Via parcel shop,0,0,01-0% MUC,20
-Van,All,0,0,01-0% MUC,20
-Cargo bike,Direct to customer,0,0,01-0% MUC,20
-Cargo bike,Via parcel shop,0,0,01-0% MUC,20
-Cargo bike,All,0,0,01-0% MUC,20
-Long-distance,Direct to customer,0,0,01-0% MUC,20
-Long-distance,Via parcel shop,0,0,01-0% MUC,20
-Long-distance,All,0,0,01-0% MUC,20
-Feeder (parcel shop),Direct to customer,0,0,01-0% MUC,20
-Feeder (parcel shop),Via parcel shop,111143.73115571431,13427,01-0% MUC,20
-Feeder (parcel shop),All,0,0,01-0% MUC,20
-Van,Direct to customer,93635.36032067961,10917,02-20% MUC,20
-Van,Via parcel shop,0,0,02-20% MUC,20
-Van,All,0,0,02-20% MUC,20
-Cargo bike,Direct to customer,5995.085127952406,1396,02-20% MUC,20
-Cargo bike,Via parcel shop,0,0,02-20% MUC,20
-Cargo bike,All,0,0,02-20% MUC,20
-Long-distance,Direct to customer,0,0,02-20% MUC,20
-Long-distance,Via parcel shop,0,0,02-20% MUC,20
-Long-distance,All,0,0,02-20% MUC,20
-Feeder (parcel shop),Direct to customer,0,0,02-20% MUC,20
-Feeder (parcel shop),Via parcel shop,111143.73115571431,13427,02-20% MUC,20
-Feeder (parcel shop),All,0,0,02-20% MUC,20
-Van,Direct to customer,88044.46582085849,9606,03-40% MUC,20
-Van,Via parcel shop,0,0,03-40% MUC,20
-Van,All,0,0,03-40% MUC,20
-Cargo bike,Direct to customer,11914.32782981122,2744,03-40% MUC,20
-Cargo bike,Via parcel shop,0,0,03-40% MUC,20
-Cargo bike,All,0,0,03-40% MUC,20
-Long-distance,Direct to customer,0,0,03-40% MUC,20
-Long-distance,Via parcel shop,0,0,03-40% MUC,20
-Long-distance,All,0,0,03-40% MUC,20
-Feeder (parcel shop),Direct to customer,0,0,03-40% MUC,20
-Feeder (parcel shop),Via parcel shop,110773.54797004584,13390,03-40% MUC,20
-Feeder (parcel shop),All,0,0,03-40% MUC,20
-Van,Direct to customer,81897.1618164999,8200,04-60% MUC,20
-Van,Via parcel shop,0,0,04-60% MUC,20
-Van,All,0,0,04-60% MUC,20
-Cargo bike,Direct to customer,17733.283632132116,4113,04-60% MUC,20
-Cargo bike,Via parcel shop,0,0,04-60% MUC,20
-Cargo bike,All,0,0,04-60% MUC,20
-Long-distance,Direct to customer,0,0,04-60% MUC,20
-Long-distance,Via parcel shop,0,0,04-60% MUC,20
-Long-distance,All,0,0,04-60% MUC,20
-Feeder (parcel shop),Direct to customer,0,0,04-60% MUC,20
-Feeder (parcel shop),Via parcel shop,111143.73115571431,13427,04-60% MUC,20
-Feeder (parcel shop),All,0,0,04-60% MUC,20
-Van,Direct to customer,76349.06278901595,6868,05-80% MUC,20
-Van,Via parcel shop,0,0,05-80% MUC,20
-Van,All,0,0,05-80% MUC,20
-Cargo bike,Direct to customer,23281.38265961607,5445,05-80% MUC,20
-Cargo bike,Via parcel shop,0,0,05-80% MUC,20
-Cargo bike,All,0,0,05-80% MUC,20
-Long-distance,Direct to customer,0,0,05-80% MUC,20
-Long-distance,Via parcel shop,0,0,05-80% MUC,20
-Long-distance,All,0,0,05-80% MUC,20
-Feeder (parcel shop),Direct to customer,0,0,05-80% MUC,20
-Feeder (parcel shop),Via parcel shop,111143.73115571431,13427,05-80% MUC,20
-Feeder (parcel shop),All,0,0,05-80% MUC,20
-Van,Direct to customer,70402.16811543828,5505,06-100% MUC,20
-Van,Via parcel shop,0,0,06-100% MUC,20
-Van,All,0,0,06-100% MUC,20
-Cargo bike,Direct to customer,29228.27733319374,6808,06-100% MUC,20
-Cargo bike,Via parcel shop,0,0,06-100% MUC,20
-Cargo bike,All,0,0,06-100% MUC,20
-Long-distance,Direct to customer,0,0,06-100% MUC,20
-Long-distance,Via parcel shop,0,0,06-100% MUC,20
-Long-distance,All,0,0,06-100% MUC,20
-Feeder (parcel shop),Direct to customer,0,0,06-100% MUC,20
-Feeder (parcel shop),Via parcel shop,111143.73115571431,13427,06-100% MUC,20
-Feeder (parcel shop),All,0,0,06-100% MUC,20
-Van,Direct to customer,235729.88740947424,29283,07-0% REG,10
-Van,Via parcel shop,0,0,07-0% REG,10
-Van,All,0,0,07-0% REG,10
-Cargo bike,Direct to customer,0,0,07-0% REG,10
-Cargo bike,Via parcel shop,0,0,07-0% REG,10
-Cargo bike,All,0,0,07-0% REG,10
-Long-distance,Direct to customer,0,0,07-0% REG,10
-Long-distance,Via parcel shop,0,0,07-0% REG,10
-Long-distance,All,0,0,07-0% REG,10
-Feeder (parcel shop),Direct to customer,0,0,07-0% REG,10
-Feeder (parcel shop),Via parcel shop,368359.27225874946,45159,07-0% REG,10
-Feeder (parcel shop),All,0,0,07-0% REG,10
-Van,Direct to customer,223712.1042311287,26634,08-20% REG,10
-Van,Via parcel shop,0,0,08-20% REG,10
-Van,All,0,0,08-20% REG,10
-Cargo bike,Direct to customer,11989.466659959855,2768,08-20% REG,10
-Cargo bike,Via parcel shop,0,0,08-20% REG,10
-Cargo bike,All,0,0,08-20% REG,10
-Long-distance,Direct to customer,0,0,08-20% REG,10
-Long-distance,Via parcel shop,0,0,08-20% REG,10
-Long-distance,All,0,0,08-20% REG,10
-Feeder (parcel shop),Direct to customer,0,0,08-20% REG,10
-Feeder (parcel shop),Via parcel shop,368403.51420055394,45040,08-20% REG,10
-Feeder (parcel shop),All,0,0,08-20% REG,10
-Van,Direct to customer,211356.80360635472,23787,09-40% REG,10
-Van,Via parcel shop,0,0,09-40% REG,10
-Van,All,0,0,09-40% REG,10
-Cargo bike,Direct to customer,24344.76728473384,5615,09-40% REG,10
-Cargo bike,Via parcel shop,0,0,09-40% REG,10
-Cargo bike,All,0,0,09-40% REG,10
-Long-distance,Direct to customer,0,0,09-40% REG,10
-Long-distance,Via parcel shop,0,0,09-40% REG,10
-Long-distance,All,0,0,09-40% REG,10
-Feeder (parcel shop),Direct to customer,0,0,09-40% REG,10
-Feeder (parcel shop),Via parcel shop,368403.51420055394,45040,09-40% REG,10
-Feeder (parcel shop),All,0,0,09-40% REG,10
-Van,Direct to customer,199413.57072156112,20924,10-60% REG,10
-Van,Via parcel shop,0,0,10-60% REG,10
-Van,All,0,0,10-60% REG,10
-Cargo bike,Direct to customer,36165.967034196394,8339,10-60% REG,10
-Cargo bike,Via parcel shop,0,0,10-60% REG,10
-Cargo bike,All,0,0,10-60% REG,10
-Long-distance,Direct to customer,0,0,10-60% REG,10
-Long-distance,Via parcel shop,0,0,10-60% REG,10
-Long-distance,All,0,0,10-60% REG,10
-Feeder (parcel shop),Direct to customer,0,0,10-60% REG,10
-Feeder (parcel shop),Via parcel shop,368514.496704144,45179,10-60% REG,10
-Feeder (parcel shop),All,0,0,10-60% REG,10
-Van,Direct to customer,187352.95833870547,18242,11-80% REG,10
-Van,Via parcel shop,0,0,11-80% REG,10
-Van,All,0,0,11-80% REG,10
-Cargo bike,Direct to customer,48348.61255238309,11160,11-80% REG,10
-Cargo bike,Via parcel shop,0,0,11-80% REG,10
-Cargo bike,All,0,0,11-80% REG,10
-Long-distance,Direct to customer,0,0,11-80% REG,10
-Long-distance,Via parcel shop,0,0,11-80% REG,10
-Long-distance,All,0,0,11-80% REG,10
-Feeder (parcel shop),Direct to customer,0,0,11-80% REG,10
-Feeder (parcel shop),Via parcel shop,368403.51420055394,45040,11-80% REG,10
-Feeder (parcel shop),All,0,0,11-80% REG,10
-Van,Direct to customer,175472.33736769183,15487,12-100% REG,10
-Van,Via parcel shop,0,0,12-100% REG,10
-Van,All,0,0,12-100% REG,10
-Cargo bike,Direct to customer,60229.23352339672,13915,12-100% REG,10
-Cargo bike,Via parcel shop,0,0,12-100% REG,10
-Cargo bike,All,0,0,12-100% REG,10
-Long-distance,Direct to customer,0,0,12-100% REG,10
-Long-distance,Via parcel shop,0,0,12-100% REG,10
-Long-distance,All,0,0,12-100% REG,10
-Feeder (parcel shop),Direct to customer,0,0,12-100% REG,10
-Feeder (parcel shop),Via parcel shop,368403.51420055394,45040,12-100% REG,10
-Feeder (parcel shop),All,0,0,12-100% REG,10
+Van,Direct to customer,90399.22781669185,9926,0-REG: Optimized,10
+Van,Via parcel shop,0,0,0-REG: Optimized,10
+Van,All,0,0,0-REG: Optimized,10
+Cargo bike,Direct to customer,3904.8653095317395,1795,0-REG: Optimized,10
+Cargo bike,Via parcel shop,0,0,0-REG: Optimized,10
+Cargo bike,All,0,0,0-REG: Optimized,10
+Long-distance,Direct to customer,0,0,0-REG: Optimized,10
+Long-distance,Via parcel shop,0,0,0-REG: Optimized,10
+Long-distance,All,0,0,0-REG: Optimized,10
+Feeder (parcel shop),Direct to customer,0,0,0-REG: Optimized,10
+Feeder (parcel shop),Via parcel shop,146820.48337336734,18016,0-REG: Optimized,10
+Feeder (parcel shop),All,0,0,0-REG: Optimized,10
+Van,Direct to customer,94452.03456876682,11935,1-REG: Reference - no cargo bike,10
+Van,Via parcel shop,0,0,1-REG: Reference - no cargo bike,10
+Van,All,0,0,1-REG: Reference - no cargo bike,10
+Cargo bike,Direct to customer,0,0,1-REG: Reference - no cargo bike,10
+Cargo bike,Via parcel shop,0,0,1-REG: Reference - no cargo bike,10
+Cargo bike,All,0,0,1-REG: Reference - no cargo bike,10
+Long-distance,Direct to customer,0,0,1-REG: Reference - no cargo bike,10
+Long-distance,Via parcel shop,0,0,1-REG: Reference - no cargo bike,10
+Long-distance,All,0,0,1-REG: Reference - no cargo bike,10
+Feeder (parcel shop),Direct to customer,0,0,1-REG: Reference - no cargo bike,10
+Feeder (parcel shop),Via parcel shop,148449.2122647749,18087,1-REG: Reference - no cargo bike,10
+Feeder (parcel shop),All,0,0,1-REG: Reference - no cargo bike,10
+Van,Direct to customer,224951.07476316844,24376,0-MUC: Optimized,14
+Van,Via parcel shop,0,0,0-MUC: Optimized,14
+Van,All,0,0,0-MUC: Optimized,14
+Cargo bike,Direct to customer,26884.654411014177,6948,0-MUC: Optimized,14
+Cargo bike,Via parcel shop,0,0,0-MUC: Optimized,14
+Cargo bike,All,0,0,0-MUC: Optimized,14
+Long-distance,Direct to customer,0,0,0-MUC: Optimized,14
+Long-distance,Via parcel shop,0,0,0-MUC: Optimized,14
+Long-distance,All,0,0,0-MUC: Optimized,14
+Feeder (parcel shop),Direct to customer,0,0,0-MUC: Optimized,14
+Feeder (parcel shop),Via parcel shop,247469.93879770426,30335,0-MUC: Optimized,14
+Feeder (parcel shop),All,0,0,0-MUC: Optimized,14
+Van,Direct to customer,251835.7291741826,31324,1-MUC: Reference - no cargo bike,14
+Van,Via parcel shop,0,0,1-MUC: Reference - no cargo bike,14
+Van,All,0,0,1-MUC: Reference - no cargo bike,14
+Cargo bike,Direct to customer,0,0,1-MUC: Reference - no cargo bike,14
+Cargo bike,Via parcel shop,0,0,1-MUC: Reference - no cargo bike,14
+Cargo bike,All,0,0,1-MUC: Reference - no cargo bike,14
+Long-distance,Direct to customer,0,0,1-MUC: Reference - no cargo bike,14
+Long-distance,Via parcel shop,0,0,1-MUC: Reference - no cargo bike,14
+Long-distance,All,0,0,1-MUC: Reference - no cargo bike,14
+Feeder (parcel shop),Direct to customer,0,0,1-MUC: Reference - no cargo bike,14
+Feeder (parcel shop),Via parcel shop,247469.93879770426,30335,1-MUC: Reference - no cargo bike,14
+Feeder (parcel shop),All,0,0,1-MUC: Reference - no cargo bike,14

@@ -1,65 +1,73 @@
 pacman::p_load(data.table, dplyr, ggplot2, readr, tidyr, reshape, data.table)
 
 upper_folder = "C:/models/freightFlows/output/"
-scenario_folders = c(
-  "0_cargo_bike_dc20_v3",
-  "20_cargo_bike_dc20_v3",
-  "40_cargo_bike_dc20",
-  "60_cargo_bike_dc20_v3",
-  "80_cargo_bike_dc20_v3",
-  "100_cargo_bike_dc20_v3",
-  "0_cargo_bike_dc10",
-  "20_cargo_bike_dc10",
-  "40_cargo_bike_dc10",
-  "60_cargo_bike_dc10",
-  "80_cargo_bike_dc10",
-  "100_cargo_bike_dc10"
-)
 
-scenarios = c(
-  0,
-  20,
-  40,
-  60,
-  80,
-  100,
-  "0reg",
-  "20reg",
-  "40reg",
-  "60reg",
-  "80reg",
-  "100reg"
-)
+scenario_folders = c("mc_cargo_bike_reg", "mc_cargo_bike_reg_base",
+                     "mc_cargo_bike", "mc_cargo_bike_base")
+scenarios = c("0-REG: Optimized", "1-REG: Reference - no cargo bike", 
+              "0-MUC: Optimized", "1-MUC: Reference - no cargo bike")
+scenario_pretty_names = scenarios
+distribution_centers = c(10,10,14,14)
 
-scenario_pretty_names = c(
-  "01-0% MUC",
-  "02-20% MUC",
-  "03-40% MUC",
-  "04-60% MUC",
-  "05-80% MUC",
-  "06-100% MUC",
-  "07-0% REG",
-  "08-20% REG",
-  "09-40% REG",
-  "10-60% REG",
-  "11-80% REG",
-  "12-100% REG"
-)
-
-distribution_centers = c(
-  20,
-  20,
-  20,
-  20,
-  20,
-  20,
-  10,
-  10,
-  10,
-  10,
-  10,
-  10
-)
+# scenario_folders = c(
+#   "0_cargo_bike_dc20_v3",
+#   "20_cargo_bike_dc20_v3",
+#   "40_cargo_bike_dc20",
+#   "60_cargo_bike_dc20_v3",
+#   "80_cargo_bike_dc20_v3",
+#   "100_cargo_bike_dc20_v3",
+#   "0_cargo_bike_dc10",
+#   "20_cargo_bike_dc10",
+#   "40_cargo_bike_dc10",
+#   "60_cargo_bike_dc10",
+#   "80_cargo_bike_dc10",
+#   "100_cargo_bike_dc10"
+# )
+# 
+# scenarios = c(
+#   0,
+#   20,
+#   40,
+#   60,
+#   80,
+#   100,
+#   "0reg",
+#   "20reg",
+#   "40reg",
+#   "60reg",
+#   "80reg",
+#   "100reg"
+# )
+# 
+# scenario_pretty_names = c(
+#   "01-0% MUC",
+#   "02-20% MUC",
+#   "03-40% MUC",
+#   "04-60% MUC",
+#   "05-80% MUC",
+#   "06-100% MUC",
+#   "07-0% REG",
+#   "08-20% REG",
+#   "09-40% REG",
+#   "10-60% REG",
+#   "11-80% REG",
+#   "12-100% REG"
+# )
+# 
+# distribution_centers = c(
+#   20,
+#   20,
+#   20,
+#   20,
+#   20,
+#   20,
+#   10,
+#   10,
+#   10,
+#   10,
+#   10,
+#   10
+# )
 
 
 weights_and_parcels_all = data.frame()
@@ -206,3 +214,4 @@ write_csv(weights_and_parcels_by_bound_all, "foca_visualizer/model_data/weights_
 write_csv(zones_all, "foca_visualizer/model_data/zones_all.csv")
 write_csv(micro_depots, "foca_visualizer/model_data/micro_depots.csv")
 write_csv(all_parcels_by_zone, "foca_visualizer/model_data/all_parcels_by_zone.csv")
+

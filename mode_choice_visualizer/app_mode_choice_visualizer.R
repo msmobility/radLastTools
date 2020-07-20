@@ -12,25 +12,31 @@ modeChoice = fluidPage(
     #position = "right",
     sidebarPanel(
       width = 2,
-      helpText("Klicken Sie auf Aktualisieren um die Zustellungsmodi basierend auf den unten gewählten Parametern zu ermitteln"),
+      helpText("Klicken Sie auf Aktualisieren um die Zustellungsmodi basierend auf den unten gew?hlten Parametern zu ermitteln"),
       actionButton(inputId = "update", "Aktualisieren", width = 100),
       helpText(" "),
       numericInput(inputId = "serv_co_truck",
-                   label = "Servicekosten Transporter [EUR/Paket]", value = 1.2585),
+                   label = "Servicekosten Transporter [EUR/Paket]", value = 1.1386),
+      #      label = "Servicekosten Transporter [EUR/Paket]", value = 1.2585),
       numericInput(inputId = "serv_co_bike",
-                   label = "Servicekosten Lastenrad [EUR/Paket]", value = 1.13265),
+                   label = "Servicekosten Lastenrad [EUR/Paket]", value = 1.0248),
+      #                   label = "Servicekosten Lastenrad [EUR/Paket]", value = 1.13265),
       numericInput(inputId = "op_co_feeder",
-                   label = "Kosten Vorletzte Meile [EUR/km]", value = 2.1333),
+                   label = "Kosten Vorletzte Meile [EUR/km]", value = 1.9301),
+      #label = "Kosten Vorletzte Meile [EUR/km]", value = 2.1333),
       numericInput(inputId = "op_co_truck",
-                   label = "Kosten Allerletzte Meile Transporter [EUR/km]", value = 3.185),
+                   label = "Kosten Allerletzte Meile Transporter [EUR/km]", value = 2.8817),
+      #label = "Kosten Allerletzte Meile Transporter [EUR/km]", value = 3.185),
       numericInput(inputId = "op_co_bike",
-                   label = "Kosten Allerletzte Meile Lastenrad [EUR/km]", value = 3.437),
+                   label = "Kosten Allerletzte Meile Lastenrad [EUR/km]", value = 3.1097),
+      #label = "Kosten Allerletzte Meile Lastenrad [EUR/km]", value = 3.437),
       numericInput(inputId = "ex_co_bike",
-                   label = "Umschlagskosten Mikrodepot [EUR/Paktenheiten]", value = 0.84),
+                   label = "Umschlagskosten Mikrodepot [EUR/Paktenheiten]", value = 0.76),
+      #label = "Umschlagskosten Mikrodepot [EUR/Paktenheiten]", value = 0.84),
       numericInput(inputId = "cap_truck",
-                   label = "Kapazität LKW [Paktenheiten]", value = 120.0),
+                   label = "Kapazit?t Transporter [Paktenheiten]", value = 120.0),
       numericInput(inputId = "cap_feeder",
-                   label = "Kapazität Feeder [Paktenheiten]", value = 240.0)
+                   label = "Kapazit?t Feeder [Paktenheiten]", value = 240.0)
     ),
     mainPanel(
       tabBox(
@@ -368,6 +374,9 @@ serverModeChoice = function(input, output, session){
     colnames(dist_AZDC) = d_centers$dcId
     rownames(dist_AZDC) = zones$layer
   
+    print(dist_AZDC)
+    
+    
     # get parameter inputs
 
     capacity_feeder = input$cap_feeder # in m3

@@ -1,289 +1,97 @@
 toDestination,vehicle,customer_type,weight_kg,n,scenario,dc
-From the study area,Van,Direct to customer,22014.80286329223,2728,01-0% MUC,20
-From the study area,Van,Via parcel shop,0,0,01-0% MUC,20
-From the study area,Van,All,0,0,01-0% MUC,20
-From the study area,Cargo bike,Direct to customer,0,0,01-0% MUC,20
-From the study area,Cargo bike,Via parcel shop,0,0,01-0% MUC,20
-From the study area,Cargo bike,All,0,0,01-0% MUC,20
-From the study area,Long-distance,Direct to customer,0,0,01-0% MUC,20
-From the study area,Long-distance,Via parcel shop,0,0,01-0% MUC,20
-From the study area,Long-distance,All,0,0,01-0% MUC,20
-From the study area,Feeder (parcel shop),Direct to customer,0,0,01-0% MUC,20
-From the study area,Feeder (parcel shop),Via parcel shop,91663.1726269133,11031,01-0% MUC,20
-From the study area,Feeder (parcel shop),All,0,0,01-0% MUC,20
-To the study area,Van,Direct to customer,77615.64258533978,9585,01-0% MUC,20
-To the study area,Van,Via parcel shop,0,0,01-0% MUC,20
-To the study area,Van,All,0,0,01-0% MUC,20
-To the study area,Cargo bike,Direct to customer,0,0,01-0% MUC,20
-To the study area,Cargo bike,Via parcel shop,0,0,01-0% MUC,20
-To the study area,Cargo bike,All,0,0,01-0% MUC,20
-To the study area,Long-distance,Direct to customer,0,0,01-0% MUC,20
-To the study area,Long-distance,Via parcel shop,0,0,01-0% MUC,20
-To the study area,Long-distance,All,0,0,01-0% MUC,20
-To the study area,Feeder (parcel shop),Direct to customer,0,0,01-0% MUC,20
-To the study area,Feeder (parcel shop),Via parcel shop,19480.558528800997,2396,01-0% MUC,20
-To the study area,Feeder (parcel shop),All,0,0,01-0% MUC,20
-From the study area,Van,Direct to customer,22014.80286329223,2728,02-20% MUC,20
-From the study area,Van,Via parcel shop,0,0,02-20% MUC,20
-From the study area,Van,All,0,0,02-20% MUC,20
-From the study area,Cargo bike,Direct to customer,0,0,02-20% MUC,20
-From the study area,Cargo bike,Via parcel shop,0,0,02-20% MUC,20
-From the study area,Cargo bike,All,0,0,02-20% MUC,20
-From the study area,Long-distance,Direct to customer,0,0,02-20% MUC,20
-From the study area,Long-distance,Via parcel shop,0,0,02-20% MUC,20
-From the study area,Long-distance,All,0,0,02-20% MUC,20
-From the study area,Feeder (parcel shop),Direct to customer,0,0,02-20% MUC,20
-From the study area,Feeder (parcel shop),Via parcel shop,91663.1726269133,11031,02-20% MUC,20
-From the study area,Feeder (parcel shop),All,0,0,02-20% MUC,20
-To the study area,Van,Direct to customer,71620.55745738737,8189,02-20% MUC,20
-To the study area,Van,Via parcel shop,0,0,02-20% MUC,20
-To the study area,Van,All,0,0,02-20% MUC,20
-To the study area,Cargo bike,Direct to customer,5995.085127952406,1396,02-20% MUC,20
-To the study area,Cargo bike,Via parcel shop,0,0,02-20% MUC,20
-To the study area,Cargo bike,All,0,0,02-20% MUC,20
-To the study area,Long-distance,Direct to customer,0,0,02-20% MUC,20
-To the study area,Long-distance,Via parcel shop,0,0,02-20% MUC,20
-To the study area,Long-distance,All,0,0,02-20% MUC,20
-To the study area,Feeder (parcel shop),Direct to customer,0,0,02-20% MUC,20
-To the study area,Feeder (parcel shop),Via parcel shop,19480.558528800997,2396,02-20% MUC,20
-To the study area,Feeder (parcel shop),All,0,0,02-20% MUC,20
-From the study area,Van,Direct to customer,22299.215600791435,2759,03-40% MUC,20
-From the study area,Van,Via parcel shop,0,0,03-40% MUC,20
-From the study area,Van,All,0,0,03-40% MUC,20
-From the study area,Cargo bike,Direct to customer,0,0,03-40% MUC,20
-From the study area,Cargo bike,Via parcel shop,0,0,03-40% MUC,20
-From the study area,Cargo bike,All,0,0,03-40% MUC,20
-From the study area,Long-distance,Direct to customer,0,0,03-40% MUC,20
-From the study area,Long-distance,Via parcel shop,0,0,03-40% MUC,20
-From the study area,Long-distance,All,0,0,03-40% MUC,20
-From the study area,Feeder (parcel shop),Direct to customer,0,0,03-40% MUC,20
-From the study area,Feeder (parcel shop),Via parcel shop,91309.49441555321,10996,03-40% MUC,20
-From the study area,Feeder (parcel shop),All,0,0,03-40% MUC,20
-To the study area,Van,Direct to customer,65745.25022006706,6847,03-40% MUC,20
-To the study area,Van,Via parcel shop,0,0,03-40% MUC,20
-To the study area,Van,All,0,0,03-40% MUC,20
-To the study area,Cargo bike,Direct to customer,11914.32782981122,2744,03-40% MUC,20
-To the study area,Cargo bike,Via parcel shop,0,0,03-40% MUC,20
-To the study area,Cargo bike,All,0,0,03-40% MUC,20
-To the study area,Long-distance,Direct to customer,0,0,03-40% MUC,20
-To the study area,Long-distance,Via parcel shop,0,0,03-40% MUC,20
-To the study area,Long-distance,All,0,0,03-40% MUC,20
-To the study area,Feeder (parcel shop),Direct to customer,0,0,03-40% MUC,20
-To the study area,Feeder (parcel shop),Via parcel shop,19464.053554492617,2394,03-40% MUC,20
-To the study area,Feeder (parcel shop),All,0,0,03-40% MUC,20
-From the study area,Van,Direct to customer,22014.80286329223,2728,04-60% MUC,20
-From the study area,Van,Via parcel shop,0,0,04-60% MUC,20
-From the study area,Van,All,0,0,04-60% MUC,20
-From the study area,Cargo bike,Direct to customer,0,0,04-60% MUC,20
-From the study area,Cargo bike,Via parcel shop,0,0,04-60% MUC,20
-From the study area,Cargo bike,All,0,0,04-60% MUC,20
-From the study area,Long-distance,Direct to customer,0,0,04-60% MUC,20
-From the study area,Long-distance,Via parcel shop,0,0,04-60% MUC,20
-From the study area,Long-distance,All,0,0,04-60% MUC,20
-From the study area,Feeder (parcel shop),Direct to customer,0,0,04-60% MUC,20
-From the study area,Feeder (parcel shop),Via parcel shop,91663.1726269133,11031,04-60% MUC,20
-From the study area,Feeder (parcel shop),All,0,0,04-60% MUC,20
-To the study area,Van,Direct to customer,59882.35895320767,5472,04-60% MUC,20
-To the study area,Van,Via parcel shop,0,0,04-60% MUC,20
-To the study area,Van,All,0,0,04-60% MUC,20
-To the study area,Cargo bike,Direct to customer,17733.283632132116,4113,04-60% MUC,20
-To the study area,Cargo bike,Via parcel shop,0,0,04-60% MUC,20
-To the study area,Cargo bike,All,0,0,04-60% MUC,20
-To the study area,Long-distance,Direct to customer,0,0,04-60% MUC,20
-To the study area,Long-distance,Via parcel shop,0,0,04-60% MUC,20
-To the study area,Long-distance,All,0,0,04-60% MUC,20
-To the study area,Feeder (parcel shop),Direct to customer,0,0,04-60% MUC,20
-To the study area,Feeder (parcel shop),Via parcel shop,19480.558528800997,2396,04-60% MUC,20
-To the study area,Feeder (parcel shop),All,0,0,04-60% MUC,20
-From the study area,Van,Direct to customer,22014.80286329223,2728,05-80% MUC,20
-From the study area,Van,Via parcel shop,0,0,05-80% MUC,20
-From the study area,Van,All,0,0,05-80% MUC,20
-From the study area,Cargo bike,Direct to customer,0,0,05-80% MUC,20
-From the study area,Cargo bike,Via parcel shop,0,0,05-80% MUC,20
-From the study area,Cargo bike,All,0,0,05-80% MUC,20
-From the study area,Long-distance,Direct to customer,0,0,05-80% MUC,20
-From the study area,Long-distance,Via parcel shop,0,0,05-80% MUC,20
-From the study area,Long-distance,All,0,0,05-80% MUC,20
-From the study area,Feeder (parcel shop),Direct to customer,0,0,05-80% MUC,20
-From the study area,Feeder (parcel shop),Via parcel shop,91663.1726269133,11031,05-80% MUC,20
-From the study area,Feeder (parcel shop),All,0,0,05-80% MUC,20
-To the study area,Van,Direct to customer,54334.259925723716,4140,05-80% MUC,20
-To the study area,Van,Via parcel shop,0,0,05-80% MUC,20
-To the study area,Van,All,0,0,05-80% MUC,20
-To the study area,Cargo bike,Direct to customer,23281.38265961607,5445,05-80% MUC,20
-To the study area,Cargo bike,Via parcel shop,0,0,05-80% MUC,20
-To the study area,Cargo bike,All,0,0,05-80% MUC,20
-To the study area,Long-distance,Direct to customer,0,0,05-80% MUC,20
-To the study area,Long-distance,Via parcel shop,0,0,05-80% MUC,20
-To the study area,Long-distance,All,0,0,05-80% MUC,20
-To the study area,Feeder (parcel shop),Direct to customer,0,0,05-80% MUC,20
-To the study area,Feeder (parcel shop),Via parcel shop,19480.558528800997,2396,05-80% MUC,20
-To the study area,Feeder (parcel shop),All,0,0,05-80% MUC,20
-From the study area,Van,Direct to customer,22014.80286329223,2728,06-100% MUC,20
-From the study area,Van,Via parcel shop,0,0,06-100% MUC,20
-From the study area,Van,All,0,0,06-100% MUC,20
-From the study area,Cargo bike,Direct to customer,0,0,06-100% MUC,20
-From the study area,Cargo bike,Via parcel shop,0,0,06-100% MUC,20
-From the study area,Cargo bike,All,0,0,06-100% MUC,20
-From the study area,Long-distance,Direct to customer,0,0,06-100% MUC,20
-From the study area,Long-distance,Via parcel shop,0,0,06-100% MUC,20
-From the study area,Long-distance,All,0,0,06-100% MUC,20
-From the study area,Feeder (parcel shop),Direct to customer,0,0,06-100% MUC,20
-From the study area,Feeder (parcel shop),Via parcel shop,91663.1726269133,11031,06-100% MUC,20
-From the study area,Feeder (parcel shop),All,0,0,06-100% MUC,20
-To the study area,Van,Direct to customer,48387.36525214605,2777,06-100% MUC,20
-To the study area,Van,Via parcel shop,0,0,06-100% MUC,20
-To the study area,Van,All,0,0,06-100% MUC,20
-To the study area,Cargo bike,Direct to customer,29228.27733319374,6808,06-100% MUC,20
-To the study area,Cargo bike,Via parcel shop,0,0,06-100% MUC,20
-To the study area,Cargo bike,All,0,0,06-100% MUC,20
-To the study area,Long-distance,Direct to customer,0,0,06-100% MUC,20
-To the study area,Long-distance,Via parcel shop,0,0,06-100% MUC,20
-To the study area,Long-distance,All,0,0,06-100% MUC,20
-To the study area,Feeder (parcel shop),Direct to customer,0,0,06-100% MUC,20
-To the study area,Feeder (parcel shop),Via parcel shop,19480.558528800997,2396,06-100% MUC,20
-To the study area,Feeder (parcel shop),All,0,0,06-100% MUC,20
-From the study area,Van,Direct to customer,81937.22017026161,10029,07-0% REG,10
-From the study area,Van,Via parcel shop,0,0,07-0% REG,10
-From the study area,Van,All,0,0,07-0% REG,10
-From the study area,Cargo bike,Direct to customer,0,0,07-0% REG,10
-From the study area,Cargo bike,Via parcel shop,0,0,07-0% REG,10
-From the study area,Cargo bike,All,0,0,07-0% REG,10
-From the study area,Long-distance,Direct to customer,0,0,07-0% REG,10
-From the study area,Long-distance,Via parcel shop,0,0,07-0% REG,10
-From the study area,Long-distance,All,0,0,07-0% REG,10
-From the study area,Feeder (parcel shop),Direct to customer,0,0,07-0% REG,10
-From the study area,Feeder (parcel shop),Via parcel shop,329188.7769110981,40333,07-0% REG,10
-From the study area,Feeder (parcel shop),All,0,0,07-0% REG,10
-To the study area,Van,Direct to customer,153792.66723921263,19254,07-0% REG,10
-To the study area,Van,Via parcel shop,0,0,07-0% REG,10
-To the study area,Van,All,0,0,07-0% REG,10
-To the study area,Cargo bike,Direct to customer,0,0,07-0% REG,10
-To the study area,Cargo bike,Via parcel shop,0,0,07-0% REG,10
-To the study area,Cargo bike,All,0,0,07-0% REG,10
-To the study area,Long-distance,Direct to customer,0,0,07-0% REG,10
-To the study area,Long-distance,Via parcel shop,0,0,07-0% REG,10
-To the study area,Long-distance,All,0,0,07-0% REG,10
-To the study area,Feeder (parcel shop),Direct to customer,0,0,07-0% REG,10
-To the study area,Feeder (parcel shop),Via parcel shop,39170.49534765139,4826,07-0% REG,10
-To the study area,Feeder (parcel shop),All,0,0,07-0% REG,10
-From the study area,Van,Direct to customer,82225.87568099226,10131,08-20% REG,10
-From the study area,Van,Via parcel shop,0,0,08-20% REG,10
-From the study area,Van,All,0,0,08-20% REG,10
-From the study area,Cargo bike,Direct to customer,0,0,08-20% REG,10
-From the study area,Cargo bike,Via parcel shop,0,0,08-20% REG,10
-From the study area,Cargo bike,All,0,0,08-20% REG,10
-From the study area,Long-distance,Direct to customer,0,0,08-20% REG,10
-From the study area,Long-distance,Via parcel shop,0,0,08-20% REG,10
-From the study area,Long-distance,All,0,0,08-20% REG,10
-From the study area,Feeder (parcel shop),Direct to customer,0,0,08-20% REG,10
-From the study area,Feeder (parcel shop),Via parcel shop,328874.29214632703,40232,08-20% REG,10
-From the study area,Feeder (parcel shop),All,0,0,08-20% REG,10
-To the study area,Van,Direct to customer,141486.22855013644,16503,08-20% REG,10
-To the study area,Van,Via parcel shop,0,0,08-20% REG,10
-To the study area,Van,All,0,0,08-20% REG,10
-To the study area,Cargo bike,Direct to customer,11989.466659959855,2768,08-20% REG,10
-To the study area,Cargo bike,Via parcel shop,0,0,08-20% REG,10
-To the study area,Cargo bike,All,0,0,08-20% REG,10
-To the study area,Long-distance,Direct to customer,0,0,08-20% REG,10
-To the study area,Long-distance,Via parcel shop,0,0,08-20% REG,10
-To the study area,Long-distance,All,0,0,08-20% REG,10
-To the study area,Feeder (parcel shop),Direct to customer,0,0,08-20% REG,10
-To the study area,Feeder (parcel shop),Via parcel shop,39529.222054226884,4808,08-20% REG,10
-To the study area,Feeder (parcel shop),All,0,0,08-20% REG,10
-From the study area,Van,Direct to customer,82225.87568099226,10131,09-40% REG,10
-From the study area,Van,Via parcel shop,0,0,09-40% REG,10
-From the study area,Van,All,0,0,09-40% REG,10
-From the study area,Cargo bike,Direct to customer,0,0,09-40% REG,10
-From the study area,Cargo bike,Via parcel shop,0,0,09-40% REG,10
-From the study area,Cargo bike,All,0,0,09-40% REG,10
-From the study area,Long-distance,Direct to customer,0,0,09-40% REG,10
-From the study area,Long-distance,Via parcel shop,0,0,09-40% REG,10
-From the study area,Long-distance,All,0,0,09-40% REG,10
-From the study area,Feeder (parcel shop),Direct to customer,0,0,09-40% REG,10
-From the study area,Feeder (parcel shop),Via parcel shop,328874.29214632703,40232,09-40% REG,10
-From the study area,Feeder (parcel shop),All,0,0,09-40% REG,10
-To the study area,Van,Direct to customer,129130.92792536246,13656,09-40% REG,10
-To the study area,Van,Via parcel shop,0,0,09-40% REG,10
-To the study area,Van,All,0,0,09-40% REG,10
-To the study area,Cargo bike,Direct to customer,24344.76728473384,5615,09-40% REG,10
-To the study area,Cargo bike,Via parcel shop,0,0,09-40% REG,10
-To the study area,Cargo bike,All,0,0,09-40% REG,10
-To the study area,Long-distance,Direct to customer,0,0,09-40% REG,10
-To the study area,Long-distance,Via parcel shop,0,0,09-40% REG,10
-To the study area,Long-distance,All,0,0,09-40% REG,10
-To the study area,Feeder (parcel shop),Direct to customer,0,0,09-40% REG,10
-To the study area,Feeder (parcel shop),Via parcel shop,39529.222054226884,4808,09-40% REG,10
-To the study area,Feeder (parcel shop),All,0,0,09-40% REG,10
-From the study area,Van,Direct to customer,82183.64371572851,10128,10-60% REG,10
-From the study area,Van,Via parcel shop,0,0,10-60% REG,10
-From the study area,Van,All,0,0,10-60% REG,10
-From the study area,Cargo bike,Direct to customer,0,0,10-60% REG,10
-From the study area,Cargo bike,Via parcel shop,0,0,10-60% REG,10
-From the study area,Cargo bike,All,0,0,10-60% REG,10
-From the study area,Long-distance,Direct to customer,0,0,10-60% REG,10
-From the study area,Long-distance,Via parcel shop,0,0,10-60% REG,10
-From the study area,Long-distance,All,0,0,10-60% REG,10
-From the study area,Feeder (parcel shop),Direct to customer,0,0,10-60% REG,10
-From the study area,Feeder (parcel shop),Via parcel shop,328937.7824484787,40231,10-60% REG,10
-From the study area,Feeder (parcel shop),All,0,0,10-60% REG,10
-To the study area,Van,Direct to customer,117229.92700583261,10796,10-60% REG,10
-To the study area,Van,Via parcel shop,0,0,10-60% REG,10
-To the study area,Van,All,0,0,10-60% REG,10
-To the study area,Cargo bike,Direct to customer,36165.967034196394,8339,10-60% REG,10
-To the study area,Cargo bike,Via parcel shop,0,0,10-60% REG,10
-To the study area,Cargo bike,All,0,0,10-60% REG,10
-To the study area,Long-distance,Direct to customer,0,0,10-60% REG,10
-To the study area,Long-distance,Via parcel shop,0,0,10-60% REG,10
-To the study area,Long-distance,All,0,0,10-60% REG,10
-To the study area,Feeder (parcel shop),Direct to customer,0,0,10-60% REG,10
-To the study area,Feeder (parcel shop),Via parcel shop,39576.71425566529,4948,10-60% REG,10
-To the study area,Feeder (parcel shop),All,0,0,10-60% REG,10
-From the study area,Van,Direct to customer,82225.87568099226,10131,11-80% REG,10
-From the study area,Van,Via parcel shop,0,0,11-80% REG,10
-From the study area,Van,All,0,0,11-80% REG,10
-From the study area,Cargo bike,Direct to customer,0,0,11-80% REG,10
-From the study area,Cargo bike,Via parcel shop,0,0,11-80% REG,10
-From the study area,Cargo bike,All,0,0,11-80% REG,10
-From the study area,Long-distance,Direct to customer,0,0,11-80% REG,10
-From the study area,Long-distance,Via parcel shop,0,0,11-80% REG,10
-From the study area,Long-distance,All,0,0,11-80% REG,10
-From the study area,Feeder (parcel shop),Direct to customer,0,0,11-80% REG,10
-From the study area,Feeder (parcel shop),Via parcel shop,328874.29214632703,40232,11-80% REG,10
-From the study area,Feeder (parcel shop),All,0,0,11-80% REG,10
-To the study area,Van,Direct to customer,105127.0826577132,8111,11-80% REG,10
-To the study area,Van,Via parcel shop,0,0,11-80% REG,10
-To the study area,Van,All,0,0,11-80% REG,10
-To the study area,Cargo bike,Direct to customer,48348.61255238309,11160,11-80% REG,10
-To the study area,Cargo bike,Via parcel shop,0,0,11-80% REG,10
-To the study area,Cargo bike,All,0,0,11-80% REG,10
-To the study area,Long-distance,Direct to customer,0,0,11-80% REG,10
-To the study area,Long-distance,Via parcel shop,0,0,11-80% REG,10
-To the study area,Long-distance,All,0,0,11-80% REG,10
-To the study area,Feeder (parcel shop),Direct to customer,0,0,11-80% REG,10
-To the study area,Feeder (parcel shop),Via parcel shop,39529.222054226884,4808,11-80% REG,10
-To the study area,Feeder (parcel shop),All,0,0,11-80% REG,10
-From the study area,Van,Direct to customer,82225.87568099226,10131,12-100% REG,10
-From the study area,Van,Via parcel shop,0,0,12-100% REG,10
-From the study area,Van,All,0,0,12-100% REG,10
-From the study area,Cargo bike,Direct to customer,0,0,12-100% REG,10
-From the study area,Cargo bike,Via parcel shop,0,0,12-100% REG,10
-From the study area,Cargo bike,All,0,0,12-100% REG,10
-From the study area,Long-distance,Direct to customer,0,0,12-100% REG,10
-From the study area,Long-distance,Via parcel shop,0,0,12-100% REG,10
-From the study area,Long-distance,All,0,0,12-100% REG,10
-From the study area,Feeder (parcel shop),Direct to customer,0,0,12-100% REG,10
-From the study area,Feeder (parcel shop),Via parcel shop,328874.29214632703,40232,12-100% REG,10
-From the study area,Feeder (parcel shop),All,0,0,12-100% REG,10
-To the study area,Van,Direct to customer,93246.46168669958,5356,12-100% REG,10
-To the study area,Van,Via parcel shop,0,0,12-100% REG,10
-To the study area,Van,All,0,0,12-100% REG,10
-To the study area,Cargo bike,Direct to customer,60229.23352339672,13915,12-100% REG,10
-To the study area,Cargo bike,Via parcel shop,0,0,12-100% REG,10
-To the study area,Cargo bike,All,0,0,12-100% REG,10
-To the study area,Long-distance,Direct to customer,0,0,12-100% REG,10
-To the study area,Long-distance,Via parcel shop,0,0,12-100% REG,10
-To the study area,Long-distance,All,0,0,12-100% REG,10
-To the study area,Feeder (parcel shop),Direct to customer,0,0,12-100% REG,10
-To the study area,Feeder (parcel shop),Via parcel shop,39529.222054226884,4808,12-100% REG,10
-To the study area,Feeder (parcel shop),All,0,0,12-100% REG,10
+From the study area,Van,Direct to customer,32255.81692342398,4017,0-REG: Optimized,10
+From the study area,Van,Via parcel shop,0,0,0-REG: Optimized,10
+From the study area,Van,All,0,0,0-REG: Optimized,10
+From the study area,Cargo bike,Direct to customer,0,0,0-REG: Optimized,10
+From the study area,Cargo bike,Via parcel shop,0,0,0-REG: Optimized,10
+From the study area,Cargo bike,All,0,0,0-REG: Optimized,10
+From the study area,Long-distance,Direct to customer,0,0,0-REG: Optimized,10
+From the study area,Long-distance,Via parcel shop,0,0,0-REG: Optimized,10
+From the study area,Long-distance,All,0,0,0-REG: Optimized,10
+From the study area,Feeder (parcel shop),Direct to customer,0,0,0-REG: Optimized,10
+From the study area,Feeder (parcel shop),Via parcel shop,131318.027971314,16097,0-REG: Optimized,10
+From the study area,Feeder (parcel shop),All,0,0,0-REG: Optimized,10
+To the study area,Van,Direct to customer,58143.41089326787,5909,0-REG: Optimized,10
+To the study area,Van,Via parcel shop,0,0,0-REG: Optimized,10
+To the study area,Van,All,0,0,0-REG: Optimized,10
+To the study area,Cargo bike,Direct to customer,3904.8653095317395,1795,0-REG: Optimized,10
+To the study area,Cargo bike,Via parcel shop,0,0,0-REG: Optimized,10
+To the study area,Cargo bike,All,0,0,0-REG: Optimized,10
+To the study area,Long-distance,Direct to customer,0,0,0-REG: Optimized,10
+To the study area,Long-distance,Via parcel shop,0,0,0-REG: Optimized,10
+To the study area,Long-distance,All,0,0,0-REG: Optimized,10
+To the study area,Feeder (parcel shop),Direct to customer,0,0,0-REG: Optimized,10
+To the study area,Feeder (parcel shop),Via parcel shop,15502.455402053332,1919,0-REG: Optimized,10
+To the study area,Feeder (parcel shop),All,0,0,0-REG: Optimized,10
+From the study area,Van,Direct to customer,32733.573229997794,4067,1-REG: Reference - no cargo bike,10
+From the study area,Van,Via parcel shop,0,0,1-REG: Reference - no cargo bike,10
+From the study area,Van,All,0,0,1-REG: Reference - no cargo bike,10
+From the study area,Cargo bike,Direct to customer,0,0,1-REG: Reference - no cargo bike,10
+From the study area,Cargo bike,Via parcel shop,0,0,1-REG: Reference - no cargo bike,10
+From the study area,Cargo bike,All,0,0,1-REG: Reference - no cargo bike,10
+From the study area,Long-distance,Direct to customer,0,0,1-REG: Reference - no cargo bike,10
+From the study area,Long-distance,Via parcel shop,0,0,1-REG: Reference - no cargo bike,10
+From the study area,Long-distance,All,0,0,1-REG: Reference - no cargo bike,10
+From the study area,Feeder (parcel shop),Direct to customer,0,0,1-REG: Reference - no cargo bike,10
+From the study area,Feeder (parcel shop),Via parcel shop,132246.58911943279,16184,1-REG: Reference - no cargo bike,10
+From the study area,Feeder (parcel shop),All,0,0,1-REG: Reference - no cargo bike,10
+To the study area,Van,Direct to customer,61718.46133876902,7868,1-REG: Reference - no cargo bike,10
+To the study area,Van,Via parcel shop,0,0,1-REG: Reference - no cargo bike,10
+To the study area,Van,All,0,0,1-REG: Reference - no cargo bike,10
+To the study area,Cargo bike,Direct to customer,0,0,1-REG: Reference - no cargo bike,10
+To the study area,Cargo bike,Via parcel shop,0,0,1-REG: Reference - no cargo bike,10
+To the study area,Cargo bike,All,0,0,1-REG: Reference - no cargo bike,10
+To the study area,Long-distance,Direct to customer,0,0,1-REG: Reference - no cargo bike,10
+To the study area,Long-distance,Via parcel shop,0,0,1-REG: Reference - no cargo bike,10
+To the study area,Long-distance,All,0,0,1-REG: Reference - no cargo bike,10
+To the study area,Feeder (parcel shop),Direct to customer,0,0,1-REG: Reference - no cargo bike,10
+To the study area,Feeder (parcel shop),Via parcel shop,16202.623145342102,1903,1-REG: Reference - no cargo bike,10
+To the study area,Feeder (parcel shop),All,0,0,1-REG: Reference - no cargo bike,10
+From the study area,Van,Direct to customer,48814.11978534136,5964,0-MUC: Optimized,14
+From the study area,Van,Via parcel shop,0,0,0-MUC: Optimized,14
+From the study area,Van,All,0,0,0-MUC: Optimized,14
+From the study area,Cargo bike,Direct to customer,0,0,0-MUC: Optimized,14
+From the study area,Cargo bike,Via parcel shop,0,0,0-MUC: Optimized,14
+From the study area,Cargo bike,All,0,0,0-MUC: Optimized,14
+From the study area,Long-distance,Direct to customer,0,0,0-MUC: Optimized,14
+From the study area,Long-distance,Via parcel shop,0,0,0-MUC: Optimized,14
+From the study area,Long-distance,All,0,0,0-MUC: Optimized,14
+From the study area,Feeder (parcel shop),Direct to customer,0,0,0-MUC: Optimized,14
+From the study area,Feeder (parcel shop),Via parcel shop,195761.65262995707,23963,0-MUC: Optimized,14
+From the study area,Feeder (parcel shop),All,0,0,0-MUC: Optimized,14
+To the study area,Van,Direct to customer,176136.95497782706,18412,0-MUC: Optimized,14
+To the study area,Van,Via parcel shop,0,0,0-MUC: Optimized,14
+To the study area,Van,All,0,0,0-MUC: Optimized,14
+To the study area,Cargo bike,Direct to customer,26884.654411014177,6948,0-MUC: Optimized,14
+To the study area,Cargo bike,Via parcel shop,0,0,0-MUC: Optimized,14
+To the study area,Cargo bike,All,0,0,0-MUC: Optimized,14
+To the study area,Long-distance,Direct to customer,0,0,0-MUC: Optimized,14
+To the study area,Long-distance,Via parcel shop,0,0,0-MUC: Optimized,14
+To the study area,Long-distance,All,0,0,0-MUC: Optimized,14
+To the study area,Feeder (parcel shop),Direct to customer,0,0,0-MUC: Optimized,14
+To the study area,Feeder (parcel shop),Via parcel shop,51708.28616774718,6372,0-MUC: Optimized,14
+To the study area,Feeder (parcel shop),All,0,0,0-MUC: Optimized,14
+From the study area,Van,Direct to customer,48814.11978534136,5964,1-MUC: Reference - no cargo bike,14
+From the study area,Van,Via parcel shop,0,0,1-MUC: Reference - no cargo bike,14
+From the study area,Van,All,0,0,1-MUC: Reference - no cargo bike,14
+From the study area,Cargo bike,Direct to customer,0,0,1-MUC: Reference - no cargo bike,14
+From the study area,Cargo bike,Via parcel shop,0,0,1-MUC: Reference - no cargo bike,14
+From the study area,Cargo bike,All,0,0,1-MUC: Reference - no cargo bike,14
+From the study area,Long-distance,Direct to customer,0,0,1-MUC: Reference - no cargo bike,14
+From the study area,Long-distance,Via parcel shop,0,0,1-MUC: Reference - no cargo bike,14
+From the study area,Long-distance,All,0,0,1-MUC: Reference - no cargo bike,14
+From the study area,Feeder (parcel shop),Direct to customer,0,0,1-MUC: Reference - no cargo bike,14
+From the study area,Feeder (parcel shop),Via parcel shop,195761.65262995707,23963,1-MUC: Reference - no cargo bike,14
+From the study area,Feeder (parcel shop),All,0,0,1-MUC: Reference - no cargo bike,14
+To the study area,Van,Direct to customer,203021.60938884123,25360,1-MUC: Reference - no cargo bike,14
+To the study area,Van,Via parcel shop,0,0,1-MUC: Reference - no cargo bike,14
+To the study area,Van,All,0,0,1-MUC: Reference - no cargo bike,14
+To the study area,Cargo bike,Direct to customer,0,0,1-MUC: Reference - no cargo bike,14
+To the study area,Cargo bike,Via parcel shop,0,0,1-MUC: Reference - no cargo bike,14
+To the study area,Cargo bike,All,0,0,1-MUC: Reference - no cargo bike,14
+To the study area,Long-distance,Direct to customer,0,0,1-MUC: Reference - no cargo bike,14
+To the study area,Long-distance,Via parcel shop,0,0,1-MUC: Reference - no cargo bike,14
+To the study area,Long-distance,All,0,0,1-MUC: Reference - no cargo bike,14
+To the study area,Feeder (parcel shop),Direct to customer,0,0,1-MUC: Reference - no cargo bike,14
+To the study area,Feeder (parcel shop),Via parcel shop,51708.28616774718,6372,1-MUC: Reference - no cargo bike,14
+To the study area,Feeder (parcel shop),All,0,0,1-MUC: Reference - no cargo bike,14
