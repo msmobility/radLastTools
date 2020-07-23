@@ -4,8 +4,8 @@ upper_folder = "C:/models/freightFlows/output/"
 
 scenario_folders = c("mc_cargo_bike_reg_base","mc_cargo_bike_reg", 
                      "mc_cargo_bike_base", "mc_cargo_bike" )
-scenarios = c("0-REG: Reference - no cargo bike", "1-REG: Optimized ", 
-              "2-MUC: Reference - no cargo bike", "3-MUC: Optimized")
+scenarios = c("0-REG: Nur Transporter", "1-REG: Optimiert ", 
+              "2-MUC: Nur Transporter", "3-MUC: Optimiert")
 scenario_pretty_names = scenarios
 distribution_centers = c(10,10,14,14)
 
@@ -90,12 +90,12 @@ for (i in 1:length(scenarios)){
   
   parcels = parcels %>%
     mutate(vehicle = factor(distributionType, levels = c("MOTORIZED", "CARGO_BIKE", "LD", "FEEDER"),
-                            labels = c("Van", "Cargo bike", "Long-distance", "Feeder (parcel shop)"))) %>%
+                            labels = c("Transporter", "Lastenrad", "LKW der Fernverkehr", "Zulieferer - Paketshop"))) %>%
     mutate(customer_type = factor(transaction, levels = c("BUSINESS_CUSTOMER", "PRIVATE_CUSTOMER", "PARCEL_SHOP", "ALL"), 
-                                  labels = c("Direct to customer", "Direct to customer", "Via parcel shop", "All")))
+                                  labels = c("Direkt zu/von Kunden", "Direkt zu/von Kunden", "In Paketshop", "Gesamt")))
   
   
-  parcels$vehicle[parcels$transaction == "PARCEL_SHOP"] = "Feeder (parcel shop)"
+  parcels$vehicle[parcels$transaction == "PARCEL_SHOP"] = "Zulieferer - Paketshop"
   
   weights_and_parcels_by_bound = parcels %>%
     filter(assigned) %>%
@@ -104,7 +104,7 @@ for (i in 1:length(scenarios)){
   
   weights_and_parcels_by_bound$toDestination = factor(weights_and_parcels_by_bound$toDestination,
                                                       levels = c("TRUE", "FALSE"),
-                                                      labels = c("To the study area", "From the study area"))
+                                                      labels = c("Zu Kunden geliefert", "Von Kunden gesendet"))
   
   
   weights_and_parcels = parcels %>%
@@ -129,14 +129,14 @@ for (i in 1:length(scenarios)){
   
   vehicle_emissions = vehicle_emissions %>%
     rowwise() %>%
-    mutate(vehicle  = if_else(grepl("Shop", id), "Feeder (parcel shop)", 
-                              if_else(grepl("feeder",id), "Feeder (micro depot)",
-                                      if_else(grepl("van", id) & !grepl("feeder", id), "Van",
-                                              if_else(grepl("cargoBike", id), "Cargo bike", "Long-distance"))))) %>%
-    mutate(customer_type  = if_else(grepl("Shop",id), "Via parcel shop", 
-                                    if_else(grepl("feeder",id), "Direct to customer",
-                                            if_else(grepl("van", id) & !grepl("feeder", id), "Direct to customer",
-                                                    if_else(grepl("cargoBike", id), "Direct to customer", "All"))))) %>% 
+    mutate(vehicle  = if_else(grepl("Shop", id), "Zulieferer - Paketshop", 
+                              if_else(grepl("feeder",id), "Zulieferer - Mikrodepot",
+                                      if_else(grepl("van", id) & !grepl("feeder", id), "Transporter",
+                                              if_else(grepl("cargoBike", id), "Lastenrad", "LKW - Fernverkehr"))))) %>%
+    mutate(customer_type  = if_else(grepl("Shop",id), "In Paketshop", 
+                                    if_else(grepl("feeder",id), "Direkt zu/von Kunden",
+                                            if_else(grepl("van", id) & !grepl("feeder", id), "Direkt zu/von Kunden",
+                                                    if_else(grepl("cargoBike", id), "Direkt zu/von Kunden", "Gesamt"))))) %>% 
     ungroup()
   
   
@@ -151,7 +151,7 @@ for (i in 1:length(scenarios)){
   ld_trucks_assigned = ld_trucks_assigned %>% filter(toMyDc) %>% dplyr::select(id, toDestination)
   
   vehicle_emissions = vehicle_emissions %>%
-    mutate(is_parcel_delivery = if_else(vehicle != "Long-distance", T, if_else(id %in% ld_trucks_assigned$id, T, F))) %>%
+    mutate(is_parcel_delivery = if_else(vehicle != "LKW - Fernverkehr", T, if_else(id %in% ld_trucks_assigned$id, T, F))) %>%
     mutate(total_time = endTime - startTime)
   
   

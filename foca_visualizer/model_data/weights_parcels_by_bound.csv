@@ -1,97 +1,97 @@
 toDestination,vehicle,customer_type,weight_kg,n,scenario,dc
-From the study area,Van,Direct to customer,32733.573229997794,4067,0-REG: Reference - no cargo bike,10
-From the study area,Van,Via parcel shop,0,0,0-REG: Reference - no cargo bike,10
-From the study area,Van,All,0,0,0-REG: Reference - no cargo bike,10
-From the study area,Cargo bike,Direct to customer,0,0,0-REG: Reference - no cargo bike,10
-From the study area,Cargo bike,Via parcel shop,0,0,0-REG: Reference - no cargo bike,10
-From the study area,Cargo bike,All,0,0,0-REG: Reference - no cargo bike,10
-From the study area,Long-distance,Direct to customer,0,0,0-REG: Reference - no cargo bike,10
-From the study area,Long-distance,Via parcel shop,0,0,0-REG: Reference - no cargo bike,10
-From the study area,Long-distance,All,0,0,0-REG: Reference - no cargo bike,10
-From the study area,Feeder (parcel shop),Direct to customer,0,0,0-REG: Reference - no cargo bike,10
-From the study area,Feeder (parcel shop),Via parcel shop,132246.58911943279,16184,0-REG: Reference - no cargo bike,10
-From the study area,Feeder (parcel shop),All,0,0,0-REG: Reference - no cargo bike,10
-To the study area,Van,Direct to customer,61718.46133876902,7868,0-REG: Reference - no cargo bike,10
-To the study area,Van,Via parcel shop,0,0,0-REG: Reference - no cargo bike,10
-To the study area,Van,All,0,0,0-REG: Reference - no cargo bike,10
-To the study area,Cargo bike,Direct to customer,0,0,0-REG: Reference - no cargo bike,10
-To the study area,Cargo bike,Via parcel shop,0,0,0-REG: Reference - no cargo bike,10
-To the study area,Cargo bike,All,0,0,0-REG: Reference - no cargo bike,10
-To the study area,Long-distance,Direct to customer,0,0,0-REG: Reference - no cargo bike,10
-To the study area,Long-distance,Via parcel shop,0,0,0-REG: Reference - no cargo bike,10
-To the study area,Long-distance,All,0,0,0-REG: Reference - no cargo bike,10
-To the study area,Feeder (parcel shop),Direct to customer,0,0,0-REG: Reference - no cargo bike,10
-To the study area,Feeder (parcel shop),Via parcel shop,16202.623145342102,1903,0-REG: Reference - no cargo bike,10
-To the study area,Feeder (parcel shop),All,0,0,0-REG: Reference - no cargo bike,10
-From the study area,Van,Direct to customer,32255.81692342398,4017,1-REG: Optimized ,10
-From the study area,Van,Via parcel shop,0,0,1-REG: Optimized ,10
-From the study area,Van,All,0,0,1-REG: Optimized ,10
-From the study area,Cargo bike,Direct to customer,0,0,1-REG: Optimized ,10
-From the study area,Cargo bike,Via parcel shop,0,0,1-REG: Optimized ,10
-From the study area,Cargo bike,All,0,0,1-REG: Optimized ,10
-From the study area,Long-distance,Direct to customer,0,0,1-REG: Optimized ,10
-From the study area,Long-distance,Via parcel shop,0,0,1-REG: Optimized ,10
-From the study area,Long-distance,All,0,0,1-REG: Optimized ,10
-From the study area,Feeder (parcel shop),Direct to customer,0,0,1-REG: Optimized ,10
-From the study area,Feeder (parcel shop),Via parcel shop,131318.027971314,16097,1-REG: Optimized ,10
-From the study area,Feeder (parcel shop),All,0,0,1-REG: Optimized ,10
-To the study area,Van,Direct to customer,58143.41089326787,5909,1-REG: Optimized ,10
-To the study area,Van,Via parcel shop,0,0,1-REG: Optimized ,10
-To the study area,Van,All,0,0,1-REG: Optimized ,10
-To the study area,Cargo bike,Direct to customer,3904.8653095317395,1795,1-REG: Optimized ,10
-To the study area,Cargo bike,Via parcel shop,0,0,1-REG: Optimized ,10
-To the study area,Cargo bike,All,0,0,1-REG: Optimized ,10
-To the study area,Long-distance,Direct to customer,0,0,1-REG: Optimized ,10
-To the study area,Long-distance,Via parcel shop,0,0,1-REG: Optimized ,10
-To the study area,Long-distance,All,0,0,1-REG: Optimized ,10
-To the study area,Feeder (parcel shop),Direct to customer,0,0,1-REG: Optimized ,10
-To the study area,Feeder (parcel shop),Via parcel shop,15502.455402053332,1919,1-REG: Optimized ,10
-To the study area,Feeder (parcel shop),All,0,0,1-REG: Optimized ,10
-From the study area,Van,Direct to customer,48814.11978534136,5964,2-MUC: Reference - no cargo bike,14
-From the study area,Van,Via parcel shop,0,0,2-MUC: Reference - no cargo bike,14
-From the study area,Van,All,0,0,2-MUC: Reference - no cargo bike,14
-From the study area,Cargo bike,Direct to customer,0,0,2-MUC: Reference - no cargo bike,14
-From the study area,Cargo bike,Via parcel shop,0,0,2-MUC: Reference - no cargo bike,14
-From the study area,Cargo bike,All,0,0,2-MUC: Reference - no cargo bike,14
-From the study area,Long-distance,Direct to customer,0,0,2-MUC: Reference - no cargo bike,14
-From the study area,Long-distance,Via parcel shop,0,0,2-MUC: Reference - no cargo bike,14
-From the study area,Long-distance,All,0,0,2-MUC: Reference - no cargo bike,14
-From the study area,Feeder (parcel shop),Direct to customer,0,0,2-MUC: Reference - no cargo bike,14
-From the study area,Feeder (parcel shop),Via parcel shop,195761.65262995707,23963,2-MUC: Reference - no cargo bike,14
-From the study area,Feeder (parcel shop),All,0,0,2-MUC: Reference - no cargo bike,14
-To the study area,Van,Direct to customer,203021.60938884123,25360,2-MUC: Reference - no cargo bike,14
-To the study area,Van,Via parcel shop,0,0,2-MUC: Reference - no cargo bike,14
-To the study area,Van,All,0,0,2-MUC: Reference - no cargo bike,14
-To the study area,Cargo bike,Direct to customer,0,0,2-MUC: Reference - no cargo bike,14
-To the study area,Cargo bike,Via parcel shop,0,0,2-MUC: Reference - no cargo bike,14
-To the study area,Cargo bike,All,0,0,2-MUC: Reference - no cargo bike,14
-To the study area,Long-distance,Direct to customer,0,0,2-MUC: Reference - no cargo bike,14
-To the study area,Long-distance,Via parcel shop,0,0,2-MUC: Reference - no cargo bike,14
-To the study area,Long-distance,All,0,0,2-MUC: Reference - no cargo bike,14
-To the study area,Feeder (parcel shop),Direct to customer,0,0,2-MUC: Reference - no cargo bike,14
-To the study area,Feeder (parcel shop),Via parcel shop,51708.28616774718,6372,2-MUC: Reference - no cargo bike,14
-To the study area,Feeder (parcel shop),All,0,0,2-MUC: Reference - no cargo bike,14
-From the study area,Van,Direct to customer,48814.11978534136,5964,3-MUC: Optimized,14
-From the study area,Van,Via parcel shop,0,0,3-MUC: Optimized,14
-From the study area,Van,All,0,0,3-MUC: Optimized,14
-From the study area,Cargo bike,Direct to customer,0,0,3-MUC: Optimized,14
-From the study area,Cargo bike,Via parcel shop,0,0,3-MUC: Optimized,14
-From the study area,Cargo bike,All,0,0,3-MUC: Optimized,14
-From the study area,Long-distance,Direct to customer,0,0,3-MUC: Optimized,14
-From the study area,Long-distance,Via parcel shop,0,0,3-MUC: Optimized,14
-From the study area,Long-distance,All,0,0,3-MUC: Optimized,14
-From the study area,Feeder (parcel shop),Direct to customer,0,0,3-MUC: Optimized,14
-From the study area,Feeder (parcel shop),Via parcel shop,195761.65262995707,23963,3-MUC: Optimized,14
-From the study area,Feeder (parcel shop),All,0,0,3-MUC: Optimized,14
-To the study area,Van,Direct to customer,176136.95497782706,18412,3-MUC: Optimized,14
-To the study area,Van,Via parcel shop,0,0,3-MUC: Optimized,14
-To the study area,Van,All,0,0,3-MUC: Optimized,14
-To the study area,Cargo bike,Direct to customer,26884.654411014177,6948,3-MUC: Optimized,14
-To the study area,Cargo bike,Via parcel shop,0,0,3-MUC: Optimized,14
-To the study area,Cargo bike,All,0,0,3-MUC: Optimized,14
-To the study area,Long-distance,Direct to customer,0,0,3-MUC: Optimized,14
-To the study area,Long-distance,Via parcel shop,0,0,3-MUC: Optimized,14
-To the study area,Long-distance,All,0,0,3-MUC: Optimized,14
-To the study area,Feeder (parcel shop),Direct to customer,0,0,3-MUC: Optimized,14
-To the study area,Feeder (parcel shop),Via parcel shop,51708.28616774718,6372,3-MUC: Optimized,14
-To the study area,Feeder (parcel shop),All,0,0,3-MUC: Optimized,14
+Von Kunden gesendet,Transporter,Direkt zu/von Kunden,32733.573229997794,4067,0-REG: Nur Transporter,10
+Von Kunden gesendet,Transporter,In Paketshop,0,0,0-REG: Nur Transporter,10
+Von Kunden gesendet,Transporter,Gesamt,0,0,0-REG: Nur Transporter,10
+Von Kunden gesendet,Lastenrad,Direkt zu/von Kunden,0,0,0-REG: Nur Transporter,10
+Von Kunden gesendet,Lastenrad,In Paketshop,0,0,0-REG: Nur Transporter,10
+Von Kunden gesendet,Lastenrad,Gesamt,0,0,0-REG: Nur Transporter,10
+Von Kunden gesendet,LKW der Fernverkehr,Direkt zu/von Kunden,0,0,0-REG: Nur Transporter,10
+Von Kunden gesendet,LKW der Fernverkehr,In Paketshop,0,0,0-REG: Nur Transporter,10
+Von Kunden gesendet,LKW der Fernverkehr,Gesamt,0,0,0-REG: Nur Transporter,10
+Von Kunden gesendet,Zulieferer - Paketshop,Direkt zu/von Kunden,0,0,0-REG: Nur Transporter,10
+Von Kunden gesendet,Zulieferer - Paketshop,In Paketshop,132246.58911943279,16184,0-REG: Nur Transporter,10
+Von Kunden gesendet,Zulieferer - Paketshop,Gesamt,0,0,0-REG: Nur Transporter,10
+Zu Kunden geliefert,Transporter,Direkt zu/von Kunden,61718.46133876902,7868,0-REG: Nur Transporter,10
+Zu Kunden geliefert,Transporter,In Paketshop,0,0,0-REG: Nur Transporter,10
+Zu Kunden geliefert,Transporter,Gesamt,0,0,0-REG: Nur Transporter,10
+Zu Kunden geliefert,Lastenrad,Direkt zu/von Kunden,0,0,0-REG: Nur Transporter,10
+Zu Kunden geliefert,Lastenrad,In Paketshop,0,0,0-REG: Nur Transporter,10
+Zu Kunden geliefert,Lastenrad,Gesamt,0,0,0-REG: Nur Transporter,10
+Zu Kunden geliefert,LKW der Fernverkehr,Direkt zu/von Kunden,0,0,0-REG: Nur Transporter,10
+Zu Kunden geliefert,LKW der Fernverkehr,In Paketshop,0,0,0-REG: Nur Transporter,10
+Zu Kunden geliefert,LKW der Fernverkehr,Gesamt,0,0,0-REG: Nur Transporter,10
+Zu Kunden geliefert,Zulieferer - Paketshop,Direkt zu/von Kunden,0,0,0-REG: Nur Transporter,10
+Zu Kunden geliefert,Zulieferer - Paketshop,In Paketshop,16202.623145342102,1903,0-REG: Nur Transporter,10
+Zu Kunden geliefert,Zulieferer - Paketshop,Gesamt,0,0,0-REG: Nur Transporter,10
+Von Kunden gesendet,Transporter,Direkt zu/von Kunden,32255.81692342398,4017,1-REG: Optimiert ,10
+Von Kunden gesendet,Transporter,In Paketshop,0,0,1-REG: Optimiert ,10
+Von Kunden gesendet,Transporter,Gesamt,0,0,1-REG: Optimiert ,10
+Von Kunden gesendet,Lastenrad,Direkt zu/von Kunden,0,0,1-REG: Optimiert ,10
+Von Kunden gesendet,Lastenrad,In Paketshop,0,0,1-REG: Optimiert ,10
+Von Kunden gesendet,Lastenrad,Gesamt,0,0,1-REG: Optimiert ,10
+Von Kunden gesendet,LKW der Fernverkehr,Direkt zu/von Kunden,0,0,1-REG: Optimiert ,10
+Von Kunden gesendet,LKW der Fernverkehr,In Paketshop,0,0,1-REG: Optimiert ,10
+Von Kunden gesendet,LKW der Fernverkehr,Gesamt,0,0,1-REG: Optimiert ,10
+Von Kunden gesendet,Zulieferer - Paketshop,Direkt zu/von Kunden,0,0,1-REG: Optimiert ,10
+Von Kunden gesendet,Zulieferer - Paketshop,In Paketshop,131318.027971314,16097,1-REG: Optimiert ,10
+Von Kunden gesendet,Zulieferer - Paketshop,Gesamt,0,0,1-REG: Optimiert ,10
+Zu Kunden geliefert,Transporter,Direkt zu/von Kunden,58143.41089326787,5909,1-REG: Optimiert ,10
+Zu Kunden geliefert,Transporter,In Paketshop,0,0,1-REG: Optimiert ,10
+Zu Kunden geliefert,Transporter,Gesamt,0,0,1-REG: Optimiert ,10
+Zu Kunden geliefert,Lastenrad,Direkt zu/von Kunden,3904.8653095317395,1795,1-REG: Optimiert ,10
+Zu Kunden geliefert,Lastenrad,In Paketshop,0,0,1-REG: Optimiert ,10
+Zu Kunden geliefert,Lastenrad,Gesamt,0,0,1-REG: Optimiert ,10
+Zu Kunden geliefert,LKW der Fernverkehr,Direkt zu/von Kunden,0,0,1-REG: Optimiert ,10
+Zu Kunden geliefert,LKW der Fernverkehr,In Paketshop,0,0,1-REG: Optimiert ,10
+Zu Kunden geliefert,LKW der Fernverkehr,Gesamt,0,0,1-REG: Optimiert ,10
+Zu Kunden geliefert,Zulieferer - Paketshop,Direkt zu/von Kunden,0,0,1-REG: Optimiert ,10
+Zu Kunden geliefert,Zulieferer - Paketshop,In Paketshop,15502.455402053332,1919,1-REG: Optimiert ,10
+Zu Kunden geliefert,Zulieferer - Paketshop,Gesamt,0,0,1-REG: Optimiert ,10
+Von Kunden gesendet,Transporter,Direkt zu/von Kunden,48814.11978534136,5964,2-MUC: Nur Transporter,14
+Von Kunden gesendet,Transporter,In Paketshop,0,0,2-MUC: Nur Transporter,14
+Von Kunden gesendet,Transporter,Gesamt,0,0,2-MUC: Nur Transporter,14
+Von Kunden gesendet,Lastenrad,Direkt zu/von Kunden,0,0,2-MUC: Nur Transporter,14
+Von Kunden gesendet,Lastenrad,In Paketshop,0,0,2-MUC: Nur Transporter,14
+Von Kunden gesendet,Lastenrad,Gesamt,0,0,2-MUC: Nur Transporter,14
+Von Kunden gesendet,LKW der Fernverkehr,Direkt zu/von Kunden,0,0,2-MUC: Nur Transporter,14
+Von Kunden gesendet,LKW der Fernverkehr,In Paketshop,0,0,2-MUC: Nur Transporter,14
+Von Kunden gesendet,LKW der Fernverkehr,Gesamt,0,0,2-MUC: Nur Transporter,14
+Von Kunden gesendet,Zulieferer - Paketshop,Direkt zu/von Kunden,0,0,2-MUC: Nur Transporter,14
+Von Kunden gesendet,Zulieferer - Paketshop,In Paketshop,195761.65262995707,23963,2-MUC: Nur Transporter,14
+Von Kunden gesendet,Zulieferer - Paketshop,Gesamt,0,0,2-MUC: Nur Transporter,14
+Zu Kunden geliefert,Transporter,Direkt zu/von Kunden,203021.60938884123,25360,2-MUC: Nur Transporter,14
+Zu Kunden geliefert,Transporter,In Paketshop,0,0,2-MUC: Nur Transporter,14
+Zu Kunden geliefert,Transporter,Gesamt,0,0,2-MUC: Nur Transporter,14
+Zu Kunden geliefert,Lastenrad,Direkt zu/von Kunden,0,0,2-MUC: Nur Transporter,14
+Zu Kunden geliefert,Lastenrad,In Paketshop,0,0,2-MUC: Nur Transporter,14
+Zu Kunden geliefert,Lastenrad,Gesamt,0,0,2-MUC: Nur Transporter,14
+Zu Kunden geliefert,LKW der Fernverkehr,Direkt zu/von Kunden,0,0,2-MUC: Nur Transporter,14
+Zu Kunden geliefert,LKW der Fernverkehr,In Paketshop,0,0,2-MUC: Nur Transporter,14
+Zu Kunden geliefert,LKW der Fernverkehr,Gesamt,0,0,2-MUC: Nur Transporter,14
+Zu Kunden geliefert,Zulieferer - Paketshop,Direkt zu/von Kunden,0,0,2-MUC: Nur Transporter,14
+Zu Kunden geliefert,Zulieferer - Paketshop,In Paketshop,51708.28616774718,6372,2-MUC: Nur Transporter,14
+Zu Kunden geliefert,Zulieferer - Paketshop,Gesamt,0,0,2-MUC: Nur Transporter,14
+Von Kunden gesendet,Transporter,Direkt zu/von Kunden,48814.11978534136,5964,3-MUC: Optimiert,14
+Von Kunden gesendet,Transporter,In Paketshop,0,0,3-MUC: Optimiert,14
+Von Kunden gesendet,Transporter,Gesamt,0,0,3-MUC: Optimiert,14
+Von Kunden gesendet,Lastenrad,Direkt zu/von Kunden,0,0,3-MUC: Optimiert,14
+Von Kunden gesendet,Lastenrad,In Paketshop,0,0,3-MUC: Optimiert,14
+Von Kunden gesendet,Lastenrad,Gesamt,0,0,3-MUC: Optimiert,14
+Von Kunden gesendet,LKW der Fernverkehr,Direkt zu/von Kunden,0,0,3-MUC: Optimiert,14
+Von Kunden gesendet,LKW der Fernverkehr,In Paketshop,0,0,3-MUC: Optimiert,14
+Von Kunden gesendet,LKW der Fernverkehr,Gesamt,0,0,3-MUC: Optimiert,14
+Von Kunden gesendet,Zulieferer - Paketshop,Direkt zu/von Kunden,0,0,3-MUC: Optimiert,14
+Von Kunden gesendet,Zulieferer - Paketshop,In Paketshop,195761.65262995707,23963,3-MUC: Optimiert,14
+Von Kunden gesendet,Zulieferer - Paketshop,Gesamt,0,0,3-MUC: Optimiert,14
+Zu Kunden geliefert,Transporter,Direkt zu/von Kunden,176136.95497782706,18412,3-MUC: Optimiert,14
+Zu Kunden geliefert,Transporter,In Paketshop,0,0,3-MUC: Optimiert,14
+Zu Kunden geliefert,Transporter,Gesamt,0,0,3-MUC: Optimiert,14
+Zu Kunden geliefert,Lastenrad,Direkt zu/von Kunden,26884.654411014177,6948,3-MUC: Optimiert,14
+Zu Kunden geliefert,Lastenrad,In Paketshop,0,0,3-MUC: Optimiert,14
+Zu Kunden geliefert,Lastenrad,Gesamt,0,0,3-MUC: Optimiert,14
+Zu Kunden geliefert,LKW der Fernverkehr,Direkt zu/von Kunden,0,0,3-MUC: Optimiert,14
+Zu Kunden geliefert,LKW der Fernverkehr,In Paketshop,0,0,3-MUC: Optimiert,14
+Zu Kunden geliefert,LKW der Fernverkehr,Gesamt,0,0,3-MUC: Optimiert,14
+Zu Kunden geliefert,Zulieferer - Paketshop,Direkt zu/von Kunden,0,0,3-MUC: Optimiert,14
+Zu Kunden geliefert,Zulieferer - Paketshop,In Paketshop,51708.28616774718,6372,3-MUC: Optimiert,14
+Zu Kunden geliefert,Zulieferer - Paketshop,Gesamt,0,0,3-MUC: Optimiert,14

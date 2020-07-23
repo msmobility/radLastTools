@@ -6,12 +6,12 @@ this_folder = here()
 
 description = read.csv(paste(this_folder,"foca_visualizer/model_data/text.csv", sep = "/"), row.names = 1, as.is = T)
 
-vehicle_labels = c("Cargo bike", "Feeder (micro depot)", "Van","Feeder (parcel shop)", "Long-distance")
-color_vehicles = c("Cargo bike" = "#8cc37b", "Feeder (micro depot)" =  "#438771",  "Van" = "#455089","Feeder (parcel shop)" =  "#707a8b", "Long-distance"= "#bfbfbf")
-color_vehicles_without_feeder = c("Cargo bike" = "#8cc37b", "Van" = "#455089", "Feeder (parcel shop)" =  "#707a8b", "Long-distance" = "#bfbfbf")
+vehicle_labels = c("Lastenrad", "Zulieferer - Mikrodepot", "Transporter","Zulieferer - Paketshop", "LKW - Fernverkehr")
+color_vehicles = c("Lastenrad" = "#8cc37b", "Zulieferer - Mikrodepot" =  "#438771",  "Transporter" = "#455089","Zulieferer - Paketshop" =  "#707a8b", "LKW - Fernverkehr"= "#bfbfbf")
+color_vehicles_without_feeder = c("Lastenrad" = "#8cc37b", "Transporter" = "#455089", "Zulieferer - Paketshop" =  "#707a8b", "LKW - Fernverkehr" = "#bfbfbf")
 
 cost_types_levels = c("dist_cost", "time_cost",  "service_cost", "extra_handling_cost")
-cost_types_labels = c("Distance-dependent vehicle costs", "Time-dependent costs", "Service costs", "Extra-handling costs at micro depots")
+cost_types_labels = c("Distanzabhängige Kosten", "Zeitabhängige Kosten", "Servicekosten", "Extrakosten in Mikrodepot")
 cost_four_colors = c(	"#66545e", "#aa6f73", "#eea990", "#f6e0b5")
 
 
@@ -97,8 +97,8 @@ foca = fluidPage(
                  helpText(description["costs",]),
                  inputPanel(
                    checkboxGroupInput(inputId = "segments", label = "Segmente", choices =
-                                        c("Cargo bike", "Feeder (micro depot)", "Van","Feeder (parcel shop)"),
-                                      selected = c("Cargo bike", "Feeder (micro depot)", "Van")),
+                                        c("Lastenrad", "Zulieferer - Mikrodepot", "Transporter","Zulieferer - Paketshop"),
+                                      selected = c("Lastenrad", "Zulieferer - Mikrodepot", "Transporter")),
                    numericInput(inputId = "cost_km_van", label = "Distanzabhängige Kosten (Transporter) (EUR/km)", value = 1.7765, step = 0.1),
                    numericInput(inputId = "cost_km_bike",label = "Distanzabhängige Kosten (Lastenrad) (EUR/km)", value = 0.9200, step = 0.1),
                    numericInput(inputId = "cost_km_long_haul", label = "Kosten Vorletzte Meile Zuliefer (EUR/km)", value = 1.7765, step = 0.1),
@@ -138,11 +138,11 @@ foca = fluidPage(
                  )
           ),
           column(5,
-                 h5("By van"),
+                 h5("Mit Transporter"),
                  leafletOutput("map_density_motorized", height = 800)
           ),
           column(5,
-                 h5("By cargo bike"),
+                 h5("Mit Lastenrad"),
                  leafletOutput("map_density_cargo_bike", height = 800)
           )
         )
@@ -192,12 +192,12 @@ serverFoca = function(input, output, session){
   
   output$share = renderPlotly({
     weights_and_parcels_all = weights_parcels()
-    weights_and_parcels_all = weights_and_parcels_all %>% filter(customer_type != "All")
+    weights_and_parcels_all = weights_and_parcels_all %>% filter(customer_type != "Gesamt")
     p = ggplot(weights_and_parcels_all, aes(x = scenario, y = n, fill = vehicle)) +
       geom_bar(stat = "identity", position = "stack") +
       facet_grid(toDestination~customer_type) + theme_bw() + 
       theme(axis.text.x = element_text(angle = 90)) + 
-      scale_fill_manual(values = color_vehicles_without_feeder, name = "Vehicle type") +
+      scale_fill_manual(values = color_vehicles_without_feeder, name = "Fahrzeugart") +
       xlab("Szenario") + ylab("Pakete") + 
       scale_y_continuous(expand = c(0,0))
     ggplotly(p, height = 800)
@@ -205,17 +205,21 @@ serverFoca = function(input, output, session){
   
   output$parcel_table = renderTable({
     weights_and_parcels_all = weights_parcels()
-    weights_and_parcels_all = weights_and_parcels_all %>% filter(customer_type != "All", vehicle != "Long-distance")
+    weights_and_parcels_all = weights_and_parcels_all %>% filter(customer_type != "Gesamt", vehicle != "LKW - Fernverkehr")
     weights_and_parcels_all %>% group_by(scenario, vehicle) %>% summarize(parcels  = sum(n), weight = sum(weight_kg)/ 1000)
   })
   
   output$tours = renderPlotly({
     vehicles_all = vehicles()
+    
+    #needs re-ordering the factors
+    vehicles_all$customer_type = factor(vehicles_all$customer_type, levels=c("Gesamt", "Direkt zu/von Kunden", "In Paketshop" ))
+    
     p = ggplot(vehicles_all, aes(x = scenario, y = n_tours, fill = vehicle)) +
       geom_bar(stat = "identity", position = "stack") +
       facet_wrap(.~customer_type) + theme_bw()  + 
       theme(axis.text.x = element_text(angle = 90)) + 
-      scale_fill_manual(values = color_vehicles) + 
+      scale_fill_manual(values = color_vehicles, name = "Fahrzeugart") + 
       xlab("Szenario") + ylab("Touren") + 
       scale_y_continuous(expand = c(0,0))
     ggplotly(p, height = 800)
@@ -227,7 +231,7 @@ serverFoca = function(input, output, session){
     p = ggplot(vehicles_all, aes(x = scenario, y = distance/1000, fill = vehicle)) +
       geom_bar(stat = "identity", position = "stack") + theme_bw() + 
       theme(axis.text.x = element_text(angle = 90)) + 
-      scale_fill_manual(values = color_vehicles) + 
+      scale_fill_manual(values = color_vehicles, name = "Fahrzeugart") + 
       xlab("Scenario") + ylab("Distanz (km)")+ 
       scale_y_continuous(expand = c(0,0))
     ggplotly(p, height = 800)
@@ -239,7 +243,7 @@ serverFoca = function(input, output, session){
     p = ggplot(vehicles_all, aes(x = scenario, y = total_time/3600, fill = vehicle)) +
       geom_bar(stat = "identity", position = "stack") + theme_bw() + 
       theme(axis.text.x = element_text(angle = 90)) + 
-      scale_fill_manual(values = color_vehicles) + 
+      scale_fill_manual(values = color_vehicles, name = "Fahrzeugart") + 
       xlab("Szenario") + ylab("Fahrzeit (h)") + 
       scale_y_continuous(expand = c(0,0))
     ggplotly(p, height = 800)
@@ -251,14 +255,14 @@ serverFoca = function(input, output, session){
     
     
     
-    consumption = data.frame(vehicle = c("Cargo bike", "Feeder (micro depot)", "Van","Feeder (parcel shop)", "Long-distance"),
+    consumption = data.frame(vehicle = c("Lastenrad", "Zulieferer - Mikrodepot", "Transporter","Zulieferer - Paketshop", "LKW - Fernverkehr"),
                                          fuel_100_km = c(0, input$l_diesel_100_km, input$l_diesel_100_km, input$l_diesel_100_km, input$l_diesel_100_km),
                                          electric_100_km = c(input$kwh_100_km_e_bike, input$kwh_100_km_e_van, input$kwh_100_km_e_van, input$kwh_100_km_e_van, input$kwh_100_km_e_van))
     
     vehicles_all = vehicles_all %>% left_join(consumption, by = "vehicle")
     
     vehicles_all_diesel = vehicles_all %>% 
-      mutate(distance_diesel = distance * if_else(vehicle == "Cargo bike",0,1)) %>%
+      mutate(distance_diesel = distance * if_else(vehicle == "Lastenrad",0,1)) %>%
       mutate(distance_electric = distance - distance_diesel) %>%
       mutate(fuel = distance_diesel/1000/100 * fuel_100_km ) %>%
       mutate(electricity = distance_electric/1000/100 * electric_100_km) %>% 
@@ -267,7 +271,7 @@ serverFoca = function(input, output, session){
     
     
     vehicles_all_with_ev = vehicles_all %>% 
-      mutate(distance_diesel = distance * if_else(vehicle == "Cargo bike",0,if_else(vehicle == "Long-distance", 1 - as.numeric(input$ev_share_ld)/100, 1 - as.numeric(input$ev_share_van)/100))) %>%
+      mutate(distance_diesel = distance * if_else(vehicle == "Lastenrad",0,if_else(vehicle == "LKW - Fernverkehr", 1 - as.numeric(input$ev_share_ld)/100, 1 - as.numeric(input$ev_share_van)/100))) %>%
       mutate(distance_electric = distance - distance_diesel) %>%
       mutate(fuel = distance_diesel/1000/100 * fuel_100_km ) %>%
       mutate(electricity = distance_electric/1000/100 * electric_100_km) %>% 
@@ -281,7 +285,7 @@ serverFoca = function(input, output, session){
     p = ggplot(vehicles_all_2, aes(x = scenario, y = co2_kg, fill = vehicle)) +
       geom_bar(stat = "identity", position = "stack") + theme_bw() +
       theme(axis.text.x = element_text(angle = 90),legend.position = "bottom") + 
-      scale_fill_manual(values = color_vehicles) + 
+      scale_fill_manual(values = color_vehicles,  name = "Fahrzeugart") + 
       scale_y_continuous(expand = c(0,0)) +
       xlab("Szenario") + ylab("CO2 Emissionen (Kg)") + 
       facet_wrap(.~case)
@@ -298,9 +302,9 @@ serverFoca = function(input, output, session){
     vehicles_all = vehicles_all %>% filter(vehicle %in% input$segments)
         
     vehicles_all = vehicles_all %>%
-      mutate(dist_cost = distance/1000 * if_else(vehicle == "Cargo bike",
-                                                 as.numeric(input$cost_km_bike),if_else(vehicle =="Feeder (micro depot)", as.numeric(input$cost_km_long_haul), as.numeric(input$cost_km_van)))) %>%
-    mutate(time_cost = total_time/3600 * if_else(vehicle == "Cargo bike", as.numeric(input$rider_cost_h), as.numeric(input$driver_cost_h)))
+      mutate(dist_cost = distance/1000 * if_else(vehicle == "Lastenrad",
+                                                 as.numeric(input$cost_km_bike),if_else(vehicle =="Zulieferer - Mikrodepot", as.numeric(input$cost_km_long_haul), as.numeric(input$cost_km_van)))) %>%
+    mutate(time_cost = total_time/3600 * if_else(vehicle == "Lastenrad", as.numeric(input$rider_cost_h), as.numeric(input$driver_cost_h)))
     
     cost_vehicle = vehicles_all %>%
       group_by(scenario, vehicle) %>%
@@ -317,8 +321,8 @@ serverFoca = function(input, output, session){
     weights_and_parcels_all = weights_and_parcels_all %>% filter(vehicle %in% input$segments)
     
     weights_and_parcels_all = weights_and_parcels_all %>%
-      mutate(service_cost = n * if_else(vehicle == "Cargo bike", as.numeric(input$cost_parcel_bike), as.numeric(input$cost_parcel_van)) ) %>% 
-      mutate(extra_handling_cost = n * 0.72 * if_else(vehicle == "Cargo bike", as.numeric(input$cost_parcel_handling), 0 ) )
+      mutate(service_cost = n * if_else(vehicle == "Lastenrad", as.numeric(input$cost_parcel_bike), as.numeric(input$cost_parcel_van)) ) %>% 
+      mutate(extra_handling_cost = n * 0.72 * if_else(vehicle == "Lastenrad", as.numeric(input$cost_parcel_handling), 0 ) )
     
     ##the factor 0.72 accounts for an average volume in S-packet equivalents, given the shares in FOCA (20.07.2020) - only xs and s!
     
