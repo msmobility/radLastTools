@@ -99,8 +99,8 @@ foca = fluidPage(
                    checkboxGroupInput(inputId = "segments", label = "Segmente", choices =
                                         c("Cargo bike", "Feeder (micro depot)", "Van","Feeder (parcel shop)"),
                                       selected = c("Cargo bike", "Feeder (micro depot)", "Van")),
-                   numericInput(inputId = "cost_km_van", label = "Distanzabhängig Kosten (Transporter) (EUR/km)", value = 1.7765, step = 0.1),
-                   numericInput(inputId = "cost_km_bike",label = "Distanzabhängig Kosten (Lastenrad) (EUR/km)", value = 0.9200, step = 0.1),
+                   numericInput(inputId = "cost_km_van", label = "Distanzabhängige Kosten (Transporter) (EUR/km)", value = 1.7765, step = 0.1),
+                   numericInput(inputId = "cost_km_bike",label = "Distanzabhängige Kosten (Lastenrad) (EUR/km)", value = 0.9200, step = 0.1),
                    numericInput(inputId = "cost_km_long_haul", label = "Kosten Vorletzte Meile Zuliefer (EUR/km)", value = 1.7765, step = 0.1),
                    numericInput(inputId = "cost_parcel_van", label = "Servicekosten (Transporter) (EUR/Pakete)",value = 1.139, step = 0.1),
                    numericInput(inputId = "cost_parcel_bike", label = "Servicekosten (Lastenrad) (EUR/Pakete)", value = 1.025, step = 0.1),
