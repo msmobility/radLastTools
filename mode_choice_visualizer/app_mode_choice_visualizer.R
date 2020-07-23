@@ -93,12 +93,12 @@ modeChoice = fluidPage(
           )
           ),
         tabPanel(
-          title = "Transportmittel",
+          title = "Transportträger",
           fluidRow(
           column(3,
-                 h4("Transportmittel"),
+                 h4("Transportträger"),
                  br(),
-                 helpText(HTML('Die erste Abbildung zeigt die Anteile der per LKW und Lastenfahrrad zugestellten Pakete in der ermittelten Zuweisung.'))
+                 helpText(HTML('Die erste Abbildung zeigt die Anteile der per LKW und Lastenrad zugestellten Pakete in der ermittelten Zuweisung.'))
           ),
           column(9,
                  br(),
@@ -638,7 +638,7 @@ serverModeChoice = function(input, output, session){
     observeEvent(input$choice_parcel, { # render new density map if dropdown menu is used
       output$density_map = renderLeaflet({
         col_choice = input$choice_parcel
-        p = tm_basemap(leaflet::providers$CartoDB) + tm_shape(zones) + tm_borders() + tm_fill(col = col_choice, alpha = 0.4, title = paste("Dichten pro Zone für Klasse ",col_choice)) #+ tm_shape(shp) + tm_borders() 
+        p = tm_basemap(leaflet::providers$CartoDB) + tm_shape(zones) + tm_borders() + tm_fill(col = col_choice, alpha = 0.4, title = paste("Dichten pro Zone für Klasse ",col_choice)) + tm_layout(legend.format = list(text.separator = "-")) #+ tm_shape(shp) + tm_borders() 
         tmap_leaflet(p)
       })
     })
@@ -683,7 +683,7 @@ serverModeChoice = function(input, output, session){
     output$pie_vehicles = renderPlotly({ # pie share of transportation mode
       fig = plot_ly(vehicle_pie_data[1:2, , drop=FALSE], labels = c('LKW', 'Lastenrad'), values = ~All, type = 'pie', textposition = 'inside',
                     textinfo = 'label+percent', sort = FALSE, marker = list(colors = c(color[75], color[15])))
-      fig = layout(fig, title = 'Transportmittel gesamt')
+      fig = layout(fig, title = 'Transportträger gesamt')
       fig
     })
     
@@ -702,7 +702,7 @@ serverModeChoice = function(input, output, session){
       fig = fig %>% add_pie(labels = c('LKW', 'Lastenrad'), values = ~L, type = 'pie', textposition = 'inside',
                             textinfo = 'label+percent', sort = FALSE, domain = list(row = 1, column = 1), marker = list(colors = c(color[75], color[15])))
       
-      fig <- fig %>% layout(title='Transportmittel nach Paketklasse', showlegend = T,
+      fig <- fig %>% layout(title='Transportträger nach Paketklasse', showlegend = T,
                             grid=list(rows=2, columns=2, ygap=0.19),
                             xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
                             yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
@@ -786,7 +786,7 @@ serverModeChoice = function(input, output, session){
         print("Congestion factors:")
         print(zones$congestion)
       }
-      p = tm_basemap(leaflet::providers$CartoDB) + tm_shape(zones) + tm_borders() + tm_fill(col = 'congestion', alpha = 0.4, title = "Staufaktoren") #+ tm_shape(shp) + tm_borders() 
+      p = tm_basemap(leaflet::providers$CartoDB) + tm_shape(zones) + tm_borders() + tm_fill(col = 'congestion', alpha = 0.4, title = "Staufaktoren") + tm_layout(legend.format = list(text.separator = "-"))  #+ tm_shape(shp) + tm_borders() 
       tmap_leaflet(p)
     })
   })

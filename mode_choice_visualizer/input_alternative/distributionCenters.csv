@@ -1,11 +1,4 @@
 dcId;dcName;xcoord;ycoord
-13;GLS in Geretsried (Depot 81);11.43370932;47.89010705
-14;DPD in Geretsried (Depot 182);11.4363093;47.88760706
-16;UPS Depot Garching;11.61100682;48.25300647
-17;UPS Depot Muenchen Ost / Kirchheim;11.76400667;48.15620695
-19;UPS Depot Wolfratshausen;11.42640941;47.90060704
-20;DHL Zustellbasis Neuhausen-Nymphenburg (Muenchen City);11.52390746;48.14500687
-21;DHL Zustellbasis Muenchen Riesenfeld MechZB;11.56080711;48.18900672
-22;DHL Zustellbasis in Muenchen Neuaubing MechZB;11.42090821;48.13800658
-23;DHL Zustellbasis in Ottobrunn;11.64830739;48.0719073
-24;DHL Zustellbasis in Unterschleissheim;11.59320682;48.26300634
+1;UPS Depot Regensburg;12.170450;48.968050
+2;UPS Depot Regensburg;12.170450;48.968050
+
