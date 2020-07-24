@@ -106,7 +106,6 @@ foca = fluidPage(
                    numericInput(inputId = "cost_parcel_bike", label = "Servicekosten (Lastenrad) (EUR/Pakete)", value = 1.025, step = 0.1),
                    numericInput(inputId = "cost_parcel_handling",label = "Extra Servicekosten in Mikrodepot (EUR/Einheit)", value = 0.76, step = 0.1),
                    numericInput(inputId = "cost_parcel_bike", label = "Servicekosten (Lastenrad) (EUR/Pakete)", value = 1.025, step = 0.1),
-                   numericInput(inputId = "cost_parcel_handling",label = "Extra Servicekosten in Mikrodepot (EUR/Einheit)", value = 0.76, step = 0.1),
                    numericInput(inputId = "driver_cost_h",label = "Gehalt Fahrer (EUR/h)", value = 25, step = 1),
                    numericInput(inputId = "rider_cost_h",label = "Gehalt Radfahrer (EUR/h)", value = 25, step = 1)
                  )

@@ -2,8 +2,8 @@ pacman::p_load(data.table, dplyr, ggplot2, readr, tidyr, reshape, data.table)
 
 upper_folder = "C:/models/freightFlows/output/"
 
-scenario_folders = c("mc_cargo_bike_reg_base","mc_cargo_bike_reg", 
-                     "mc_cargo_bike_base", "mc_cargo_bike" )
+scenario_folders = c("mc_cargo_bike_reg_base_V2","mc_cargo_bike_reg_v2", 
+                     "mc_cargo_bike_base_v2", "mc_cargo_bike_v2" )
 scenarios = c("0-REG: Nur Transporter", "1-REG: Optimiert ", 
               "2-MUC: Nur Transporter", "3-MUC: Optimiert")
 scenario_pretty_names = scenarios

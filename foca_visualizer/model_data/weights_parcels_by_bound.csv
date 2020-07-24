@@ -1,5 +1,5 @@
 toDestination,vehicle,customer_type,weight_kg,n,scenario,dc
-Von Kunden gesendet,Transporter,Direkt zu/von Kunden,32733.573229997794,4067,0-REG: Nur Transporter,10
+Von Kunden gesendet,Transporter,Direkt zu/von Kunden,33866.51068698324,4080,0-REG: Nur Transporter,10
 Von Kunden gesendet,Transporter,In Paketshop,0,0,0-REG: Nur Transporter,10
 Von Kunden gesendet,Transporter,Gesamt,0,0,0-REG: Nur Transporter,10
 Von Kunden gesendet,Lastenrad,Direkt zu/von Kunden,0,0,0-REG: Nur Transporter,10
@@ -9,9 +9,9 @@ Von Kunden gesendet,LKW der Fernverkehr,Direkt zu/von Kunden,0,0,0-REG: Nur Tran
 Von Kunden gesendet,LKW der Fernverkehr,In Paketshop,0,0,0-REG: Nur Transporter,10
 Von Kunden gesendet,LKW der Fernverkehr,Gesamt,0,0,0-REG: Nur Transporter,10
 Von Kunden gesendet,Zulieferer - Paketshop,Direkt zu/von Kunden,0,0,0-REG: Nur Transporter,10
-Von Kunden gesendet,Zulieferer - Paketshop,In Paketshop,132246.58911943279,16184,0-REG: Nur Transporter,10
+Von Kunden gesendet,Zulieferer - Paketshop,In Paketshop,132152.88512898207,16128,0-REG: Nur Transporter,10
 Von Kunden gesendet,Zulieferer - Paketshop,Gesamt,0,0,0-REG: Nur Transporter,10
-Zu Kunden geliefert,Transporter,Direkt zu/von Kunden,61718.46133876902,7868,0-REG: Nur Transporter,10
+Zu Kunden geliefert,Transporter,Direkt zu/von Kunden,61482.53661690907,7695,0-REG: Nur Transporter,10
 Zu Kunden geliefert,Transporter,In Paketshop,0,0,0-REG: Nur Transporter,10
 Zu Kunden geliefert,Transporter,Gesamt,0,0,0-REG: Nur Transporter,10
 Zu Kunden geliefert,Lastenrad,Direkt zu/von Kunden,0,0,0-REG: Nur Transporter,10
@@ -21,9 +21,9 @@ Zu Kunden geliefert,LKW der Fernverkehr,Direkt zu/von Kunden,0,0,0-REG: Nur Tran
 Zu Kunden geliefert,LKW der Fernverkehr,In Paketshop,0,0,0-REG: Nur Transporter,10
 Zu Kunden geliefert,LKW der Fernverkehr,Gesamt,0,0,0-REG: Nur Transporter,10
 Zu Kunden geliefert,Zulieferer - Paketshop,Direkt zu/von Kunden,0,0,0-REG: Nur Transporter,10
-Zu Kunden geliefert,Zulieferer - Paketshop,In Paketshop,16202.623145342102,1903,0-REG: Nur Transporter,10
+Zu Kunden geliefert,Zulieferer - Paketshop,In Paketshop,16497.203631421526,1954,0-REG: Nur Transporter,10
 Zu Kunden geliefert,Zulieferer - Paketshop,Gesamt,0,0,0-REG: Nur Transporter,10
-Von Kunden gesendet,Transporter,Direkt zu/von Kunden,32255.81692342398,4017,1-REG: Optimiert ,10
+Von Kunden gesendet,Transporter,Direkt zu/von Kunden,32929.260287096586,3963,1-REG: Optimiert ,10
 Von Kunden gesendet,Transporter,In Paketshop,0,0,1-REG: Optimiert ,10
 Von Kunden gesendet,Transporter,Gesamt,0,0,1-REG: Optimiert ,10
 Von Kunden gesendet,Lastenrad,Direkt zu/von Kunden,0,0,1-REG: Optimiert ,10
@@ -33,21 +33,21 @@ Von Kunden gesendet,LKW der Fernverkehr,Direkt zu/von Kunden,0,0,1-REG: Optimier
 Von Kunden gesendet,LKW der Fernverkehr,In Paketshop,0,0,1-REG: Optimiert ,10
 Von Kunden gesendet,LKW der Fernverkehr,Gesamt,0,0,1-REG: Optimiert ,10
 Von Kunden gesendet,Zulieferer - Paketshop,Direkt zu/von Kunden,0,0,1-REG: Optimiert ,10
-Von Kunden gesendet,Zulieferer - Paketshop,In Paketshop,131318.027971314,16097,1-REG: Optimiert ,10
+Von Kunden gesendet,Zulieferer - Paketshop,In Paketshop,131743.1633053897,16174,1-REG: Optimiert ,10
 Von Kunden gesendet,Zulieferer - Paketshop,Gesamt,0,0,1-REG: Optimiert ,10
-Zu Kunden geliefert,Transporter,Direkt zu/von Kunden,58143.41089326787,5909,1-REG: Optimiert ,10
+Zu Kunden geliefert,Transporter,Direkt zu/von Kunden,57653.302431971824,5844,1-REG: Optimiert ,10
 Zu Kunden geliefert,Transporter,In Paketshop,0,0,1-REG: Optimiert ,10
 Zu Kunden geliefert,Transporter,Gesamt,0,0,1-REG: Optimiert ,10
-Zu Kunden geliefert,Lastenrad,Direkt zu/von Kunden,3904.8653095317395,1795,1-REG: Optimiert ,10
+Zu Kunden geliefert,Lastenrad,Direkt zu/von Kunden,4069.82585830852,1880,1-REG: Optimiert ,10
 Zu Kunden geliefert,Lastenrad,In Paketshop,0,0,1-REG: Optimiert ,10
 Zu Kunden geliefert,Lastenrad,Gesamt,0,0,1-REG: Optimiert ,10
 Zu Kunden geliefert,LKW der Fernverkehr,Direkt zu/von Kunden,0,0,1-REG: Optimiert ,10
 Zu Kunden geliefert,LKW der Fernverkehr,In Paketshop,0,0,1-REG: Optimiert ,10
 Zu Kunden geliefert,LKW der Fernverkehr,Gesamt,0,0,1-REG: Optimiert ,10
 Zu Kunden geliefert,Zulieferer - Paketshop,Direkt zu/von Kunden,0,0,1-REG: Optimiert ,10
-Zu Kunden geliefert,Zulieferer - Paketshop,In Paketshop,15502.455402053332,1919,1-REG: Optimiert ,10
+Zu Kunden geliefert,Zulieferer - Paketshop,In Paketshop,16064.461299315573,1964,1-REG: Optimiert ,10
 Zu Kunden geliefert,Zulieferer - Paketshop,Gesamt,0,0,1-REG: Optimiert ,10
-Von Kunden gesendet,Transporter,Direkt zu/von Kunden,48814.11978534136,5964,2-MUC: Nur Transporter,14
+Von Kunden gesendet,Transporter,Direkt zu/von Kunden,48980.7606125917,5986,2-MUC: Nur Transporter,14
 Von Kunden gesendet,Transporter,In Paketshop,0,0,2-MUC: Nur Transporter,14
 Von Kunden gesendet,Transporter,Gesamt,0,0,2-MUC: Nur Transporter,14
 Von Kunden gesendet,Lastenrad,Direkt zu/von Kunden,0,0,2-MUC: Nur Transporter,14
@@ -57,9 +57,9 @@ Von Kunden gesendet,LKW der Fernverkehr,Direkt zu/von Kunden,0,0,2-MUC: Nur Tran
 Von Kunden gesendet,LKW der Fernverkehr,In Paketshop,0,0,2-MUC: Nur Transporter,14
 Von Kunden gesendet,LKW der Fernverkehr,Gesamt,0,0,2-MUC: Nur Transporter,14
 Von Kunden gesendet,Zulieferer - Paketshop,Direkt zu/von Kunden,0,0,2-MUC: Nur Transporter,14
-Von Kunden gesendet,Zulieferer - Paketshop,In Paketshop,195761.65262995707,23963,2-MUC: Nur Transporter,14
+Von Kunden gesendet,Zulieferer - Paketshop,In Paketshop,195734.49099856248,23965,2-MUC: Nur Transporter,14
 Von Kunden gesendet,Zulieferer - Paketshop,Gesamt,0,0,2-MUC: Nur Transporter,14
-Zu Kunden geliefert,Transporter,Direkt zu/von Kunden,203021.60938884123,25360,2-MUC: Nur Transporter,14
+Zu Kunden geliefert,Transporter,Direkt zu/von Kunden,203198.67783366176,25384,2-MUC: Nur Transporter,14
 Zu Kunden geliefert,Transporter,In Paketshop,0,0,2-MUC: Nur Transporter,14
 Zu Kunden geliefert,Transporter,Gesamt,0,0,2-MUC: Nur Transporter,14
 Zu Kunden geliefert,Lastenrad,Direkt zu/von Kunden,0,0,2-MUC: Nur Transporter,14
@@ -69,9 +69,9 @@ Zu Kunden geliefert,LKW der Fernverkehr,Direkt zu/von Kunden,0,0,2-MUC: Nur Tran
 Zu Kunden geliefert,LKW der Fernverkehr,In Paketshop,0,0,2-MUC: Nur Transporter,14
 Zu Kunden geliefert,LKW der Fernverkehr,Gesamt,0,0,2-MUC: Nur Transporter,14
 Zu Kunden geliefert,Zulieferer - Paketshop,Direkt zu/von Kunden,0,0,2-MUC: Nur Transporter,14
-Zu Kunden geliefert,Zulieferer - Paketshop,In Paketshop,51708.28616774718,6372,2-MUC: Nur Transporter,14
+Zu Kunden geliefert,Zulieferer - Paketshop,In Paketshop,51743.31384540614,6374,2-MUC: Nur Transporter,14
 Zu Kunden geliefert,Zulieferer - Paketshop,Gesamt,0,0,2-MUC: Nur Transporter,14
-Von Kunden gesendet,Transporter,Direkt zu/von Kunden,48814.11978534136,5964,3-MUC: Optimiert,14
+Von Kunden gesendet,Transporter,Direkt zu/von Kunden,48849.075330870095,5970,3-MUC: Optimiert,14
 Von Kunden gesendet,Transporter,In Paketshop,0,0,3-MUC: Optimiert,14
 Von Kunden gesendet,Transporter,Gesamt,0,0,3-MUC: Optimiert,14
 Von Kunden gesendet,Lastenrad,Direkt zu/von Kunden,0,0,3-MUC: Optimiert,14
@@ -81,17 +81,17 @@ Von Kunden gesendet,LKW der Fernverkehr,Direkt zu/von Kunden,0,0,3-MUC: Optimier
 Von Kunden gesendet,LKW der Fernverkehr,In Paketshop,0,0,3-MUC: Optimiert,14
 Von Kunden gesendet,LKW der Fernverkehr,Gesamt,0,0,3-MUC: Optimiert,14
 Von Kunden gesendet,Zulieferer - Paketshop,Direkt zu/von Kunden,0,0,3-MUC: Optimiert,14
-Von Kunden gesendet,Zulieferer - Paketshop,In Paketshop,195761.65262995707,23963,3-MUC: Optimiert,14
+Von Kunden gesendet,Zulieferer - Paketshop,In Paketshop,195866.1762802841,23981,3-MUC: Optimiert,14
 Von Kunden gesendet,Zulieferer - Paketshop,Gesamt,0,0,3-MUC: Optimiert,14
-Zu Kunden geliefert,Transporter,Direkt zu/von Kunden,176136.95497782706,18412,3-MUC: Optimiert,14
+Zu Kunden geliefert,Transporter,Direkt zu/von Kunden,176289.64179604664,18431,3-MUC: Optimiert,14
 Zu Kunden geliefert,Transporter,In Paketshop,0,0,3-MUC: Optimiert,14
 Zu Kunden geliefert,Transporter,Gesamt,0,0,3-MUC: Optimiert,14
-Zu Kunden geliefert,Lastenrad,Direkt zu/von Kunden,26884.654411014177,6948,3-MUC: Optimiert,14
+Zu Kunden geliefert,Lastenrad,Direkt zu/von Kunden,26909.036037615104,6953,3-MUC: Optimiert,14
 Zu Kunden geliefert,Lastenrad,In Paketshop,0,0,3-MUC: Optimiert,14
 Zu Kunden geliefert,Lastenrad,Gesamt,0,0,3-MUC: Optimiert,14
 Zu Kunden geliefert,LKW der Fernverkehr,Direkt zu/von Kunden,0,0,3-MUC: Optimiert,14
 Zu Kunden geliefert,LKW der Fernverkehr,In Paketshop,0,0,3-MUC: Optimiert,14
 Zu Kunden geliefert,LKW der Fernverkehr,Gesamt,0,0,3-MUC: Optimiert,14
 Zu Kunden geliefert,Zulieferer - Paketshop,Direkt zu/von Kunden,0,0,3-MUC: Optimiert,14
-Zu Kunden geliefert,Zulieferer - Paketshop,In Paketshop,51708.28616774718,6372,3-MUC: Optimiert,14
+Zu Kunden geliefert,Zulieferer - Paketshop,In Paketshop,51743.31384540614,6374,3-MUC: Optimiert,14
 Zu Kunden geliefert,Zulieferer - Paketshop,Gesamt,0,0,3-MUC: Optimiert,14
