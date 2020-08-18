@@ -211,8 +211,8 @@ serverModeChoice = function(input, output, session){
   zones_def = st_read(paste(this_folder, "/mode_choice_visualizer/input/zones.shp", sep = ""))
   #zones_def = zones_def[order(zones_def$layer),]
   zones_def = st_transform(zones_def, crs = 31468) # transform to EPSG:31468
-  zones_def$center_X = 0
   zones_def$center_Y = 0
+  zones_def$center_X = 0
   centroids = as.data.frame(st_centroid(zones_def$geometry))
   for (i in 1:nrow(centroids)) {
     centroids$center_X[i] = centroids$geometry[[i]][[1]]
@@ -222,21 +222,55 @@ serverModeChoice = function(input, output, session){
   zones_def$center_Y = centroids$center_Y
   
   # read densities input of zones
-  den_ldef = as.data.frame(read_csv(paste(this_folder, '/mode_choice_visualizer/input/dl.csv', sep = "")))
-  rownames(den_ldef) = den_ldef$X1
-  den_ldef = den_ldef[,-1]
+  den_ldef = as.data.frame( read_csv(file = paste(this_folder, '/mode_choice_visualizer/input/dl.csv', sep = "")))
+  # if only one distribution center || distinction is necessary otherwise app would crash during cost calculation
+  if (ncol(den_ldef) == 2) { 
+    tmp = as.data.frame(den_ldef[,2])
+    rownames(tmp) = den_ldef[,1]
+    colnames(tmp) = colnames(den_ldef)[2]
+    den_ldef = tmp
+  }
+  # if >1 distribution centers
+  else {
+    rownames(den_ldef) = den_ldef[,1]
+    den_ldef = den_ldef[,-1]
+  }
   
   den_mdef = as.data.frame(read_csv(paste(this_folder, '/mode_choice_visualizer/input/dm.csv', sep = "")))
-  rownames(den_mdef) = den_mdef$X1
+  if (ncol(den_mdef) == 2) {
+    tmp = as.data.frame(den_mdef[,2])
+    rownames(tmp) = den_mdef[,1]
+    colnames(tmp) = colnames(den_mdef)[2]
+    den_mdef = tmp
+  }
+  else {
+  rownames(den_mdef) = den_mdef[,1]
   den_mdef = den_mdef[,-1]
+  }
   
   den_sdef = as.data.frame(read_csv(paste(this_folder, '/mode_choice_visualizer/input/ds.csv', sep = "")))
-  rownames(den_sdef) = den_sdef$X1
-  den_sdef = den_sdef[,-1]
+  if (ncol(den_sdef) == 2) {
+    tmp = as.data.frame(den_sdef[,2])
+    rownames(tmp) = den_sdef[,1]
+    colnames(tmp) = colnames(den_sdef)[2]
+    den_sdef = tmp 
+  }
+  else {
+    rownames(den_sdef) = den_sdef[,1]
+    den_sdef = den_sdef[,-1]
+  }
   
-  den_xsdef = as.data.frame(read_csv(paste(this_folder, '/mode_choice_visualizer/input/dsx.csv', sep = "")))
-  rownames(den_xsdef) = den_xsdef$X1
-  den_xsdef = den_xsdef[,-1]
+  den_xsdef = as.data.frame(read_csv(paste(this_folder, '/mode_choice_visualizer/input/dxs.csv', sep = "")))
+  if (ncol(den_xsdef) == 2) {
+    tmp = as.data.frame(den_xsdef[,2])
+    rownames(tmp) = den_xsdef[,1]
+    colnames(tmp) = colnames(den_xsdef)[2]
+    den_xsdef = tmp 
+  }
+  else {
+    rownames(den_xsdef) = den_xsdef[,1]
+    den_xsdef = den_xsdef[,-1]
+  }
   
   congestion_default = as.data.frame(read_csv(paste(this_folder, '/mode_choice_visualizer/input/congestion.csv', sep = "")))
   colnames(congestion_default) = 'congestion'
@@ -270,31 +304,70 @@ serverModeChoice = function(input, output, session){
     ind = which(upload == 'dxs.csv')
     if (length(ind)!=0) {
       den_xsup = as.data.frame(read_csv(upload$datapath[ind]))
-      rownames(den_xsup) = den_xsup$X1
-      den_xsup = den_xsup[,-1]
+      
+      # if only 1 distribution center in upload data
+      if (ncol(den_xsup) == 2) {
+        tmp = as.data.frame(den_xsup[,2])
+        rownames(tmp) = den_xsup[,1]
+        colnames(tmp) = colnames(den_xsup)[2]
+        den_xsup = tmp 
+      }
+      else{
+        rownames(den_xsup) = den_xsup[,1]
+        den_xsup = den_xsup[,-1]
+      }
       den_xs_input(den_xsup)
     }
+    
     ind = which(upload == 'ds.csv')
     if (length(ind)!=0) {
       den_sup = as.data.frame(read_csv(upload$datapath[ind]))
-      rownames(den_sup) = den_sup$X1
-      den_sup = den_sup[,-1]
+      if (ncol(den_sup) == 2) {
+        tmp = as.data.frame(den_sup[,2])
+        rownames(tmp) = den_sup[,1]
+        colnames(tmp) = colnames(den_sup)[2]
+        den_sup = tmp 
+      }
+      else{
+        rownames(den_sup) = den_sup[,1]
+        den_sup = den_sup[,-1]
+      }
       den_s_input(den_sup)
     }
+    
     ind = which(upload == 'dm.csv')
     if (length(ind)!=0) {
       den_mup = as.data.frame(read_csv(upload$datapath[ind]))
-      rownames(den_mup) = den_mup$X1
-      den_mup = den_mup[,-1]
+      
+      if (ncol(den_mup) == 2) {
+        tmp = as.data.frame(den_mup[,2])
+        rownames(tmp) = den_mup[,1]
+        colnames(tmp) = colnames(den_mup)[2]
+        den_mup = tmp 
+      }
+      else {
+        rownames(den_mup) = den_mup[,1]
+        den_mup = den_mup[,-1]
+      }
       den_m_input(den_mup)
     }
+    
     ind = which(upload == 'dl.csv')
     if (length(ind)!=0) {
       den_lup = as.data.frame(read_csv(upload$datapath[ind]))
-      rownames(den_lup) = den_lup$X1
-      den_lup = den_lup[,-1]
+      if (ncol(den_lup) == 2) {
+        tmp = as.data.frame(den_lup[,2])
+        rownames(tmp) = den_lup[,1]
+        colnames(tmp) = colnames(den_lup)[2]
+        den_lup = tmp 
+      }
+      else{
+        rownames(den_lup) = den_lup$X1
+        den_lup = den_lup[,-1]
+      }
       den_l_input(den_lup)
     }
+    
     ind = which(upload == 'zones.zip')
     if (length(ind)!=0) {
       message(ind)
@@ -376,19 +449,26 @@ serverModeChoice = function(input, output, session){
   
     print(dist_AZDC)
     
-    
     # get parameter inputs
 
     capacity_feeder = input$cap_feeder # in m3
+    #capacity_feeder = 240
     capacity_truck = input$cap_truck # in m3
+    #capacity_truck = 120
     vol = c(0.5, 1.0, 4.0, 8.0) # in m3
     op_co_truck= input$op_co_truck # per km in euro
+    #op_co_truck = 2.8817
     op_co_bike= input$op_co_bike # per km in euro
+    #op_co_bike = 3.1097
     k_approx = 0.82
     serv_co_bike = input$serv_co_bike # per parcel in euro
+    #serv_co_bike = 1.0248
     serv_co_truck = input$serv_co_truck # per parcel in euro
+    #serv_co_truck = 1.1386
     op_co_feeder = input$op_co_feeder
+    #op_co_feeder = 1.9301
     ex_handling_bike = input$ex_co_bike 
+    #ex_handling_bike = 0.76
     
     cost_bike = matrix(0,nrow = 4, ncol = 4)
     colnames(cost_bike) = c('long-haul c', 'extra handling c', 'service c', 'routing c') # if 1 then demand class (in order xs, s,m,l) is served by bike, truck otherwise
@@ -450,7 +530,7 @@ serverModeChoice = function(input, output, session){
               cost_log[ind_c, 'c_total'] = c_b+c_t
               cost_log[ind_c, 'size'] = 'all'
               cost_log[ind_c, 'mode'] = m
-              cost_log[ind_c,'AZ'] = names(zones_active[j])
+              cost_log[ind_c,'AZ'] = names(zones_active[j]) # first error Fehler in x[[jj]][iseq] <- vjj : Ersetzung hat Länge 0
               cost_log[ind_c,'DC'] = d_centers[i,'dcId'][[1]]
             }
             else {
