@@ -285,29 +285,35 @@ serverModeChoice = function(input, output, session){
   
   area_def = as.data.frame(read_csv(paste(this_folder, '/mode_choice_visualizer/input/area.csv', sep = "")))
 
-  congestion_input = reactiveVal(congestion_default)
-  zones_input = reactiveVal(zones_def)
-  den_xs_input = reactiveVal(den_xsdef)
-  den_s_input = reactiveVal(den_sdef)
-  den_m_input = reactiveVal(den_mdef)
-  den_l_input = reactiveVal(den_ldef)
-  area_input = reactiveVal(area_def)
-  d_centers_input = reactiveVal(d_centers_def)
+  congestion_input <<- reactiveVal(congestion_default)
+  zones_input <<- reactiveVal(zones_def)
+  den_xs_input <<- reactiveVal(den_xsdef)
+  den_s_input <<- reactiveVal(den_sdef)
+  den_m_input <<- reactiveVal(den_mdef)
+  den_l_input <<- reactiveVal(den_ldef)
+  area_input <<- reactiveVal(area_def)
+  d_centers_input <<- reactiveVal(d_centers_def)
 
   observeEvent(input$replaceFiles,{  #replace inputs if the files are changed
     upload <<- input$replace_inputs
     ind = which(upload == 'area.csv')
     if (length(ind)!=0) {
-      area_updated = as.data.frame(read_csv(upload$datapath[ind]))
-      colnames(area_updated) = 'area'
+      area_updated <<- as.data.frame(read_csv(upload$datapath[ind]))
+      if (nrow(area_updated) > 0 && ncol(area_updated) > 1) {
+        colnames(area_updated) = 'area'
+      }
       area_input(area_updated)
     }
+    
     ind = which(upload == 'congestion.csv')
     if (length(ind)!=0) {
       congestion_updated = as.data.frame(read_csv(upload$datapath[ind]))
-      colnames(congestion_updated) = 'congestion'
+      if (nrow(congestion_updated) > 0 && ncol(congestion_updated) >= 1) {
+        colnames(congestion_updated) = 'congestion'
+      }
       congestion_input(congestion_updated)
     }
+      
     ind = which(upload == 'dxs.csv')
     if (length(ind)!=0) {
       den_xsup = as.data.frame(read_csv(upload$datapath[ind]))
@@ -319,7 +325,7 @@ serverModeChoice = function(input, output, session){
         colnames(tmp) = colnames(den_xsup)[2]
         den_xsup = tmp 
       }
-      else{
+      else if (ncol(den_xsup) > 2) {
         rownames(den_xsup) = den_xsup[,1]
         den_xsup = den_xsup[,-1]
       }
@@ -335,7 +341,7 @@ serverModeChoice = function(input, output, session){
         colnames(tmp) = colnames(den_sup)[2]
         den_sup = tmp 
       }
-      else{
+      else if (ncol(den_sup) > 2){
         rownames(den_sup) = den_sup[,1]
         den_sup = den_sup[,-1]
       }
@@ -352,7 +358,7 @@ serverModeChoice = function(input, output, session){
         colnames(tmp) = colnames(den_mup)[2]
         den_mup = tmp 
       }
-      else {
+      else if (ncol(den_mup) > 2) {
         rownames(den_mup) = den_mup[,1]
         den_mup = den_mup[,-1]
       }
@@ -368,7 +374,7 @@ serverModeChoice = function(input, output, session){
         colnames(tmp) = colnames(den_lup)[2]
         den_lup = tmp 
       }
-      else{
+      else if (ncol(den_lup) > 2){
         rownames(den_lup) = den_lup$X1
         den_lup = den_lup[,-1]
       }
@@ -410,24 +416,34 @@ serverModeChoice = function(input, output, session){
     ind = which(upload == 'distributionCenters.csv')
     if (length(ind)!=0) {
       d_centers_updated = as.data.frame(read_csv2(upload$datapath[ind], col_types = cols(xcoord = col_character(), ycoord = col_character())))
-      d_centers_updated$xcoord = as.double(d_centers_updated$xcoord)
-      d_centers_updated$ycoord = as.double(d_centers_updated$ycoord)
       
-      d_centers_updated = st_as_sf(d_centers_updated, coords = c('xcoord','ycoord'), crs = 4326, remove = FALSE)
-      d_centers_updated = st_transform(d_centers_updated, crs = 31468)
+      if (nrow(d_centers_updated) > 0 && ncol(d_centers_updated) > 3 ) {
+        d_centers_updated$xcoord = as.double(d_centers_updated$xcoord)
+        d_centers_updated$ycoord = as.double(d_centers_updated$ycoord)
+        
+        d_centers_updated <<- d_centers_updated
+        
+        # check if coordinates are valid doubles
+        if (sum(is.na.data.frame(d_centers_updated))==0) {
+          message("in here")
+        
+          d_centers_updated = st_as_sf(d_centers_updated, coords = c('xcoord','ycoord'), crs = 4326, remove = FALSE)
+          d_centers_updated = st_transform(d_centers_updated, crs = 31468)
       
-      d_centers_updated$dcX = 0
-      d_centers_updated$dcY = 0
-      centroids = as.data.frame(st_centroid(d_centers_updated$geometry))
-      for (i in 1:nrow(centroids)) {
-        centroids$dcX[i] = centroids$geometry[[i]][[1]]
-        centroids$dcY[i] = centroids$geometry[[i]][[2]]
+          d_centers_updated$dcX = 0
+          d_centers_updated$dcY = 0
+          centroids = as.data.frame(st_centroid(d_centers_updated$geometry))
+          for (i in 1:nrow(centroids)) {
+            centroids$dcX[i] = centroids$geometry[[i]][[1]]
+            centroids$dcY[i] = centroids$geometry[[i]][[2]]
+          }
+          d_centers_updated$dcX = centroids$dcX
+          d_centers_updated$dcY = centroids$dcY
+          choices = c('Positionen aller Verteilzentren',as.list(d_centers_updated$dcId))
+          updateSelectInput(session, inputId = "choice", choices = choices)
+        }
+        d_centers_input(d_centers_updated)
       }
-      d_centers_updated$dcX = centroids$dcX
-      d_centers_updated$dcY = centroids$dcY
-      choices = c('Positionen aller Verteilzentren',as.list(d_centers_updated$dcId))
-      updateSelectInput(session, inputId = "choice", choices = choices)
-      d_centers_input(d_centers_updated)
     }
     
     output$uploadFeedback = renderText({
@@ -447,7 +463,10 @@ serverModeChoice = function(input, output, session){
           nrow(den_s) <= nrow(zones) && nrow(den_m) <= nrow(zones) &&
           nrow(den_l) <= nrow(zones) && nrow(d_centers) == ncol(den_xs) && 
           nrow(d_centers) == ncol(den_s) && nrow(d_centers) == ncol(den_m) && 
-          nrow(d_centers) == ncol(den_l)
+          nrow(d_centers) == ncol(den_l) && sum(is.na.data.frame(d_centers)) == 0 &&
+          sum(sapply(den_xs, is.numeric)) == ncol(den_xs) && sum(sapply(den_s, is.numeric)) == ncol(den_s) &&
+          sum(sapply(den_m, is.numeric)) == ncol(den_m) && sum(sapply(den_l, is.numeric)) == ncol(den_l) &&
+          sum(sapply(congestion, is.numeric)) == ncol(congestion) && sum(sapply(area, is.numeric)) == ncol(area)
       ) {
         feasible <<- TRUE
         validate(
@@ -458,22 +477,28 @@ serverModeChoice = function(input, output, session){
         feasible <<- FALSE
         if (is.null(zones) == TRUE) {
           validate(
-            need(is.null(zones) == FALSE, 'Shapefile unvollständig'),
-            need(FALSE, "Bitte versuchen Sie den Upload erneut mit korrekten Dateien")
+            need(FALSE, "Bitte versuchen Sie den Upload erneut mit korrekten Dateien"),
+            need(is.null(zones) == FALSE, 'Shapefile unvollständig')
           )
         }
         else {
           validate(
-            need(nrow(zones) == nrow(congestion), 'Anzahl der Zonen in der Shapefile stimmen nicht mit Zonen in Congestion überein'),
-            need(nrow(zones) == nrow(area), 'Anzahl der Zonen in der Shapefile stimmen nicht mit Zonen in Area überein'),
-            need(nrow(den_xs) <= nrow(zones), 'Mehr Zonen in dxs als in Shapefile'),
-            need(nrow(den_s) <= nrow(zones), 'Mehr Zonen in ds als in Shapefile'),
-            need(nrow(den_m) <= nrow(zones), 'Mehr Zonen in dm als in Shapefile'),
-            need(nrow(den_l) <= nrow(zones), 'Mehr Zonen in dl als in Shapefile'),
-            need(nrow(d_centers) == ncol(den_xs), 'Unterschiedliche Anzahl an Verteilzentren in distributionCenters und dxs'),
-            need(nrow(d_centers) == ncol(den_s), 'Unterschiedliche Anzahl an Verteilzentren in distributionCenters und ds'),
-            need(nrow(d_centers) == ncol(den_m), 'Unterschiedliche Anzahl an Verteilzentren in distributionCenters und dm'),
-            need(nrow(d_centers) == ncol(den_l), 'Unterschiedliche Anzahl an Verteilzentren in distributionCenters und dl')
+            need(FALSE, "Bitte versuchen Sie den Upload erneut mit korrekten Dateien"),
+            need(sum(sapply(den_xs, is.numeric)) == ncol(den_xs), 'Unzulässige Werte in "dxs.csv" (nur Zahlenwerte zulässig)'),
+            need(sum(sapply(den_s, is.numeric)) == ncol(den_s), 'Unzulässige Werte in "ds.csv" (nur Zahlenwerte zulässig)'),
+            need(sum(sapply(den_m, is.numeric)) == ncol(den_m), 'Unzulässige Werte in "dm.csv" (nur Zahlenwerte zulässig)'),
+            need(sum(sapply(den_l, is.numeric)) == ncol(den_l), 'Unzulässige Werte in "dl.csv" (nur Zahlenwerte zulässig)'),
+            need(sum(is.na.data.frame(d_centers)) == 0, 'Unzulässige Koordinaten in "distributionCenters.csv" (nur Zahlenwerte zulässig)'),
+            need(nrow(zones) == nrow(congestion), 'Anzahl der Zonen in der Shapefile stimmt nicht mit Zonen in "congestion.csv" überein'),
+            need(nrow(zones) == nrow(area), 'Anzahl der Zonen in der Shapefile stimmt nicht mit Zonen in "area.csv" überein'),
+            need(nrow(den_xs) <= nrow(zones), 'Mehr Zonen in "dxs.csv" als in Shapefile'),
+            need(nrow(den_s) <= nrow(zones), 'Mehr Zonen in "ds.csv" als in Shapefile'),
+            need(nrow(den_m) <= nrow(zones), 'Mehr Zonen in "dm.csv" als in Shapefile'),
+            need(nrow(den_l) <= nrow(zones), 'Mehr Zonen in "dl.csv" als in Shapefile'),
+            need(nrow(d_centers) == ncol(den_xs), 'Unterschiedliche Anzahl an Verteilzentren in "distributionCenters.csv" und in "dxs.csv"'),
+            need(nrow(d_centers) == ncol(den_s), 'Unterschiedliche Anzahl an Verteilzentren in "distributionCenters.csv" und in "ds.csv"'),
+            need(nrow(d_centers) == ncol(den_m), 'Unterschiedliche Anzahl an Verteilzentren in "distributionCenters.csv" und in "dm.csv"'),
+            need(nrow(d_centers) == ncol(den_l), 'Unterschiedliche Anzahl an Verteilzentren in "distributionCenters.csv" und in "dl.csv"')
           )
         }
       }
@@ -481,7 +506,8 @@ serverModeChoice = function(input, output, session){
   })
 
     observeEvent(input$update,{ # start calculation when hitting on update
-      message(feasible)
+      
+      # lock if inputs infeasible to prevent crashes
       if (feasible == TRUE) {
     # from reactive to non-reactive context
     zones <<- isolate(zones_input())
@@ -493,18 +519,6 @@ serverModeChoice = function(input, output, session){
     area <- isolate(area_input())
     d_centers <<- isolate(d_centers_input())
     #updateSelectInput(session, inputId = "choice", choices = as.list(d_centers$dcId))
-    
-    # check if inputs are valid (same dimensions, numeric etc.)
-    # dimensions:
-    
-    # if inputs are feasible || else clause starts at line 890
-    #if (is.null(zones) == FALSE &&   nrow(zones) == nrow(congestion) 
-    #    && nrow(zones) == nrow(area) && nrow(den_xs) <= nrow(zones) && 
-    #    nrow(den_s) <= nrow(zones) && nrow(den_m) <= nrow(zones) &&
-    #    nrow(den_l) <= nrow(zones) && nrow(d_centers) == ncol(den_xs) && 
-    #    nrow(d_centers) == ncol(den_s) && nrow(d_centers) == ncol(den_m) && 
-    #    nrow(d_centers) == ncol(den_l)
-    #    ) {
 
     active = den_xs+den_s+den_m+den_l
     active = active != 0 # shows in which zones distribution centers are active
@@ -935,31 +949,6 @@ serverModeChoice = function(input, output, session){
       p = tm_basemap(leaflet::providers$CartoDB) + tm_shape(zones) + tm_borders() + tm_fill(col = 'congestion', alpha = 0.4, title = "Staufaktoren") + tm_layout(legend.format = list(text.separator = "-"))  #+ tm_shape(shp) + tm_borders() 
       tmap_leaflet(p)
     })
-   # }
-    # if inputs not feasible
-  #  else {
-  #    output$mode_map <- renderLeaflet({
-  #        if (is.null(zones) == TRUE) {
-  #          validate(
-  #            need(is.null(zones) == FALSE, 'Shapefile unvollständig')
-  #          )
-  #        }
-  #        else {
-  #          validate(
-  #            need(nrow(zones) == nrow(congestion), 'Anzahl der Zonen in der Shapefile stimmen nicht mit Zonen in Congestion überein'),
-  #            need(nrow(zones) == nrow(area), 'Anzahl der Zonen in der Shapefile stimmen nicht mit Zonen in Area überein'),
-  #            need(nrow(den_xs) <= nrow(zones), 'Mehr Zonen in dxs als in Shapefile'),
-  #            need(nrow(den_s) <= nrow(zones), 'Mehr Zonen in ds als in Shapefile'),
-  #            need(nrow(den_m) <= nrow(zones), 'Mehr Zonen in dm als in Shapefile'),
-  #            need(nrow(den_l) <= nrow(zones), 'Mehr Zonen in dl als in Shapefile'),
-  #            need(nrow(d_centers) == ncol(den_xs), 'Unterschiedliche Anzahl an Verteilzentren in distributionCenters und dxs'),
-  #            need(nrow(d_centers) == ncol(den_s), 'Unterschiedliche Anzahl an Verteilzentren in distributionCenters und ds'),
-  #            need(nrow(d_centers) == ncol(den_m), 'Unterschiedliche Anzahl an Verteilzentren in distributionCenters und dm'),
-  #            need(nrow(d_centers) == ncol(den_l), 'Unterschiedliche Anzahl an Verteilzentren in distributionCenters und dl')
-  #          )
-  #        }
-  #    })
-  #  }
   }
   })
 }
