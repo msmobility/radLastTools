@@ -230,61 +230,62 @@ serverModeChoice = function(input, output, session){
   }
   
   # read densities input of zones
-  den_ldef = as.data.frame( read_csv(file = paste(this_folder, '/mode_choice_visualizer/input/dl.csv', sep = "")))
+  den_ldef = as.data.frame( read_delim(delim = ';',file = paste(this_folder, '/mode_choice_visualizer/input/dl.csv', sep = "")))
   # if only one distribution center || distinction is necessary otherwise app would crash during cost calculation
-  if (ncol(den_ldef) == 2) { 
-    tmp = as.data.frame(den_ldef[,2])
-    rownames(tmp) = den_ldef[,1]
-    colnames(tmp) = colnames(den_ldef)[2]
-    den_ldef = tmp
-  }
+  #if (ncol(den_ldef) == 1) { 
+    #tmp = as.data.frame(den_ldef[,2])
+    #rownames(tmp) = den_ldef[,1]
+    #colnames(tmp) = colnames(den_ldef)[2]
+    #den_ldef = tmp
+  #}
   # if distribution centers >1
-  else {
-    rownames(den_ldef) = den_ldef[,1]
-    den_ldef = den_ldef[,-1]
-  }
+  #else {
+    #rownames(den_ldef) = den_ldef[,1]
+    #den_ldef = den_ldef[,-1]
+  #}
   
-  den_mdef = as.data.frame(read_csv(paste(this_folder, '/mode_choice_visualizer/input/dm.csv', sep = "")))
-  if (ncol(den_mdef) == 2) {
-    tmp = as.data.frame(den_mdef[,2])
-    rownames(tmp) = den_mdef[,1]
-    colnames(tmp) = colnames(den_mdef)[2]
-    den_mdef = tmp
-  }
-  else {
-  rownames(den_mdef) = den_mdef[,1]
-  den_mdef = den_mdef[,-1]
-  }
+  den_mdef = as.data.frame(read_delim(delim = ';',file = paste(this_folder, '/mode_choice_visualizer/input/dm.csv', sep = "")))
+  #if (ncol(den_mdef) == 1) {
+    #tmp = as.data.frame(den_mdef[,2])
+    #rownames(tmp) = den_mdef[,1]
+    #colnames(tmp) = colnames(den_mdef)[2]
+    #den_mdef = tmp
+  #}
+  #else {
+  #rownames(den_mdef) = den_mdef[,1]
+  #den_mdef = den_mdef[,-1]
+  #}
   
-  den_sdef = as.data.frame(read_csv(paste(this_folder, '/mode_choice_visualizer/input/ds.csv', sep = "")))
-  if (ncol(den_sdef) == 2) {
-    tmp = as.data.frame(den_sdef[,2])
-    rownames(tmp) = den_sdef[,1]
-    colnames(tmp) = colnames(den_sdef)[2]
-    den_sdef = tmp 
-  }
-  else {
-    rownames(den_sdef) = den_sdef[,1]
-    den_sdef = den_sdef[,-1]
-  }
+  den_sdef = as.data.frame(read_delim(delim=';',file=paste(this_folder, '/mode_choice_visualizer/input/ds.csv', sep = "")))
+  #if (ncol(den_sdef) == 1) {
+    #tmp = as.data.frame(den_sdef[,2])
+    #rownames(tmp) = den_sdef[,1]
+    #colnames(tmp) = colnames(den_sdef)[2]
+  #  den_sdef = tmp 
+  #}
+  #else {
+    #rownames(den_sdef) = den_sdef[,1]
+    #den_sdef = den_sdef[,-1]
+  #}
   
-  den_xsdef = as.data.frame(read_csv(paste(this_folder, '/mode_choice_visualizer/input/dxs.csv', sep = "")))
-  if (ncol(den_xsdef) == 2) {
-    tmp = as.data.frame(den_xsdef[,2])
-    rownames(tmp) = den_xsdef[,1]
-    colnames(tmp) = colnames(den_xsdef)[2]
-    den_xsdef = tmp 
-  }
-  else {
-    rownames(den_xsdef) = den_xsdef[,1]
-    den_xsdef = den_xsdef[,-1]
-  }
+  den_xsdef = as.data.frame(read_delim(delim=';', file=paste(this_folder, '/mode_choice_visualizer/input/dxs.csv', sep = "")))
+  #if (ncol(den_xsdef) == 1) {
+    #tmp = as.data.frame(den_xsdef[,2])
+    #rownames(tmp) = den_xsdef[,1]
+    #colnames(tmp) = colnames(den_xsdef)[2]
+    #den_xsdef = tmp 
+  #}
+  #else {
+    #rownames(den_xsdef) = den_xsdef[,1]
+    #den_xsdef = den_xsdef[,-1]
+  #}
   
   congestion_default = as.data.frame(read_csv(paste(this_folder, '/mode_choice_visualizer/input/congestion.csv', sep = "")))
   colnames(congestion_default) = 'congestion'
   
   area_def = as.data.frame(read_csv(paste(this_folder, '/mode_choice_visualizer/input/area.csv', sep = "")))
-
+  colnames(area_def) = 'area'
+  
   congestion_input <<- reactiveVal(congestion_default)
   zones_input <<- reactiveVal(zones_def)
   den_xs_input <<- reactiveVal(den_xsdef)
@@ -316,68 +317,68 @@ serverModeChoice = function(input, output, session){
       
     ind = which(upload == 'dxs.csv')
     if (length(ind)!=0) {
-      den_xsup = as.data.frame(read_csv(upload$datapath[ind]))
+      den_xsup = as.data.frame(read_delim(delim = ';',file = upload$datapath[ind]))
       
       # if only 1 distribution center in upload data
-      if (ncol(den_xsup) == 2) {
-        tmp = as.data.frame(den_xsup[,2])
-        rownames(tmp) = den_xsup[,1]
-        colnames(tmp) = colnames(den_xsup)[2]
-        den_xsup = tmp 
-      }
-      else if (ncol(den_xsup) > 2) {
-        rownames(den_xsup) = den_xsup[,1]
-        den_xsup = den_xsup[,-1]
-      }
+      #if (ncol(den_xsup) == 1) {
+      #  tmp = as.data.frame(den_xsup[,2])
+      #  rownames(tmp) = den_xsup[,1]
+      #  colnames(tmp) = colnames(den_xsup)[2]
+      #  den_xsup = tmp 
+      #}
+      #else if (ncol(den_xsup) > 1) {
+      #  rownames(den_xsup) = den_xsup[,1]
+      #  den_xsup = den_xsup[,-1]
+      #}
       den_xs_input(den_xsup)
     }
     
     ind = which(upload == 'ds.csv')
     if (length(ind)!=0) {
-      den_sup = as.data.frame(read_csv(upload$datapath[ind]))
-      if (ncol(den_sup) == 2) {
-        tmp = as.data.frame(den_sup[,2])
-        rownames(tmp) = den_sup[,1]
-        colnames(tmp) = colnames(den_sup)[2]
-        den_sup = tmp 
-      }
-      else if (ncol(den_sup) > 2){
-        rownames(den_sup) = den_sup[,1]
-        den_sup = den_sup[,-1]
-      }
+      den_sup = as.data.frame(read_delim(delim=';', file = upload$datapath[ind]))
+      #if (ncol(den_sup) == 1) {
+      #  tmp = as.data.frame(den_sup[,2])
+      #  rownames(tmp) = den_sup[,1]
+      #  colnames(tmp) = colnames(den_sup)[2]
+      #  den_sup = tmp 
+      #}
+      #else if (ncol(den_sup) > 1){
+      #  rownames(den_sup) = den_sup[,1]
+      #  den_sup = den_sup[,-1]
+      #}
       den_s_input(den_sup)
     }
     
     ind = which(upload == 'dm.csv')
     if (length(ind)!=0) {
-      den_mup = as.data.frame(read_csv(upload$datapath[ind]))
+      den_mup = as.data.frame(read_delim(delim=';' ,file = upload$datapath[ind]))
       
-      if (ncol(den_mup) == 2) {
-        tmp = as.data.frame(den_mup[,2])
-        rownames(tmp) = den_mup[,1]
-        colnames(tmp) = colnames(den_mup)[2]
-        den_mup = tmp 
-      }
-      else if (ncol(den_mup) > 2) {
-        rownames(den_mup) = den_mup[,1]
-        den_mup = den_mup[,-1]
-      }
+      #if (ncol(den_mup) == 1) {
+      #  tmp = as.data.frame(den_mup[,2])
+      #  rownames(tmp) = den_mup[,1]
+      #  colnames(tmp) = colnames(den_mup)[2]
+      #  den_mup = tmp 
+      #}
+      #else if (ncol(den_mup) > 1) {
+      #  rownames(den_mup) = den_mup[,1]
+      #  den_mup = den_mup[,-1]
+      #}
       den_m_input(den_mup)
     }
     
     ind = which(upload == 'dl.csv')
     if (length(ind)!=0) {
-      den_lup = as.data.frame(read_csv(upload$datapath[ind]))
-      if (ncol(den_lup) == 2) {
-        tmp = as.data.frame(den_lup[,2])
-        rownames(tmp) = den_lup[,1]
-        colnames(tmp) = colnames(den_lup)[2]
-        den_lup = tmp 
-      }
-      else if (ncol(den_lup) > 2){
-        rownames(den_lup) = den_lup$X1
-        den_lup = den_lup[,-1]
-      }
+      den_lup = as.data.frame(read_delim(delim=';', file = upload$datapath[ind]))
+      #if (ncol(den_lup) == 1) {
+      #  tmp = as.data.frame(den_lup[,2])
+      #  rownames(tmp) = den_lup[,1]
+      #  colnames(tmp) = colnames(den_lup)[2]
+      #  den_lup = tmp 
+      #}
+      #else if (ncol(den_lup) > 1){
+      #  rownames(den_lup) = den_lup$X1
+      #  den_lup = den_lup[,-1]
+      #}
       den_l_input(den_lup)
     }
     
@@ -425,7 +426,7 @@ serverModeChoice = function(input, output, session){
         
         # check if coordinates are valid doubles
         if (sum(is.na.data.frame(d_centers_updated))==0) {
-          message("in here")
+          #message("in here")
         
           d_centers_updated = st_as_sf(d_centers_updated, coords = c('xcoord','ycoord'), crs = 4326, remove = FALSE)
           d_centers_updated = st_transform(d_centers_updated, crs = 31468)
@@ -509,16 +510,16 @@ serverModeChoice = function(input, output, session){
       
       # lock if inputs infeasible to prevent crashes
       if (feasible == TRUE) {
-    # from reactive to non-reactive context
-    zones <<- isolate(zones_input())
-    den_xs <<- isolate(den_xs_input())
-    den_s <<- isolate(den_s_input())
-    den_m <<- isolate(den_m_input())
-    den_l <<- isolate(den_l_input())
-    congestion <<- isolate(congestion_input())
-    area <- isolate(area_input())
-    d_centers <<- isolate(d_centers_input())
-    #updateSelectInput(session, inputId = "choice", choices = as.list(d_centers$dcId))
+        # from reactive to non-reactive context
+        zones <<- isolate(zones_input())
+        den_xs <<- isolate(den_xs_input())
+        den_s <<- isolate(den_s_input())
+        den_m <<- isolate(den_m_input())
+        den_l <<- isolate(den_l_input())
+        congestion <<- isolate(congestion_input())
+        area <- isolate(area_input())
+        d_centers <<- isolate(d_centers_input())
+        #updateSelectInput(session, inputId = "choice", choices = as.list(d_centers$dcId))
 
     active = den_xs+den_s+den_m+den_l
     active = active != 0 # shows in which zones distribution centers are active
@@ -537,23 +538,23 @@ serverModeChoice = function(input, output, session){
     # get parameter inputs
 
     capacity_feeder = input$cap_feeder # in m3
-    capacity_feeder = 240
+    #capacity_feeder = 240
     capacity_truck = input$cap_truck # in m3
-    capacity_truck = 120
+    #capacity_truck = 120
     vol = c(0.5, 1.0, 4.0, 8.0) # in m3
     op_co_truck= input$op_co_truck # per km in euro
-    op_co_truck = 2.8817
+    #op_co_truck = 2.8817
     op_co_bike= input$op_co_bike # per km in euro
-    op_co_bike = 3.1097
+    #op_co_bike = 3.1097
     k_approx = 0.82
     serv_co_bike = input$serv_co_bike # per parcel in euro
-    serv_co_bike = 1.0248
+    #serv_co_bike = 1.0248
     serv_co_truck = input$serv_co_truck # per parcel in euro
-    serv_co_truck = 1.1386
+    #serv_co_truck = 1.1386
     op_co_feeder = input$op_co_feeder
-    op_co_feeder = 1.9301
+    #op_co_feeder = 1.9301
     ex_handling_bike = input$ex_co_bike 
-    ex_handling_bike = 0.76
+    #ex_handling_bike = 0.76
     
     cost_bike = matrix(0,nrow = 4, ncol = 4)
     colnames(cost_bike) = c('long-haul c', 'extra handling c', 'service c', 'routing c') # if 1 then demand class (in order xs, s,m,l) is served by bike, truck otherwise
@@ -615,11 +616,11 @@ serverModeChoice = function(input, output, session){
               cost_log[ind_c, 'c_total'] = c_b+c_t
               cost_log[ind_c, 'size'] = 'all'
               cost_log[ind_c, 'mode'] = m
-              cost_log[ind_c,'AZ'] = names(zones_active[j]) # first error Fehler in x[[jj]][iseq] <- vjj : Ersetzung hat Länge 0
+              cost_log[ind_c,'AZ'] = zones_active[j]#names(zones_active[j]) # first error Fehler in x[[jj]][iseq] <- vjj : Ersetzung hat Länge 0
               cost_log[ind_c,'DC'] = d_centers[i,'dcId'][[1]]
             }
             else {
-              cost_log[ind_c,'AZ'] = names(zones_active[j])
+              cost_log[ind_c,'AZ'] = zones_active[j]#names(zones_active[j])
               cost_log[ind_c,'DC'] = d_centers[i,'dcId'][[1]]
               cost_log[ind_c,'size'] = l
               cost_log[ind_c,'mode'] = m
@@ -663,7 +664,7 @@ serverModeChoice = function(input, output, session){
     mode_pie_data[5] = sum(mode_choice_num==5)
     mode_pie_data = as.data.frame(mode_pie_data)
     colnames(mode_pie_data) = "Count"
-    rownames(mode_pie_data) = c( 'Mode 1', 'Mode 2 ', 'Mode 3', 'Mode 4', 'Mode 5')
+    rownames(mode_pie_data) = c( 'Modus 1', 'Modus 2 ', 'Modus 3', 'Modus 4', 'Modus 5')
     
     # determine how many parcels delivered by truck/bike per demand class or total
     vehicle_pie_data = as.data.frame(matrix(0,nrow = 3, ncol = 5))
@@ -790,7 +791,7 @@ serverModeChoice = function(input, output, session){
           }
         }
         
-        p =  tm_basemap(leaflet::providers$CartoDB) + tm_shape(zones) + tm_borders()+tm_fill(col = toString(d_cent), palette = pal ,alpha = 0.6, title = paste("Zustellungsmodi für Zentrum",d_cent) ,colourNA=NULL, drop.levels = TRUE, showNA = FALSE) + tm_shape(d_point)+tm_dots(size=0.1, col = 'red') # + tm_shape(shp) + tm_borders() 
+        p =  tm_basemap(leaflet::providers$CartoDB) + tm_shape(zones) + tm_borders()+tm_fill(col = toString(d_cent), palette = pal ,alpha = 0.8, title = paste("Zustellungsmodi für Zentrum",d_cent) ,colourNA=NULL, drop.levels = TRUE, showNA = FALSE) + tm_shape(d_point)+tm_dots(size=0.1, col = 'red') # + tm_shape(shp) + tm_borders() 
         tmap_leaflet(p)
       })
     }
