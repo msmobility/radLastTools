@@ -12,9 +12,9 @@ modeChoice = fluidPage(
     #position = "right",
     sidebarPanel(
       width = 2,
-      helpText("Klicken Sie auf Aktualisieren um die Zustellungsmodi basierend auf den unten gew?hlten Parametern zu ermitteln"),
+      helpText("Klicken Sie auf Aktualisieren um die Zustellungsmodi basierend auf den unten gewählten Parametern zu ermitteln"),
       actionButton(inputId = "update", "Aktualisieren", width = 100),
-      actionButton(inputId='link', label="Hilfe und Source-code",
+      actionButton(inputId='link', label="Hilfe und Source Code",
                    onclick ="window.open('https://github.com/msmobility/radLastTools/wiki')"),
       helpText(" "),
       numericInput(inputId = "serv_co_truck",
@@ -36,9 +36,9 @@ modeChoice = fluidPage(
                    label = "Umschlagskosten Mikrodepot [EUR/Paktenheiten]", value = 0.76),
       #label = "Umschlagskosten Mikrodepot [EUR/Paktenheiten]", value = 0.84),
       numericInput(inputId = "cap_truck",
-                   label = "Kapazit?t Transporter [Paktenheiten]", value = 120.0),
+                   label = "Kapazität Transporter [Paktenheiten]", value = 120.0),
       numericInput(inputId = "cap_feeder",
-                   label = "Kapazit?t Feeder [Paktenheiten]", value = 240.0)
+                   label = "Kapazität Feeder [Paktenheiten]", value = 240.0)
     ),
     mainPanel(
       tabBox(
@@ -791,7 +791,7 @@ serverModeChoice = function(input, output, session){
         print("Number of parcels delivered:")
         print(tmp_df)
       }
-      fig <- plot_ly(tmp_df[2:5,3, drop=FALSE], labels = c('XS','S','M','L'), values = ~Total, type = 'pie', textposition = 'inside',
+      fig <- plot_ly(tmp_df[2:5,3, drop=FALSE], labels = c('Pakete XS','Pakete S','Pakete M','Pakete L'), values = ~Total, type = 'pie', textposition = 'inside',
                      textinfo = 'label+percent', sort = FALSE, marker = list(colors = c(color[15], color[35], color[55], color[75])))
       fig = layout(fig, title = 'Anteile der Paketklassen')
       fig
