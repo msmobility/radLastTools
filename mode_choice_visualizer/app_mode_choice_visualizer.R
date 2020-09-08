@@ -14,6 +14,8 @@ modeChoice = fluidPage(
       width = 2,
       helpText("Klicken Sie auf Aktualisieren um die Zustellungsmodi basierend auf den unten gew?hlten Parametern zu ermitteln"),
       actionButton(inputId = "update", "Aktualisieren", width = 100),
+      actionButton(inputId='link', label="Hilfe und Source-code",
+                   onclick ="window.open('https://github.com/msmobility/radLastTools/wiki')"),
       helpText(" "),
       numericInput(inputId = "serv_co_truck",
                    label = "Servicekosten Transporter [EUR/Paket]", value = 1.1386),

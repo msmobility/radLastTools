@@ -21,8 +21,9 @@ foca = fluidPage(
       width = 2,
       helpText("Klicken Sie auf Aktualisieren, um die Ergebnisse der Simulationen zu laden"),
       checkboxGroupInput("scenario_selector", choiceValues =  NULL, choiceNames = NULL, label = "Verfügbare Szenarien:"),
-      actionButton("update_foca", "Aktualisieren", width = 100)
-      
+      actionButton("update_foca", "Aktualisieren", width = 100),
+      actionButton(inputId='link', label="Hilfe und Source-code",
+                   onclick ="window.open('https://github.com/msmobility/radLastTools/wiki'")
       
     ),
     mainPanel(
