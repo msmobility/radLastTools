@@ -3,7 +3,7 @@ fileUploader = fluidPage(
     #fluidRow(
     #  column(4,
             br(),
-             h4("Datei-Upload"),
+            h4("Datei-Upload"),
             helpText(HTML('Bitte stellen Sie sicher, dass alle Eingabedaten als .csv-Dateien bereitgestellt und korrekt benannt werden. Die Zonen müssen in einer Shape-Datei definiert werden. Diese kann als gezippte Datei hochgeladen werden, welche die Komponenten der Shape-Datei enthält: .dbf, .prj, .shp und .shx.<br><br>Eine detaillierte Anleitung zum Datei-Upload können Sie unter folgendem Link finden: <br>https://github.com/msmobility/radLastTools/wiki')),
             br(),
             fluidRow(
@@ -15,6 +15,8 @@ fileUploader = fluidPage(
              fileInput(inputId = "replace_inputs", label = "Datei", multiple = TRUE),
              actionButton(inputId = "replaceFiles", "Upload bestätigen"),
              br(),
+             br(),
+             textOutput("uploadFeedback")
              )
             )
   )
