@@ -26,6 +26,7 @@ library(matrixStats)
 library(sp)
 library(utils)
 library(pracma)
+library(htmltools)
 
 this_folder = here()
 
