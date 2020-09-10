@@ -8,7 +8,7 @@ fileUploader = fluidPage(
             br(),
             fluidRow(
             column(5,
-                   helpText(HTML('Die korrekten Dateinamen sind:<br><br> \'area.csv\' Flächenangaben der Zonen  <br>\'distributionCenters.csv\' Koordinaten der Verteilzentren<br>\'congestion.csv\' Staufaktoren<br>\'dxs.csv\' Paketdichten für XS<br>\'ds.csv\' Paketdichten für S<br>\'dm.csv\' Paketdichten für M<br>\'dl.csv\' Paketdichten für L<br>\'zones.zip\' Shapefile der Zonen'))
+                   helpText(HTML('Die korrekten Dateinamen sind:<br><br> \'area.csv\' Flächenangaben der Zonen  <br>\'distributionCenters.csv\' Koordinaten der Verteilzentren<br>\'congestion.csv\' Verkehrsfaktoren<br>\'dxs.csv\' Paketdichten für XS<br>\'ds.csv\' Paketdichten für S<br>\'dm.csv\' Paketdichten für M<br>\'dl.csv\' Paketdichten für L<br>\'zones.zip\' Shapefile der Zonen'))
             ),
             column(7,
              helpText(HTML("Um die Zustellungsmodi für die hochgeladenen Eingaben zu bestimmen, wählen Sie eine oder mehrere Dateien, klicken auf \'Upload bestätigen\' und ermitteln dann erneut die Zustellungsmodi.")),

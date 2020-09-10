@@ -2,7 +2,13 @@
 #   install.packages("pacman")
 # }
 
-printout = 0 # set to 1 if tool should print some statistics to terminal, 0 otherwise
+printout = 1 # set to 1 if tool should print some statistics to terminal, 0 otherwise
+
+doConsol = FALSE   # calculate a consolidated scenario!
+
+doScaleScenario = FALSE   #scale for regensburg
+scaleFactorScenario = 0.40
+
 feasible <<- TRUE
 this_folder = here()
 
@@ -49,7 +55,7 @@ modeChoice = fluidPage(
             column(3,
                  h4("Zustellungsmodi"),
                  br(),
-                 helpText(HTML('Die Karte zeigt die Zustellungsmodi für alle Zonen, in welchen das gewählte Verteilzentrum aktiv ist.','<br><br>','Zustellungsmodi:<br> 1: Reine LKW-Zustellung<br>2: Lastenrad für XS <br>3: Lastenrad für XS und S<br>4: Lastenrad für XS, S und M<br> 5: Reine Lastenrad-Zustellung'),
+                 helpText(HTML('Die Karte zeigt die Zustellungsmodi für alle Zonen, in welchen das gewählte Verteilzentrum aktiv ist.','<br><br>','Zustellungsmodi:<br> 1: Reine Transporter-Zustellung<br>2: Lastenrad für XS <br>3: Lastenrad für XS und S<br>4: Lastenrad für XS, S und M<br> 5: Reine Lastenrad-Zustellung'),
                  )),
             column(9,
                  br(),
@@ -75,7 +81,7 @@ modeChoice = fluidPage(
           column(3,
                  h4("Kosten"),
                  br(),
-                 helpText(HTML('Die Abbildung zeigt die geschätzten Gesamtkosten der vorgeschlagenen Zuweisung. Zu Vergleichszwecken wurde dieser die geschätzte Kostenstruktur einer reinen LKW-Zustellung gegenüber gestellt.'))
+                 helpText(HTML('Die Abbildung zeigt die geschätzten Gesamtkosten der vorgeschlagenen Zuweisung. Zu Vergleichszwecken wurden diese der geschätzte Kostenstruktur einer reinen Transporter-Zustellung gegenüber gestellt.'))
               ),
           column(9,
                  br(),
@@ -87,7 +93,7 @@ modeChoice = fluidPage(
           ),
           fluidRow(
             column(3,
-                   helpText(HTML("Das Histogramm zeigt die Verteilung der Kosten pro Zone in der vorgeschlagenen Zuweisung.<br><br> Die Kosten werden in Intervalle gruppiert und auf der x-Achse aufgetragen. Die y-Achse stellt die Anzahl der Zonen dar, deren Kosten innerhalb des jeweiligen Intervalls liegen."))
+                   helpText(HTML("Das Histogramm zeigt die Verteilung der Kosten, welche die Belieferung gemäß optimalem Zustellungsmodus in den jeweiligen Zonen verursacht.<br><br> Dazu wird der Wertebereich der Kosten mittels Intervallgrenzen in verschiedene Kostenklassen unterteilt. Die Zonen werden dann anhand ihrer Zustellungskosten den Klassen zugeordnet, wobei ein Balken im Histogramm eine Klasse repräsentiert. Die Höhe des Balkens gibt nun an, wie viele Zonen in der vorgeschlagenen Modiverteilung der entsprechenden Kostenklasse angehören."))
             ),
             column(9,
                    plotlyOutput("zones_cost_histo") # histogram costs per zone
@@ -95,12 +101,43 @@ modeChoice = fluidPage(
           )
           ),
         tabPanel(
-          title = "Transportträger",
+          title = "Kilometer",
+          fluidRow(
+            column(3,
+                   h4("Kilometer"),
+                   br(),
+                   helpText(HTML('Die Abbildung zeigt die geschätzten Gesamtkilometer der vorgeschlagenen Zuweisung. Zu Vergleichszwecken wurden diese den geschätzten Gesamtkilometern einer reinen Transporter-Zustellung gegenüber gestellt.'))
+            ),
+            column(9,
+                   br(),
+                   br(),
+                   plotlyOutput("dist_comp"), # bar chart for cost structure
+                   br(),
+                   br()
+            )
+          ),
+          fluidRow(
+            column(3,
+                   br(),
+                   br(),
+                   helpText(HTML('Detailansicht Allerletzte Meile.'))
+            ),
+            column(9,
+                   br(),
+                   br(),
+                   plotlyOutput("dist_last_comp"), # bar chart for cost structure
+                   br(),
+                   br()
+            )
+          ),
+        ),       
+        tabPanel(
+          title = "Transportmittel",
           fluidRow(
           column(3,
-                 h4("Transportträger"),
+                 h4("Transportmittel"),
                  br(),
-                 helpText(HTML('Die erste Abbildung zeigt die Anteile der per LKW und Lastenrad zugestellten Pakete in der ermittelten Zuweisung.'))
+                 helpText(HTML('Die erste Abbildung zeigt die Anteile der per Transporter und Lastenrad zugestellten Pakete in der ermittelten Zuweisung.'))
           ),
           column(9,
                  br(),
@@ -150,7 +187,7 @@ modeChoice = fluidPage(
         ),
         fluidRow(
           column(3,
-                 helpText(HTML("Das Histogramm stellt die Verteilung der Paketdichten pro Zone und Nachfrageklasse dar.<br><br> Die Dichten werden in Intervallen gruppiert und auf der x-Achse aufgetragen. Die y-Achse stellt die Anzahl der Zonen dar, deren Paketdichte innerhalb des jeweiligen Intervalls liegt."))
+                 helpText(HTML("Das Histogramm stellt die Verteilung der Paketdichten pro Zone und Paketklasse dar.<br><br>Dazu wird der Wertebereich der Paketdichten mittels Intervallgrenzen in verschiedene Dichteklassen unterteilt. Die Zonen werden dann anhand ihrer Paketdichte den Dichteklassen zugeordnet, wobei jeweils vier benachbarte Balken im Histogramm die Dichteklasse für jede der vier Paketklassen repräsentieren.<br><br> Die Färbung der Balken kennzeichnet die Paketklassen und die Höhe des Balkens zeigt, wie viele Zonen in der vorgeschlagenen Modiverteilung der entsprechenden Dichteklasse angehören."))
           ),
           column(9,
                  plotlyOutput('density_histo') # histogram for densities per zone and parcel class
@@ -158,12 +195,12 @@ modeChoice = fluidPage(
         )
         ),
         tabPanel(
-          title = 'Stau',
+          title = 'Verkehr',
           fluidRow(
             column(3,
-                   h4("Stau"),
+                   h4("Verkehr"),
                    br(),
-                   helpText(HTML("Die Karte zeigt die Staufaktoren pro Zone."))
+                   helpText(HTML("Die Karte zeigt die Verkehrsfaktoren pro Zone."))
             ),
             column(9,
                    br(),
@@ -482,6 +519,32 @@ serverModeChoice = function(input, output, session){
     active = den_xs+den_s+den_m+den_l
     active = active != 0 # shows in which zones distribution centers are active
     
+    if(doScaleScenario == TRUE){
+      den_xs = den_xs *scaleFactorScenario
+      den_s = den_s *scaleFactorScenario
+      den_m = den_m *scaleFactorScenario
+      den_l = den_l *scaleFactorScenario
+    }
+    
+    if(doConsol == TRUE){
+      helpDen = rowSums(den_xs)
+      for (i in 1:nrow(den_xs)){
+        den_xs[i,]=matrix(data=helpDen[i],nrow=1,ncol=ncol(den_xs))
+      }
+      helpDen = rowSums(den_s)
+      for (i in 1:nrow(den_s)){
+        den_s[i,]=matrix(data=helpDen[i],nrow=1,ncol=ncol(den_s))
+      }
+      helpDen = rowSums(den_m)
+      for (i in 1:nrow(den_m)){
+        den_m[i,]=matrix(data=helpDen[i],nrow=1,ncol=ncol(den_m))
+      }
+      helpDen = rowSums(den_l)
+      for (i in 1:nrow(den_l)){
+        den_l[i,]=matrix(data=helpDen[i],nrow=1,ncol=ncol(den_l))
+      }
+    }
+    
     den = list(den_xs, den_s, den_m, den_l) # merge to one list
     
     # determine distances between AZ and DC
@@ -490,6 +553,9 @@ serverModeChoice = function(input, output, session){
     dist_AZDC <<- (d1+d2)/1000
     colnames(dist_AZDC) = d_centers$dcId
     rownames(dist_AZDC) = zones$layer
+    
+    # log for pirmin
+    resultTable=matrix(data=c("service","handling","Speed","Truck","bike"),nrow=1)
     
     # get parameter inputs
 
@@ -512,6 +578,15 @@ serverModeChoice = function(input, output, session){
     ex_handling_bike = input$ex_co_bike 
     #ex_handling_bike = 0.76
     
+    if(doConsol == TRUE){
+      op_co_truck = op_co_truck / ncol(den_xs)
+      op_co_bike = op_co_bike / ncol(den_xs)
+      serv_co_bike = serv_co_bike / ncol(den_xs)
+      serv_co_truck = serv_co_truck / ncol(den_xs)
+      op_co_feeder = op_co_feeder / ncol(den_xs)
+      ex_handling_bike = ex_handling_bike / ncol(den_xs)
+    }
+    
     cost_bike = matrix(0,nrow = 4, ncol = 4)
     colnames(cost_bike) = c('long-haul c', 'extra handling c', 'service c', 'routing c') # if 1 then demand class (in order xs, s,m,l) is served by bike, truck otherwise
     rownames(cost_bike) = c('xs','s','m','l')  
@@ -522,7 +597,17 @@ serverModeChoice = function(input, output, session){
     cost_log <<- as.data.frame(matrix(nrow=0, ncol=15))
     colnames(cost_log) =  c('AZ', 'X', 'Y','DC','size','mode', 'c_lh_t', 'c_extra_t','c_ser_t','c_rout_truck','c_lh_b', 'c_extra_b','c_ser_b' ,'c_rout_bike', 'c_total')
     
+    dist_bike = matrix(0,nrow = 4, ncol = 2)
+    colnames(dist_bike) = c('long-haul c', 'routing c') # if 1 then demand class (in order xs, s,m,l) is served by bike, truck otherwise
+    rownames(dist_bike) = c('xs','s','m','l')  
+    dist_truck = matrix(0, nrow = 4, ncol = 2)
+    colnames(dist_truck) = c('long-haul c', 'routing c') # if 1 then demand class (in order xs, s,m,l) is served by bike, truck otherwise
+    rownames(dist_truck) = c('xs','s','m','l')
+    dist_log <<- as.data.frame(matrix(nrow=0, ncol=11))
+    colnames(dist_log) =  c('AZ', 'X', 'Y','DC','size','mode', 'd_lh_t', 'd_rout_truck','d_lh_b', 'd_rout_bike', 'd_total')
+    
     ind_c = 1
+    ind_d = 1
 
     # determine cost || looping is not really what r is made for so I might look 
     # for a different solution if performance is too bad
@@ -531,6 +616,10 @@ serverModeChoice = function(input, output, session){
       total_cost = matrix(0, ncol=5, nrow=length(zones_active))
       colnames(total_cost) = c('0000', '1000', '1100', '1110', '1111') # if 1 then demand class (in order xs, s,m,l) is served by bike, truck otherwise
       rownames(total_cost) = zones_active
+      
+      total_dist = matrix(0, ncol=5, nrow=length(zones_active))
+      colnames(total_dist) = c('0000', '1000', '1100', '1110', '1111') # if 1 then demand class (in order xs, s,m,l) is served by bike, truck otherwise
+      rownames(total_dist) = zones_active
       
       for (j in 1:length(zones_active)) { # over all zones distribution center i is active
         d_AD = dist_AZDC[zones_active[j],i]
@@ -544,6 +633,10 @@ serverModeChoice = function(input, output, session){
           # service cost
           cost_bike[l,3]=area[zones_active[j],1]*dens*serv_co_bike
           cost_truck[l,3]=area[zones_active[j],1]*dens*serv_co_truck*congestion[zones_active[j],1]
+          
+          #longhaul distance
+          dist_bike[l,1]=area[zones_active[j],1]*vol[l]*dens*2*d_AD/capacity_feeder
+          dist_truck[l,1]=area[zones_active[j],1]*vol[l]*dens*2*d_AD/capacity_truck
         }
         
         isBike = matrix(0,nrow = 1 ,ncol = 4) # logical indicating which class served by bike
@@ -572,7 +665,7 @@ serverModeChoice = function(input, output, session){
               cost_log[ind_c, 'c_total'] = c_b+c_t
               cost_log[ind_c, 'size'] = 'all'
               cost_log[ind_c, 'mode'] = m
-              cost_log[ind_c,'AZ'] = zones_active[j]#names(zones_active[j]) # first error Fehler in x[[jj]][iseq] <- vjj : Ersetzung hat Länge 0
+              cost_log[ind_c,'AZ'] = zones_active[j]#names(zones_active[j]); wenn nur 1 DC => Fehler in x[[jj]][iseq] <- vjj : Ersetzung hat Länge 0
               cost_log[ind_c,'DC'] = d_centers[i,'dcId'][[1]]
             }
             else {
@@ -585,6 +678,39 @@ serverModeChoice = function(input, output, session){
             }
             ind_c = ind_c+1
           }
+          
+          d_t = 0 # sum of truck cost in mode m
+          d_b = 0 # sum of bike cost in mode m
+          d_b = sum(isBike*rowSums(dist_bike))
+          d_t = sum((1-isBike)*rowSums(dist_truck))
+          routing_dist_bike = k_approx*area[zones_active[j],1]*sqrt(sum_db)
+          routing_dist_truck = k_approx*area[zones_active[j],1]*sqrt(sum_dt) #*congestion[zones_active[j],1]
+          
+          d_b = d_b + routing_dist_bike
+          d_t = d_t + routing_dist_truck
+          total_dist[j,m] = d_b+d_t
+          
+          for (l in 1:5){ # this loop is only for logging purpose
+            if (l==5) {
+              dist_log[ind_d,'d_rout_truck'] = routing_dist_truck
+              dist_log[ind_d,'d_rout_bike'] = routing_dist_bike
+              dist_log[ind_d, 'd_total'] = d_b+d_t
+              dist_log[ind_d, 'size'] = 'all'
+              dist_log[ind_d, 'mode'] = m
+              dist_log[ind_d,'AZ'] = zones_active[j] # names(zones_active[j]) causes problems if only one DC
+              dist_log[ind_d,'DC'] = d_centers[i,'dcId'][[1]]
+            }
+            else {
+              dist_log[ind_d,'AZ'] = zones_active[j] # names(zones_active[j]) causes problems if only one DC
+              dist_log[ind_d,'DC'] = d_centers[i,'dcId'][[1]]
+              dist_log[ind_d,'size'] = l
+              dist_log[ind_d,'mode'] = m
+              dist_log[ind_d, 7:8] = dist_truck[l,]*(1-isBike[l])
+              dist_log[ind_d, 9:10] = dist_bike[l,]*isBike[l]
+            }
+            ind_d = ind_d+1
+          }
+          
           if (m<=ncol(isBike)) {
             isBike[m]=1 # flip bit of current mode
           }
@@ -594,6 +720,7 @@ serverModeChoice = function(input, output, session){
     }
     
     cost_log <<- cost_log
+    dist_log <<- dist_log
   
     mode_choice = matrix(0,ncol=nrow(zones),nrow = nrow(d_centers)) # modes for all DC and zones combination
     mode_costs_df = c() # holds costs of chosen modes || for cost chart
@@ -684,6 +811,35 @@ serverModeChoice = function(input, output, session){
     allTruck_cost[2,1] = sum(cost_log[cost_log$size != 'all' & cost_log$mode == 1 ,'c_ser_t'])
     allTruck_cost[3,1] = sum(cost_log[cost_log$size == 'all' & cost_log$mode == 1 ,'c_rout_truck'])
     check = sum(cost_log[cost_log$size == 'all' & cost_log$mode == 1 ,'c_total'])
+    
+    # determine distances for all truck delivery and for selected mode choice
+    # naming of variable is bad as allTruck_dist also contains cost of selected mdoe choice
+    helpFaktorConsol=1
+    if(doConsol == TRUE){
+      helpFaktorConsol=1/3
+    }
+    allTruck_dist = as.data.frame(matrix(0,ncol = 2, nrow = 4))
+    rownames(allTruck_dist) = c('Long-haul dist truck', 'Routing dist truck','Long-haul dist bike', 'Routing dist bike')
+    colnames(allTruck_dist) = c('All truck', 'Model choice')
+    # cost for all truck
+    allTruck_dist[1,1] = sum(dist_log[dist_log$size != 'all' & dist_log$mode == 1 ,'d_lh_t'])*helpFaktorConsol
+    allTruck_dist[2,1] = sum(dist_log[dist_log$size == 'all' & dist_log$mode == 1 ,'d_rout_truck'])*helpFaktorConsol
+    check = sum(dist_log[dist_log$size == 'all' & dist_log$mode == 1 ,'c_total'])
+    
+    # cost for selected mode choice
+    for (i in 1:ncol(mode_choice_num)) {
+      for (j in 1:nrow(mode_choice_num)) {
+        allTruck_dist[1,2] = allTruck_dist[1,2] + sum(dist_log[dist_log$mode == mode_choice_num[j,i] & dist_log$AZ == colnames(mode_choice_num)[i] & dist_log$DC == rownames(mode_choice_num)[j] & dist_log$size != 'all','d_lh_t'])*helpFaktorConsol
+        allTruck_dist[2,2] = allTruck_dist[2,2] + sum(dist_log[dist_log$mode == mode_choice_num[j,i] & dist_log$AZ == colnames(mode_choice_num)[i] & dist_log$DC == rownames(mode_choice_num)[j] & dist_log$size == 'all','d_rout_truck'])*helpFaktorConsol
+        allTruck_dist[3,2] = allTruck_dist[3,2] + sum(dist_log[dist_log$mode == mode_choice_num[j,i] & dist_log$AZ == colnames(mode_choice_num)[i] & dist_log$DC == rownames(mode_choice_num)[j] & dist_log$size != 'all','d_lh_b'])*helpFaktorConsol
+        allTruck_dist[4,2] = allTruck_dist[4,2] + sum(dist_log[dist_log$mode == mode_choice_num[j,i] & dist_log$AZ == colnames(mode_choice_num)[i] & dist_log$DC == rownames(mode_choice_num)[j] & dist_log$size == 'all','d_rout_bike'])*helpFaktorConsol
+      }
+    }    
+    
+    if (printout == 1) {
+      resultTable=rbind(resultTable,c(serv_co_bike,ex_handling_bike,op_co_bike,vehicle_pie_data["Truck","All"],vehicle_pie_data["Cargo bike","All"]))
+      print(resultTable)
+    }
     
     # cost for selected mode choice
     for (i in 1:ncol(mode_choice_num)) {
@@ -786,7 +942,7 @@ serverModeChoice = function(input, output, session){
     output$pie_classes = renderPlotly({ # pie demand classes share
       tmp_df = data.table::transpose(as.data.frame(vehicle_pie_data))
       rownames(tmp_df) = c('Gesamt', 'XS', 'S', 'M', 'L')
-      colnames(tmp_df) = c('LKW', 'Lastenrad', 'Total')
+      colnames(tmp_df) = c('Transporter', 'Lastenrad', 'Total')
       if (printout == 1) {
         print("Number of parcels delivered:")
         print(tmp_df)
@@ -798,28 +954,28 @@ serverModeChoice = function(input, output, session){
     })
     
     output$pie_vehicles = renderPlotly({ # pie share of transportation mode
-      fig = plot_ly(vehicle_pie_data[1:2, , drop=FALSE], labels = c('LKW', 'Lastenrad'), values = ~All, type = 'pie', textposition = 'inside',
+      fig = plot_ly(vehicle_pie_data[1:2, , drop=FALSE], labels = c('Transporter', 'Lastenrad'), values = ~All, type = 'pie', textposition = 'inside',
                     textinfo = 'label+percent', sort = FALSE, marker = list(colors = c(color[75], color[15])))
-      fig = layout(fig, title = 'Transportträger gesamt')
+      fig = layout(fig, title = 'Transportmittel gesamt')
       fig
     })
     
     output$pie_vehPerClass = renderPlotly({ # pie share of transportation mode by demand class
       color = colorRampPalette(brewer.pal(9,'Blues'))(100)
       fig = plot_ly(vehicle_pie_data[1:2, , drop=FALSE])
-      fig = fig %>% add_pie(labels = c('LKW', 'Lastenrad'), values = ~XS, type = 'pie', textposition = 'inside',
+      fig = fig %>% add_pie(labels = c('Transporter', 'Lastenrad'), values = ~XS, type = 'pie', textposition = 'inside',
                      textinfo = 'label+percent', sort = FALSE, domain = list(row = 0, column = 0), marker = list(colors = c(color[75], color[15])))
       
-      fig = fig %>% add_pie(labels = c('LKW', 'Lastenrad'), values = ~S, type = 'pie', textposition = 'inside',
+      fig = fig %>% add_pie(labels = c('Transporter', 'Lastenrad'), values = ~S, type = 'pie', textposition = 'inside',
                             textinfo = 'label+percent', sort = FALSE, domain = list(row = 0, column = 1), marker = list(colors = c(color[75], color[15])))
       
-      fig = fig %>% add_pie(labels = c('LKW', 'Lastenrad'), values = ~M, type = 'pie', textposition = 'inside',
+      fig = fig %>% add_pie(labels = c('Transporter', 'Lastenrad'), values = ~M, type = 'pie', textposition = 'inside',
                             textinfo = 'label+percent', sort = FALSE, domain = list(row = 1, column = 0), marker = list(colors = c(color[75], color[15])))
       
-      fig = fig %>% add_pie(labels = c('LKW', 'Lastenrad'), values = ~L, type = 'pie', textposition = 'inside',
+      fig = fig %>% add_pie(labels = c('Transporter', 'Lastenrad'), values = ~L, type = 'pie', textposition = 'inside',
                             textinfo = 'label+percent', sort = FALSE, domain = list(row = 1, column = 1), marker = list(colors = c(color[75], color[15])))
       
-      fig <- fig %>% layout(title='Transportträger nach Paketklasse', showlegend = T,
+      fig <- fig %>% layout(title='Transportmittel nach Paketklasse', showlegend = T,
                             grid=list(rows=2, columns=2, ygap=0.19),
                             xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
                             yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
@@ -842,9 +998,9 @@ serverModeChoice = function(input, output, session){
         print(allTruck_cost)
       }
       
-      fig <- plot_ly(cost_data, x = ~config, type = 'bar', y = ~`Long-haul cost truck`, text = ~`Long-haul cost truck`, textposition = 'inside', name = 'Langstreckenkosten LKW', marker = list(color = c(color[30])), hoverinfo = 'text')
-      fig <- fig %>% add_trace(y = ~`Service cost truck`, name = 'Servicekosten LKW', text =~`Service cost truck`,textposition = 'inside', marker = list(color = c(color[60])))
-      fig <- fig %>% add_trace(y = ~`Routing cost truck`, name = 'Wegekosten LKW', text =~`Routing cost truck`,textposition = 'inside', marker = list(color = c(color[90])))
+      fig <- plot_ly(cost_data, x = ~config, type = 'bar', y = ~`Long-haul cost truck`, text = ~`Long-haul cost truck`, textposition = 'inside', name = 'Langstreckenkosten Transporter', marker = list(color = c(color[30])), hoverinfo = 'text')
+      fig <- fig %>% add_trace(y = ~`Service cost truck`, name = 'Servicekosten Transporter', text =~`Service cost truck`,textposition = 'inside', marker = list(color = c(color[60])))
+      fig <- fig %>% add_trace(y = ~`Routing cost truck`, name = 'Wegekosten Transporter', text =~`Routing cost truck`,textposition = 'inside', marker = list(color = c(color[90])))
       fig <- fig %>% add_trace(y = ~`Long-haul cost bike`, name = 'Langstreckenkosten Rad', text =~`Long-haul cost bike`,textposition = 'inside', marker = list(color = c(color2[15])))
       fig <- fig %>% add_trace(y = ~`Service cost bike`, name = 'Servicekosten Rad', text =~`Service cost bike`,textposition = 'inside', marker = list(color = c(color2[45])))
       fig <- fig %>% add_trace(y = ~`Routing cost bike`, name = 'Wegekosten Rad', text =~`Routing cost bike`,textposition = 'inside', marker = list(color = c(color2[60])))
@@ -853,6 +1009,37 @@ serverModeChoice = function(input, output, session){
                             annotations = list(x = ~config, y = c(round(sum(cost_data[1,1:7]),digits=2),round(sum(cost_data[2,1:7]),digits=2)),  text = c(paste(round(sum(cost_data[1,1:7]),digits=2)),paste(round(sum(cost_data[2,1:7]),digits=2))), showarrow = F, xanchor="center", yanchor='bottom'))
       fig
     })
+    
+    output$dist_comp = renderPlotly({ # bar chart dist structure
+      dist_data = data.table::transpose(allTruck_dist)
+      colnames(dist_data) = rownames(allTruck_dist)
+      dist_data$config = c('Reine Transporter-Zustellung', 'Optimierte Moduszuteilung')
+      dist_data[,1:4] = round(dist_data[,1:4],digits = 2)
+      
+      fig <- plot_ly(dist_data, x = ~config, type = 'bar', y = ~`Long-haul dist truck`, text = ~`Long-haul dist truck`, textposition = 'inside', name = 'Vorletzte Meile Transporter', marker = list(color = c(color[30])), hoverinfo = 'text')
+      fig <- fig %>% add_trace(y = ~`Routing dist truck`, name = 'Allerletzte Meile Transporter', text =~`Routing dist truck`,textposition = 'inside', marker = list(color = c(color[90])))
+      fig <- fig %>% add_trace(y = ~`Long-haul dist bike`, name = 'Vorletzte Meile Rad', text =~`Long-haul dist bike`,textposition = 'inside', marker = list(color = c(color2[15])))
+      fig <- fig %>% add_trace(y = ~`Routing dist bike`, name = 'Allerletzte Meile Rad', text =~`Routing dist bike`,textposition = 'inside', marker = list(color = c(color2[60])))
+      fig <- fig %>% layout(yaxis = list(title = 'Gesamtkilometer'), xaxis = list(title = 'Moduskonfiguration'), barmode = 'stack',
+                            annotations = list(x = ~config, y = c(round(sum(dist_data[1,1:4]),digits=2),round(sum(dist_data[2,1:4]),digits=2)),  text = c(paste(round(sum(dist_data[1,1:4]),digits=2)),paste(round(sum(dist_data[2,1:4]),digits=2))), showarrow = F, xanchor="center", yanchor='bottom'))
+      fig
+      
+      
+    })
+    output$dist_last_comp = renderPlotly({ # bar chart dist structure
+      dist_data = data.table::transpose(allTruck_dist)
+      colnames(dist_data) = rownames(allTruck_dist)
+      dist_data$config = c('Reine Transporter-Zustellung', 'Optimierte Moduszuteilung')
+      dist_data[,1:4] = round(dist_data[,1:4],digits = 2)
+      
+      fig <- plot_ly(dist_data, x = ~config, type = 'bar', y = ~`Routing dist truck`, text =~`Routing dist truck`,textposition = 'inside',name = 'Allerletzte Meile Transporter',  marker = list(color = c(color[90])), hoverinfo = 'text')
+      fig <- fig %>% add_trace(y = ~`Routing dist bike`, name = 'Allerletzte Meile Rad', text =~`Routing dist bike`,textposition = 'inside', marker = list(color = c(color2[60])))
+      fig <- fig %>% layout(yaxis = list(title = 'Kilometer Allerletzer Meile'), xaxis = list(title = 'Moduskonfiguration'), barmode = 'stack',
+                            annotations = list(x = ~config, y = c(round(sum(dist_data[1,2],dist_data[1,4]),digits=2),round(sum(dist_data[2,2],dist_data[2,4]),digits=2)),  text = c(paste(round(sum(dist_data[1,2],dist_data[1,4]),digits=2)),paste(round(sum(dist_data[2,2],dist_data[2,4]),digits=2))), showarrow = F, xanchor="center", yanchor='bottom'))
+      fig
+      
+      
+    }) 
 
     output$density_histo = renderPlotly({ # histogram densities per zone and demand class
       xAx <- list(title = "Pakete pro km2")
@@ -903,7 +1090,7 @@ serverModeChoice = function(input, output, session){
         print("Congestion factors:")
         print(zones$congestion)
       }
-      p = tm_basemap(leaflet::providers$CartoDB) + tm_shape(zones) + tm_borders() + tm_fill(col = 'congestion', alpha = 0.4, title = "Staufaktoren") + tm_layout(legend.format = list(text.separator = "-"))  #+ tm_shape(shp) + tm_borders() 
+      p = tm_basemap(leaflet::providers$CartoDB) + tm_shape(zones) + tm_borders() + tm_fill(col = 'congestion', alpha = 0.4, title = "Verkehrsfaktoren") + tm_layout(legend.format = list(text.separator = "-"))  #+ tm_shape(shp) + tm_borders() 
       tmap_leaflet(p)
     })
   }
