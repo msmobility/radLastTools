@@ -1,0 +1,13 @@
+name: radLastTools
+title: radLastTools
+username:
+account: radlasttum
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 2769997
+bundleId: 3606845
+url: https://radlasttum.shinyapps.io/radLastTools/
+when: 1599579554.05149
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: .RData|my_data.csv|script.R|playground/auto_generate_grids.R|playground/landkreise-in-germany.dbf|playground/landkreise-in-germany.prj|playground/landkreise-in-germany.shp|playground/landkreise-in-germany.shx|wiki_images

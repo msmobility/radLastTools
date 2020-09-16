@@ -367,7 +367,7 @@ serverFoca = function(input, output, session){
     p =  tm_basemap(leaflet::providers$CartoDB)
     
     p = p + tm_shape(shp, "Einzugsgebiet des Verteilzentrums") +
-      tm_polygons(alpha = 0.6, "microDepotId", border.alpha = 0.5)
+      tm_polygons(alpha = 0.6, border.alpha = 0.5)
     
     tmap_leaflet(p)
     
