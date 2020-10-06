@@ -94,7 +94,7 @@ foca = fluidPage(
         tabPanel(
           title = "Kosten",
           column(2,
-                 h4("Costs"),
+                 h4("Kosten"),
                  helpText(description["costs",]),
                  inputPanel(
                    checkboxGroupInput(inputId = "segments", label = "Segmente", choices =
@@ -232,7 +232,7 @@ serverFoca = function(input, output, session){
       geom_bar(stat = "identity", position = "stack") + theme_bw() + 
       theme(axis.text.x = element_text(angle = 90)) + 
       scale_fill_manual(values = color_vehicles, name = "Fahrzeugart") + 
-      xlab("Scenario") + ylab("Distanz (km)")+ 
+      xlab("Szenario") + ylab("Distanz (km)")+ 
       scale_y_continuous(expand = c(0,0))
     ggplotly(p, height = 800)
     
@@ -384,7 +384,7 @@ serverFoca = function(input, output, session){
     shp  = shp %>% right_join(all_parcels_by_zone, by = c("id" = "micro_zone"))
     p =  tm_basemap(leaflet::providers$CartoDB)
     p = p + tm_shape(shp, "Paketdichte") +
-      tm_polygons(alpha = 0.6, "n", border.alpha = 0.5,convert2density = T, breaks = seq(1:10)*200)
+      tm_polygons(alpha = 0.6, "n", border.alpha = 0.5,convert2density = T, breaks = seq(1:10)*200) + tm_layout(legend.format = list(text.separator = "-"))
     tmap_leaflet(p)
     
   })
@@ -401,7 +401,7 @@ serverFoca = function(input, output, session){
     if(nrow(all_parcels_by_zone) > 0){
       p =  tm_basemap(leaflet::providers$CartoDB)
       p = p + tm_shape(shp, "Parcel density")
-      p = p +  tm_polygons(alpha = 0.6, "n", border.alpha = 0.5,convert2density = T, breaks = seq(1:10)*200)
+      p = p +  tm_polygons(alpha = 0.6, "n", border.alpha = 0.5,convert2density = T, breaks = seq(1:10)*200) + tm_layout(legend.format = list(text.separator = "-"))
       tmap_leaflet(p)
     } 
     
